@@ -48,7 +48,7 @@ export interface NetworkState {
 export const STATE_FILE_NAME = '.midnight-state.json';
 export const STATE_VERSION = 1 as const;
 
-const DEFAULT_PROOF_SERVER = process.env.MIDNIGHT_PROOF_SERVER_URL || 'http://172.22.238.52:6300';
+const DEFAULT_PROOF_SERVER = process.env.MIDNIGHT_PROOF_SERVER_URL || 'http://127.0.0.1:6300';
 
 export const NETWORK_CONFIGS: Record<NetworkId, NetworkConfig> = {
   undeployed: {

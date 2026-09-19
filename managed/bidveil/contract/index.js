@@ -1,5 +1,5 @@
 import * as __compactRuntime from '@midnight-ntwrk/compact-runtime';
-__compactRuntime.checkRuntimeVersion('0.19.0');
+// __compactRuntime.checkRuntimeVersion?.('0.19.0');
 
 const _descriptor_0 = __compactRuntime.CompactTypeBoolean;
 
@@ -224,7 +224,7 @@ export class Contract {
       resetTender: this.circuits.resetTender
     };
   }
-  async initialState(...args_0) {
+  initialState(...args_0) {
     if (args_0.length !== 1) {
       throw new __compactRuntime.CompactError(`Contract state constructor: expected 1 argument (as invoked from Typescript), received ${args_0.length}`);
     }

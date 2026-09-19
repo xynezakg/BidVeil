@@ -335,7 +335,7 @@ export const LandingPage: React.FC<LandingProps> = ({
                 org: 'DLSU CleanTech Alliance',
                 spec: '📦 SCADA Microgrid Telemetry Inverters',
                 reserve: '$420,000 USD',
-                tx: '7ff3da84fceba28bdae68fa8ada604e45bbe191f938873b34857773e1c1e8ec2'
+                tx: 'e0662c1d6eb4aea26af23b999a84bdd1c10d0a7793788f27787f1eb5bf5e3ec9'
               },
             ].map((item, index) => (
               <div 

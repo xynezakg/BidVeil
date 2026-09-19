@@ -16,10 +16,10 @@
 [https://bidveil.vercel.app/](https://bidveil.vercel.app/)
 
 ## Contract Address
-| Network  | Address                                                          |
-|----------|------------------------------------------------------------------|
-| Preprod  | `7ff3da84fceba28bdae68fa8ada604e45bbe191f938873b34857773e1c1e8ec2` |
-| Preview  | `7ff3da84fceba28bdae68fa8ada604e45bbe191f938873b34857773e1c1e8ec2` |
+| Network  | Address                                                          | Explorer |
+|----------|------------------------------------------------------------------|----------|
+| Preprod  | `e0662c1d6eb4aea26af23b999a84bdd1c10d0a7793788f27787f1eb5bf5e3ec9` | [View on Preprod Explorer](https://preprod.midnightexplorer.com/contract/e0662c1d6eb4aea26af23b999a84bdd1c10d0a7793788f27787f1eb5bf5e3ec9) |
+| Preview  | `7ff3da84fceba28bdae68fa8ada604e45bbe191f938873b34857773e1c1e8ec2` | [View on Preview Explorer](https://midnightexplorer.com) |
 
 ---
 

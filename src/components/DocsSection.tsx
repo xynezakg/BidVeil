@@ -33,7 +33,7 @@ export const DocsSection: React.FC = () => {
     },
     {
       q: 'What network is Bidveil running on?',
-      a: 'Bidveil is deployed and verifiable on the Midnight Network Preprod testnet (Contract Address: 7ff3da84fceba28bdae68fa8ada604e45bbe191f938873b34857773e1c1e8ec2). It is also compatible with the Preview testnet.'
+      a: 'Bidveil is deployed and verifiable on the Midnight Network Preprod testnet (Contract Address: e0662c1d6eb4aea26af23b999a84bdd1c10d0a7793788f27787f1eb5bf5e3ec9). It is also compatible with the Preview testnet.'
     },
     {
       q: 'What wallet do I need to interact with Bidveil?',

@@ -5,8 +5,8 @@
 export const BIDVEIL_CONTRACT_CONFIG = {
   contractName: 'bidveil',
   network: 'Preprod',
-  address: '7ff3da84fceba28bdae68fa8ada604e45bbe191f938873b34857773e1c1e8ec2',
-  preprodAddress: '7ff3da84fceba28bdae68fa8ada604e45bbe191f938873b34857773e1c1e8ec2',
+  address: 'e0662c1d6eb4aea26af23b999a84bdd1c10d0a7793788f27787f1eb5bf5e3ec9',
+  preprodAddress: 'e0662c1d6eb4aea26af23b999a84bdd1c10d0a7793788f27787f1eb5bf5e3ec9',
   previewAddress: '7ff3da84fceba28bdae68fa8ada604e45bbe191f938873b34857773e1c1e8ec2',
   explorerUrl: 'https://preprod.midnightexplorer.com',
   circuits: {
