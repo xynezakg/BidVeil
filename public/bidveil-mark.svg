@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <defs>
+    <!-- Background Gradient for Icon Plate -->
+    <linearGradient id="bvPlateGrad" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0a1024" />
+      <stop offset="100%" stop-color="#030611" />
+    </linearGradient>
+
+    <!-- Outer Shield Halo Gradient -->
+    <linearGradient id="bvGlowGrad" x1="20" y1="10" x2="100" y2="110" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="50%" stop-color="#6366f1" />
+      <stop offset="100%" stop-color="#a855f7" />
+    </linearGradient>
+
+    <!-- Inner Veil Facet Gradient -->
+    <linearGradient id="bvVeilFacet1" x1="30" y1="30" x2="90" y2="90" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#00f2fe" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#4facfe" stop-opacity="0.2" />
+    </linearGradient>
+
+    <linearGradient id="bvVeilFacet2" x1="90" y1="30" x2="30" y2="90" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#818cf8" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#4338ca" stop-opacity="0.1" />
+    </linearGradient>
+
+    <!-- Subtle Drop Shadow Filter -->
+    <filter id="bvGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Ambient Outer Glow -->
+  <circle cx="60" cy="60" r="44" fill="url(#bvGlowGrad)" opacity="0.15" filter="url(#bvGlow)" />
+
+  <!-- Outer Hexagonal / Shield Frame -->
+  <polygon 
+    points="60,14 98,34 98,78 60,104 22,78 22,34" 
+    stroke="url(#bvGlowGrad)" 
+    stroke-width="2.5" 
+    stroke-linejoin="round"
+    fill="url(#bvPlateGrad)"
+  />
+
+  <!-- Subtle Interior Grid / Circuit Accents -->
+  <line x1="22" y1="34" x2="60" y2="60" stroke="#38bdf8" stroke-opacity="0.25" stroke-dasharray="2 3" />
+  <line x1="98" y1="34" x2="60" y2="60" stroke="#818cf8" stroke-opacity="0.25" stroke-dasharray="2 3" />
+  <line x1="60" y1="104" x2="60" y2="60" stroke="#a855f7" stroke-opacity="0.25" stroke-dasharray="2 3" />
+
+  <!-- The Cryptographic Veil - Left Facet -->
+  <polygon 
+    points="60,26 34,44 48,74 60,60" 
+    fill="url(#bvVeilFacet1)" 
+    stroke="#38bdf8" 
+    stroke-width="1.2" 
+    stroke-linejoin="round"
+  />
+
+  <!-- The Cryptographic Veil - Right Facet (Overlapping Interlock) -->
+  <polygon 
+    points="60,26 86,44 72,74 60,60" 
+    fill="url(#bvVeilFacet2)" 
+    stroke="#818cf8" 
+    stroke-width="1.2" 
+    stroke-linejoin="round"
+  />
+
+  <!-- Lower Anchor Diamond (The Shield Lock / Key) -->
+  <polygon 
+    points="60,60 48,74 60,94 72,74" 
+    fill="#0f172a" 
+    stroke="url(#bvGlowGrad)" 
+    stroke-width="1.5" 
+    stroke-linejoin="round"
+  />
+
+  <!-- Central Zero-Knowledge Radiant Core -->
+  <circle cx="60" cy="60" r="4.5" fill="#38bdf8" filter="url(#bvGlow)" />
+  <circle cx="60" cy="60" r="2" fill="#ffffff" />
+</svg>

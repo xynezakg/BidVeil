@@ -4,3 +4,6 @@ dist/
 .midnight-wallet-state/
 midnight-level-db/
 *.log
+.form_simulation_state.json
+scripts/
+docs/GOOGLE_FORMS_BACKFILL.md

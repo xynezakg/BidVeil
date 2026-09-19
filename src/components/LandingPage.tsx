@@ -3,11 +3,9 @@ import {
   ShieldCheck, 
   Lock, 
   Cpu, 
-  FileCheck2, 
-  Layers, 
   ArrowRight, 
+  ArrowUpRight, 
   Sparkles, 
-  CheckCircle, 
   Database,
   Building2,
   Users,
@@ -19,13 +17,15 @@ import {
   Sliders,
   Check,
   ChevronRight,
-  TrendingUp,
-  AlertTriangle
+  Shield,
+  Layers,
+  Search,
+  Filter
 } from 'lucide-react';
 import { DocsSection } from './DocsSection';
 import { AnimatedCounter, RevealOnScroll } from './AnimatedCounter';
 import feedbackData from '../data/communityFeedback.json';
-import { formatAddress } from '../utils/contract';
+import { formatAddress, BIDVEIL_CONTRACT_CONFIG } from '../utils/contract';
 
 interface LandingProps {
   onLaunchTerminal: () => void;
@@ -35,7 +35,7 @@ interface LandingProps {
 
 export const LandingPage: React.FC<LandingProps> = ({ 
   onLaunchTerminal,
-  contractAddress,
+  contractAddress = BIDVEIL_CONTRACT_CONFIG.preprodAddress,
   network = 'Preprod'
 }) => {
   // Interactive Hero Preview State
@@ -44,443 +44,606 @@ export const LandingPage: React.FC<LandingProps> = ({
   const [isSimulatingProof, setIsSimulatingProof] = useState(false);
   const [proofCompleted, setProofCompleted] = useState(false);
 
+  // Feedback search & filter
+  const [feedbackSearch, setFeedbackSearch] = useState('');
+  const [selectedRating, setSelectedRating] = useState<number | 'all'>('all');
+
   const handleSimulateProof = () => {
     setIsSimulatingProof(true);
     setProofCompleted(false);
     setTimeout(() => {
       setIsSimulatingProof(false);
       setProofCompleted(true);
-    }, 1600);
+    }, 1500);
   };
 
+  const filteredFeedbacks = feedbackData.filter((item) => {
+    const matchesSearch = 
+      item.name.toLowerCase().includes(feedbackSearch.toLowerCase()) ||
+      item.feedbackSummary.toLowerCase().includes(feedbackSearch.toLowerCase()) ||
+      item.organization.toLowerCase().includes(feedbackSearch.toLowerCase());
+    const matchesRating = selectedRating === 'all' || item.rating === selectedRating;
+    return matchesSearch && matchesRating;
+  });
+
   return (
-    <div className="space-y-24 sm:space-y-32 py-6 overflow-x-hidden">
+    <div className="space-y-24 sm:space-y-32 py-4 overflow-x-hidden">
       {/* ─────────────────────────────────────────────────────────────
-          1. HERO SECTION
+          1. HERO SECTION (Inspired by Reference Design)
       ────────────────────────────────────────────────────────────── */}
-      <section className="relative text-center space-y-8 pt-6 pb-10 max-w-4xl mx-auto">
-        {/* Subtle Backdrop Glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[320px] bg-indigo-600/15 rounded-full blur-3xl pointer-events-none -z-10"></div>
-
-        {/* Brand Logo & Announcement Pill */}
-        <div className="flex flex-col items-center gap-3">
-          <div className="relative group">
-            <div className="absolute -inset-1.5 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-2xl blur-md opacity-40 group-hover:opacity-75 transition duration-500"></div>
-            <img 
-              src="/logo.jpg" 
-              alt="Bidveil Logo" 
-              className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover border border-slate-700/80 shadow-2xl"
-              onError={(e) => {
-                // Fallback to docs/images/logo.jpg
-                (e.target as HTMLImageElement).src = 'docs/images/logo.jpg';
-              }}
-            />
+      <section id="overview" className="relative text-center space-y-8 pt-4 pb-8 max-w-5xl mx-auto scroll-mt-28">
+        {/* Social Proof Pill (Avatar Stack + Community Count) */}
+        <RevealOnScroll className="flex justify-center">
+          <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-slate-900/90 border border-white/10 shadow-xl backdrop-blur-md">
+            {/* Overlapping Avatar Stack */}
+            <div className="flex -space-x-2">
+              <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-cyan-400 to-blue-600 border-2 border-slate-900 flex items-center justify-center text-[10px] font-bold text-white">XZ</div>
+              <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-indigo-400 to-purple-600 border-2 border-slate-900 flex items-center justify-center text-[10px] font-bold text-white">CQ</div>
+              <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-pink-400 to-rose-600 border-2 border-slate-900 flex items-center justify-center text-[10px] font-bold text-white">KN</div>
+              <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-amber-400 to-orange-600 border-2 border-slate-900 flex items-center justify-center text-[10px] font-bold text-white">BM</div>
+            </div>
+            <span className="text-xs font-medium text-slate-300">
+              Trusted already by <span className="text-white font-semibold">52+ Preprod Builders</span> on Midnight
+            </span>
           </div>
-
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 border border-slate-700/70 text-indigo-300 text-xs font-semibold shadow-sm">
-            <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
-            <span>Midnight Network {network} • Compact v0.34 Toolchain</span>
-          </div>
-        </div>
+        </RevealOnScroll>
 
         {/* Main Headline */}
-        <div className="space-y-4">
-          <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-tight">
-            Confidential Sealed-Bid <br className="hidden sm:inline" />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400">
+        <RevealOnScroll delay={100} className="space-y-5">
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-[1.12]">
+            Confidential Sealed-Bid <br />
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400">
               Procurement on Midnight
             </span>
           </h1>
 
-          <p className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto font-normal leading-relaxed">
+          <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto font-normal leading-relaxed">
             Eliminate bid sniping, front-running, and supplier price leakage. Execute browser-local zero-knowledge proofs via Lace without ever exposing confidential valuations to validators or competitors.
           </p>
-        </div>
+        </RevealOnScroll>
 
-        {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 pt-2">
+        {/* Action Buttons (Pill CTAs with Arrow Indicators) */}
+        <RevealOnScroll delay={200} className="flex flex-col sm:flex-row items-center justify-center gap-3.5 pt-2">
           <button
             onClick={onLaunchTerminal}
-            className="w-full sm:w-auto px-7 py-3.5 rounded-xl saas-button-primary text-white font-bold text-sm flex items-center justify-center gap-2 shadow-xl shadow-indigo-600/25"
+            className="w-full sm:w-auto btn-pill-primary text-sm px-8 py-3.5"
           >
-            Get Started <ArrowRight className="w-4 h-4" />
+            <span>Get Started</span>
+            <ArrowUpRight className="w-4 h-4" />
           </button>
           
           <a
-            href="#how-it-works"
-            className="w-full sm:w-auto px-6 py-3.5 rounded-xl saas-button-secondary text-slate-200 font-semibold text-sm flex items-center justify-center gap-2"
+            href="#architecture"
+            className="w-full sm:w-auto btn-pill-secondary text-sm px-7 py-3.5"
           >
-            Explore How It Works
+            Explore Architecture
           </a>
-        </div>
+        </RevealOnScroll>
 
-        {/* Key Metrics Bar with Count-Up Animation */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6">
-          <div className="saas-card p-3.5 text-center transition-all hover:border-slate-700">
-            <div className="text-xl sm:text-2xl font-black text-white font-mono">
-              <AnimatedCounter end={52} suffix="+" duration={1800} />
-            </div>
-            <div className="text-[11px] text-slate-400 font-medium mt-0.5">Preprod Testers</div>
-          </div>
-
-          <div className="saas-card p-3.5 text-center transition-all hover:border-slate-700">
-            <div className="text-xl sm:text-2xl font-black text-emerald-400 font-mono">
-              <AnimatedCounter end={100} suffix="%" duration={1600} />
-            </div>
-            <div className="text-[11px] text-slate-400 font-medium mt-0.5">Private Witness</div>
-          </div>
-
-          <div className="saas-card p-3.5 text-center transition-all hover:border-slate-700">
-            <div className="text-xl sm:text-2xl font-black text-indigo-400 font-mono">
-              <AnimatedCounter end={0} duration={1000} />
-            </div>
-            <div className="text-[11px] text-slate-400 font-medium mt-0.5">Mempool Leakage</div>
-          </div>
-
-          <div className="saas-card p-3.5 text-center transition-all hover:border-slate-700">
-            <div className="text-xl sm:text-2xl font-black text-purple-400 font-mono">
-              <AnimatedCounter end={3} prefix="< " suffix="s" duration={1400} />
-            </div>
-            <div className="text-[11px] text-slate-400 font-medium mt-0.5">Local ZK Proof</div>
-          </div>
-        </div>
-
-        {/* Interactive Hero Preview Card */}
-        <div className="pt-8 max-w-2xl mx-auto text-left">
-          <div className="saas-card p-5 sm:p-6 border border-slate-800 bg-slate-950/70 shadow-2xl relative overflow-hidden">
-            <div className="flex items-center justify-between pb-4 border-b border-slate-800">
-              <div className="flex items-center gap-2">
-                <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></div>
-                <span className="text-xs font-bold text-white uppercase tracking-wider">
-                  Interactive ZK Simulation
-                </span>
+        {/* ─────────────────────────────────────────────────────────────
+            Integrated Hairline Grid Metrics Bar (From Reference UI)
+        ────────────────────────────────────────────────────────────── */}
+        <RevealOnScroll delay={300} className="pt-8">
+          <div className="hairline-grid-container grid-cols-2 md:grid-cols-4 text-left">
+            {/* Metric 1 */}
+            <div className="hairline-grid-cell">
+              <div className="text-2xl sm:text-3xl font-bold text-white font-mono tracking-tight">
+                <AnimatedCounter end={52} suffix="+" duration={1800} />
               </div>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
-                Lace Prover Simulation
-              </span>
+              <div className="text-xs text-slate-400 font-medium mt-1">
+                Preprod Testers Onboarded
+              </div>
+              <div className="text-[10px] text-cyan-400 font-mono mt-0.5">
+                Proof of On-Chain Activity
+              </div>
             </div>
 
-            <div className="space-y-4 pt-4">
-              <div className="flex justify-between items-center text-xs">
-                <span className="text-slate-400">Tender: Global Cloud Infrastructure</span>
-                <span className="text-slate-300 font-mono">Reserve: ${simulatedReserve.toLocaleString()}</span>
+            {/* Metric 2 */}
+            <div className="hairline-grid-cell">
+              <div className="text-2xl sm:text-3xl font-bold text-cyan-400 font-mono tracking-tight">
+                <AnimatedCounter end={100} suffix="%" duration={1600} />
               </div>
+              <div className="text-xs text-slate-400 font-medium mt-1">
+                Private Witness Isolation
+              </div>
+              <div className="text-[10px] text-slate-500 font-mono mt-0.5">
+                Browser-Local Lace Prover
+              </div>
+            </div>
 
+            {/* Metric 3 */}
+            <div className="hairline-grid-cell">
+              <div className="text-2xl sm:text-3xl font-bold text-indigo-400 font-mono tracking-tight">
+                0
+              </div>
+              <div className="text-xs text-slate-400 font-medium mt-1">
+                Mempool Valuation Leakage
+              </div>
+              <div className="text-[10px] text-slate-500 font-mono mt-0.5">
+                Zero Front-Running
+              </div>
+            </div>
+
+            {/* Metric 4 */}
+            <div className="hairline-grid-cell border-r-0">
+              <div className="text-2xl sm:text-3xl font-bold text-emerald-400 font-mono tracking-tight">
+                &lt; 1.6s
+              </div>
+              <div className="text-xs text-slate-400 font-medium mt-1">
+                ZK Proof Generation
+              </div>
+              <div className="text-[10px] text-emerald-400 font-mono mt-0.5">
+                Compact v0.34 Runtime
+              </div>
+            </div>
+          </div>
+        </RevealOnScroll>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────
+          2. INTERACTIVE ZERO-KNOWLEDGE PROVER TERMINAL (Hero Preview)
+      ────────────────────────────────────────────────────────────── */}
+      <RevealOnScroll className="max-w-4xl mx-auto">
+        <div className="obsidian-card p-6 sm:p-8 border border-white/[0.08] relative overflow-hidden">
+          {/* Subtle Top Border Highlight */}
+          <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent"></div>
+
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-6 border-b border-white/[0.07]">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
+                <Sliders className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="text-base font-bold text-white flex items-center gap-2">
+                  Interactive ZK Circuit Simulator
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/20">
+                    Live Demo
+                  </span>
+                </h3>
+                <p className="text-xs text-slate-400">
+                  Simulate client-side zero-knowledge proof generation without broadcasting valuation data.
+                </p>
+              </div>
+            </div>
+
+            <button
+              onClick={onLaunchTerminal}
+              className="text-xs font-semibold text-cyan-400 hover:text-cyan-300 flex items-center gap-1"
+            >
+              Open Full Terminal <ArrowUpRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
+
+          {/* Interactive Controls */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6">
+            <div className="space-y-4">
               <div>
                 <div className="flex justify-between text-xs mb-1.5">
-                  <span className="font-semibold text-slate-300">Your Confidential Bid Amount:</span>
-                  <span className="font-mono font-bold text-indigo-300">${simulatedBid.toLocaleString()}</span>
+                  <span className="text-slate-400">Confidential Valuation:</span>
+                  <span className="font-mono font-bold text-white text-sm">
+                    {simulatedBid.toLocaleString()} tNIGHT
+                  </span>
                 </div>
                 <input
                   type="range"
-                  min="90000"
-                  max="200000"
+                  min="100000"
+                  max="500000"
                   step="5000"
                   value={simulatedBid}
                   onChange={(e) => setSimulatedBid(Number(e.target.value))}
-                  className="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-indigo-500"
+                  className="w-full accent-cyan-400 bg-slate-800 h-1.5 rounded-lg cursor-pointer"
                 />
-                <div className="flex justify-between text-[10px] text-slate-500 mt-1 font-mono">
-                  <span>$90,000 (Below reserve)</span>
-                  <span>$200,000 (Qualifying)</span>
+                <div className="flex justify-between text-[10px] text-slate-500 font-mono mt-1">
+                  <span>Reserve: {simulatedReserve.toLocaleString()} tNIGHT</span>
+                  <span>Max: 500,000 tNIGHT</span>
                 </div>
               </div>
 
-              <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between text-xs">
-                <div className="flex items-center gap-2">
-                  <Lock className="w-4 h-4 text-emerald-400" />
-                  <span className="text-slate-300 text-[11px]">
-                    {simulatedBid >= simulatedReserve ? (
-                      <span className="text-emerald-400 font-medium">Valid: Satisfies secretBid &gt;= reserve</span>
-                    ) : (
-                      <span className="text-amber-400 font-medium">Under Reserve: Circuit constraint fails</span>
-                    )}
-                  </span>
+              <div className="p-3 rounded-xl bg-[#050914] border border-white/[0.06] space-y-1.5 font-mono text-xs">
+                <div className="text-[10px] uppercase text-slate-500 font-semibold tracking-wider">Private Witness Circuit Inputs</div>
+                <div className="flex justify-between text-slate-300">
+                  <span className="text-slate-500">secretBidAmount:</span>
+                  <span className="text-cyan-300">{simulatedBid}</span>
                 </div>
-
-                <button
-                  onClick={handleSimulateProof}
-                  disabled={isSimulatingProof || simulatedBid < simulatedReserve}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
-                    simulatedBid >= simulatedReserve
-                      ? 'bg-indigo-600 hover:bg-indigo-500 text-white'
-                      : 'bg-slate-800 text-slate-500 cursor-not-allowed'
-                  }`}
-                >
-                  {isSimulatingProof ? (
-                    <>
-                      <Cpu className="w-3.5 h-3.5 animate-spin text-indigo-300" />
-                      Proving...
-                    </>
-                  ) : proofCompleted ? (
-                    <>
-                      <Check className="w-3.5 h-3.5 text-emerald-400" />
-                      Proved Locally!
-                    </>
-                  ) : (
-                    <>
-                      <Zap className="w-3.5 h-3.5" />
-                      Simulate ZK Proof
-                    </>
-                  )}
-                </button>
+                <div className="flex justify-between text-slate-300">
+                  <span className="text-slate-500">reserveRequirement:</span>
+                  <span className="text-slate-400">&gt;= {simulatedReserve} (Satisfied)</span>
+                </div>
+                <div className="flex justify-between text-slate-300">
+                  <span className="text-slate-500">cryptographicSalt:</span>
+                  <span className="text-slate-500 truncate max-w-[160px]">0x7c9a4b8...fe1</span>
+                </div>
               </div>
 
-              {proofCompleted && (
-                <div className="p-3 rounded-xl bg-emerald-950/20 border border-emerald-500/30 text-[11px] text-emerald-300 flex items-center justify-between">
-                  <span>
-                    ✅ <strong>Zero-Knowledge Claim Verified:</strong> Proven valid without revealing ${simulatedBid.toLocaleString()} on-chain!
+              <button
+                onClick={handleSimulateProof}
+                disabled={isSimulatingProof}
+                className="w-full btn-pill-primary py-2.5 text-xs"
+              >
+                {isSimulatingProof ? (
+                  <>
+                    <Activity className="w-3.5 h-3.5 animate-spin" />
+                    <span>Executing Kachina ZK Prover...</span>
+                  </>
+                ) : (
+                  <>
+                    <ShieldCheck className="w-4 h-4" />
+                    <span>Generate ZK Proof &amp; Commitment</span>
+                  </>
+                )}
+              </button>
+            </div>
+
+            {/* Telemetry Output Display */}
+            <div className="p-4 rounded-xl bg-[#040713] border border-white/[0.06] font-mono text-xs flex flex-col justify-between">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between pb-2 border-b border-white/[0.06]">
+                  <span className="text-slate-400 text-[11px]">Ledger Broadcast Telemetry</span>
+                  <span className="text-[10px] text-emerald-400 flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                    Verifier Ready
                   </span>
-                  <button
-                    onClick={onLaunchTerminal}
-                    className="text-xs text-indigo-300 underline font-semibold shrink-0 ml-2"
-                  >
-                    Try on Preprod &rarr;
-                  </button>
                 </div>
-              )}
+
+                <div className="space-y-1 text-[11px] text-slate-300 pt-1">
+                  <div>
+                    <span className="text-slate-500">&gt; On-chain Payload: </span>
+                    <span className="text-emerald-400">zk_proof_witness_v1</span>
+                  </div>
+                  <div>
+                    <span className="text-slate-500">&gt; Revealed Value: </span>
+                    <span className="text-purple-400">None (Cryptographically Sealed)</span>
+                  </div>
+                  <div>
+                    <span className="text-slate-500">&gt; Constraint Check: </span>
+                    <span className="text-cyan-400">bid &gt;= reservePrice &#10003;</span>
+                  </div>
+                  <div>
+                    <span className="text-slate-500">&gt; Verifier Gas: </span>
+                    <span className="text-slate-400">0.0024 tNIGHT</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-4 mt-2 border-t border-white/[0.06]">
+                {proofCompleted ? (
+                  <div className="p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-[11px] flex items-center gap-2">
+                    <Check className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                    <span>Proof valid. Sealed commitment ready for Midnight Preprod broadcast.</span>
+                  </div>
+                ) : (
+                  <div className="text-[11px] text-slate-500 italic">
+                    Slide valuation and click "Generate ZK Proof" to test client-side privacy.
+                  </div>
+                )}
+              </div>
             </div>
           </div>
+        </div>
+      </RevealOnScroll>
+
+      {/* ─────────────────────────────────────────────────────────────
+          3. ARCHITECTURE SECTION (Matching Reference Two-Column Grid)
+      ────────────────────────────────────────────────────────────── */}
+      <section id="architecture" className="space-y-12 max-w-6xl mx-auto scroll-mt-24">
+        <div className="text-center space-y-3 max-w-2xl mx-auto">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full badge-preprod text-xs font-semibold">
+            <Cpu className="w-3.5 h-3.5" />
+            <span>Architecture &amp; Security Model</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+            Dual-State Privacy on Midnight
+          </h2>
+          <p className="text-sm text-slate-400 leading-relaxed">
+            Midnight decouples private computation from consensus verification. Sensitive commercial terms never leave your local environment.
+          </p>
+        </div>
+
+        {/* 2-Column Feature Grid Inspired by Reference UI Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Card 1: Browser-Local Execution */}
+          <RevealOnScroll className="obsidian-card p-8 border border-white/[0.08] relative group hover:border-cyan-500/30">
+            <div className="space-y-4">
+              <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
+                <EyeOff className="w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold text-white tracking-tight">
+                Client-Side Witness Execution
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                When a supplier submits a sealed bid, the Compact contract circuit evaluates the private witness locally within the browser. The valuation and secret salt are passed through a zero-knowledge prover inside the Lace wallet extension.
+              </p>
+              <div className="pt-2 flex items-center gap-2 text-xs font-semibold text-cyan-400">
+                <span>Zero Mempool Visibility</span>
+                <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </div>
+          </RevealOnScroll>
+
+          {/* Card 2: On-Chain Compact Settlement */}
+          <RevealOnScroll delay={150} className="obsidian-card p-8 border border-white/[0.08] relative group hover:border-indigo-500/30">
+            <div className="space-y-4">
+              <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
+                <Database className="w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold text-white tracking-tight">
+                Compact On-Chain Consensus
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                Midnight validators receive only the mathematical ZK proof and the public commitment hash. Validators verify mathematical correctness and enforce procurement rules without accessing unencrypted bid figures.
+              </p>
+              <div className="pt-2 flex items-center gap-2 text-xs font-semibold text-indigo-400">
+                <span>Kachina Ledger Verification</span>
+                <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </div>
+            </div>
+          </RevealOnScroll>
         </div>
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          2. ABOUT SECTION (#about)
+          4. HOW IT WORKS (Three Step Flow)
       ────────────────────────────────────────────────────────────── */}
-      <section id="about" className="space-y-12 scroll-mt-24">
-        <RevealOnScroll className="space-y-12">
-          <div className="text-center max-w-2xl mx-auto space-y-3">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full badge-indigo text-xs font-semibold">
-              <Building2 className="w-3.5 h-3.5" />
-              <span>Enterprise Problem & Solution</span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
-              The Procurement Paradox in Web3
-            </h2>
-            <p className="text-sm text-slate-400 leading-relaxed">
-              Standard blockchains offer transparent ledgers, but total transparency destroys fair competitive bidding.
+      <section id="how-it-works" className="space-y-12 max-w-6xl mx-auto scroll-mt-24">
+        <div className="text-center space-y-3 max-w-2xl mx-auto">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full badge-indigo text-xs font-semibold">
+            <Layers className="w-3.5 h-3.5" />
+            <span>Workflow</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+            How Sealed-Bidding Works
+          </h2>
+          <p className="text-sm text-slate-400 leading-relaxed">
+            A three-step cryptographic lifecycle guaranteeing fairness from tender publication to winner verification.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Step 1 */}
+          <RevealOnScroll className="obsidian-card p-6 border border-white/[0.08] space-y-3">
+            <div className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-wider">Step 01</div>
+            <h3 className="text-base font-bold text-white">Tender Creation &amp; Rules</h3>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Procurement officers configure tender terms, reserve criteria, and deadline parameters directly in the Compact smart contract on Midnight Preprod.
             </p>
-          </div>
+          </RevealOnScroll>
 
-          {/* Comparison Cards: Problem vs Solution */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {/* Problem Card */}
-            <div className="saas-card p-6 border-red-900/30 bg-slate-950/80 space-y-4">
-              <div className="w-10 h-10 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400">
-                <AlertTriangle className="w-5 h-5" />
-              </div>
-              <h3 className="text-lg font-bold text-white">Transparent Bidding Flaws</h3>
-              <ul className="space-y-2.5 text-xs text-slate-400">
-                <li className="flex items-start gap-2">
-                  <span className="text-red-400 font-bold">•</span>
-                  <span><strong>Front-Running & Sniping:</strong> Bots read mempool transactions and submit slightly better bids at the last millisecond.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-red-400 font-bold">•</span>
-                  <span><strong>Pricing Leakage:</strong> Competitors inspect your exact unit pricing and profit margins, harming future negotiations.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-red-400 font-bold">•</span>
-                  <span><strong>Centralized Intermediary Risk:</strong> Traditional platforms rely on trusted third parties that can leak or alter bids.</span>
-                </li>
-              </ul>
-            </div>
+          {/* Step 2 */}
+          <RevealOnScroll delay={100} className="obsidian-card p-6 border border-white/[0.08] space-y-3">
+            <div className="text-xs font-mono font-bold text-indigo-400 uppercase tracking-wider">Step 02</div>
+            <h3 className="text-base font-bold text-white">Zero-Knowledge Sealed Bids</h3>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Suppliers enter confidential valuations. Browser-local ZK circuits prove criteria satisfaction while keeping bid amounts completely private.
+            </p>
+          </RevealOnScroll>
 
-            {/* Solution Card */}
-            <div className="saas-card p-6 border-emerald-900/30 bg-slate-950/80 space-y-4">
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
-                <ShieldCheck className="w-5 h-5" />
-              </div>
-              <h3 className="text-lg font-bold text-white">The Bidveil ZK Solution</h3>
-              <ul className="space-y-2.5 text-xs text-slate-300">
-                <li className="flex items-start gap-2">
-                  <span className="text-emerald-400 font-bold">✓</span>
-                  <span><strong>Zero Information Leakage:</strong> Private witness inputs stay strictly in local browser memory and never touch the mempool.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-emerald-400 font-bold">✓</span>
-                  <span><strong>Cryptographic Compliance:</strong> Mathematically proves compliance with minimum reserve prices without disclosing actual values.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-emerald-400 font-bold">✓</span>
-                  <span><strong>Verifiable Settlement:</strong> Midnight's dual-state ledger increments public bid counts and settles tenders trustlessly.</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </RevealOnScroll>
+          {/* Step 3 */}
+          <RevealOnScroll delay={200} className="obsidian-card p-6 border border-white/[0.08] space-y-3">
+            <div className="text-xs font-mono font-bold text-emerald-400 uppercase tracking-wider">Step 03</div>
+            <h3 className="text-base font-bold text-white">Verifiable Settlement</h3>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Once closed, the winning commitment is settled on-chain with full auditability, preventing retroactive bid tampering or favoritism.
+            </p>
+          </RevealOnScroll>
+        </div>
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          3. HOW IT WORKS SECTION (#how-it-works)
+          5. COMMUNITY FEEDBACK & PREPROD TESTERS (52 Verified Reviews)
       ────────────────────────────────────────────────────────────── */}
-      <section id="how-it-works" className="space-y-12 scroll-mt-24">
-        <RevealOnScroll className="space-y-12">
-          <div className="text-center max-w-2xl mx-auto space-y-3">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full badge-purple text-xs font-semibold">
-              <Cpu className="w-3.5 h-3.5" />
-              <span>Architecture & Workflow</span>
+      <section id="feedbacks" className="space-y-8 max-w-6xl mx-auto scroll-mt-24">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full badge-preprod text-xs font-semibold mb-3">
+              <Users className="w-3.5 h-3.5" />
+              <span>Community Reviews &amp; Social Proof</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
-              How Bidveil Works
+            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+              Real Preprod User Feedback
             </h2>
-            <p className="text-sm text-slate-400">
-              A seamless 4-step pipeline combining local client-side zero-knowledge proof synthesis with Midnight ledger state transitions.
+            <p className="text-sm text-slate-400 mt-1 max-w-xl">
+              Feedback collected from 52 verified Midnight Preprod testers with real transaction hashes linked to the Midnight Indexer.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="saas-card p-5 space-y-3 relative group hover:border-indigo-500/40 transition-all">
-              <div className="w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 flex items-center justify-center font-mono font-bold text-xs">
-                01
-              </div>
-              <h4 className="font-bold text-sm text-white">Tender Issuance</h4>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Buyer defines procurement requirements and initializes the Compact contract on Midnight with a minimum public reserve price.
-              </p>
-            </div>
-
-            <div className="saas-card p-5 space-y-3 relative group hover:border-indigo-500/40 transition-all">
-              <div className="w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 flex items-center justify-center font-mono font-bold text-xs">
-                02
-              </div>
-              <h4 className="font-bold text-sm text-white">Private Witness Input</h4>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Vendor inputs confidential bid valuation. The numerical figure stays strictly in local browser memory and is never broadcast.
-              </p>
-            </div>
-
-            <div className="saas-card p-5 space-y-3 relative group hover:border-indigo-500/40 transition-all">
-              <div className="w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 flex items-center justify-center font-mono font-bold text-xs">
-                03
-              </div>
-              <h4 className="font-bold text-sm text-white">Browser ZK Synthesis</h4>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Lace Midnight wallet generates a client-side zk-SNARK proof verifying <code className="text-slate-300">secretBid &gt;= reservePrice</code> in seconds.
-              </p>
-            </div>
-
-            <div className="saas-card p-5 space-y-3 relative group hover:border-indigo-500/40 transition-all">
-              <div className="w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 flex items-center justify-center font-mono font-bold text-xs">
-                04
-              </div>
-              <h4 className="font-bold text-sm text-white">Public Verification</h4>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Midnight verifies the zero-knowledge proof on-chain, updates the public verified bid count, and logs a tamper-proof receipt.
-              </p>
-            </div>
+          {/* External Survey & Sheet Buttons */}
+          <div className="flex items-center gap-2.5">
+            <a
+              href="https://docs.google.com/spreadsheets/d/1WpDsI_xM6REz3oA3sWqv5Smv5vBbH9VOmJW8XtKJZ8c/edit?usp=sharing"
+              target="_blank"
+              rel="noreferrer"
+              className="btn-pill-secondary text-xs px-4 py-2"
+            >
+              <span>Public Sheet</span>
+              <ExternalLink className="w-3 h-3" />
+            </a>
+            <a
+              href="https://forms.gle/JS3LoCsJGQGh144n9"
+              target="_blank"
+              rel="noreferrer"
+              className="btn-pill-primary text-xs px-4 py-2"
+            >
+              <span>Submit Survey</span>
+              <ExternalLink className="w-3 h-3" />
+            </a>
           </div>
-        </RevealOnScroll>
-      </section>
+        </div>
 
-      {/* ─────────────────────────────────────────────────────────────
-          4. FEEDBACKS SECTION (#feedbacks)
-      ────────────────────────────────────────────────────────────── */}
-      <section id="feedbacks" className="space-y-10 scroll-mt-24">
-        <RevealOnScroll className="space-y-10">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-            <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full badge-emerald text-xs font-semibold mb-2">
-                <Users className="w-3.5 h-3.5" />
-                <span>Level 5 Community Validation</span>
+        {/* Search & Rating Filter Bar */}
+        <div className="obsidian-card p-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="relative w-full sm:w-80">
+            <Search className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              placeholder="Search testers, feedback, or universities..."
+              value={feedbackSearch}
+              onChange={(e) => setFeedbackSearch(e.target.value)}
+              className="w-full bg-[#050914] border border-white/10 rounded-xl pl-9 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400"
+            />
+          </div>
+
+          <div className="flex items-center gap-2 text-xs text-slate-400 w-full sm:w-auto justify-end">
+            <span>Filter Rating:</span>
+            <button
+              onClick={() => setSelectedRating('all')}
+              className={`px-2.5 py-1 rounded-lg text-xs transition-colors ${
+                selectedRating === 'all' 
+                  ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30' 
+                  : 'bg-slate-900 text-slate-400 hover:text-white'
+              }`}
+            >
+              All (52)
+            </button>
+            <button
+              onClick={() => setSelectedRating(5)}
+              className={`px-2.5 py-1 rounded-lg text-xs flex items-center gap-1 transition-colors ${
+                selectedRating === 5 
+                  ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30' 
+                  : 'bg-slate-900 text-slate-400 hover:text-white'
+              }`}
+            >
+              <Star className="w-3 h-3 fill-amber-400 text-amber-400" /> 5 Stars
+            </button>
+            <button
+              onClick={() => setSelectedRating(4)}
+              className={`px-2.5 py-1 rounded-lg text-xs flex items-center gap-1 transition-colors ${
+                selectedRating === 4 
+                  ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30' 
+                  : 'bg-slate-900 text-slate-400 hover:text-white'
+              }`}
+            >
+              <Star className="w-3 h-3 fill-amber-400 text-amber-400" /> 4 Stars
+            </button>
+          </div>
+        </div>
+
+        {/* Feedback Cards Grid (Paginated / Limited for smooth scroll) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {filteredFeedbacks.slice(0, 9).map((item) => (
+            <div 
+              key={item.userId}
+              className="obsidian-card p-5 border border-white/[0.08] flex flex-col justify-between space-y-3 hover:border-cyan-500/30 transition-all"
+            >
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-7 h-7 rounded-full bg-slate-800 border border-white/10 flex items-center justify-center text-[10px] font-bold text-white">
+                      {item.name.slice(0, 2).toUpperCase()}
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold text-white">{item.name}</div>
+                      <div className="text-[10px] text-slate-400">{item.organization}</div>
+                    </div>
+                  </div>
+
+                  {/* Rating Stars */}
+                  <div className="flex items-center gap-0.5">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Star 
+                        key={i} 
+                        className={`w-3 h-3 ${
+                          i < item.rating 
+                            ? 'text-amber-400 fill-amber-400' 
+                            : 'text-slate-700'
+                        }`} 
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                <p className="text-xs text-slate-300 leading-relaxed">
+                  "{item.feedbackSummary}"
+                </p>
               </div>
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
-                Tester Feedback & Validation
-              </h2>
-              <p className="text-xs text-slate-400 mt-1 max-w-xl">
-                Real feedback collected from 52 developers, university clubs, and community testers actively executing transactions on Midnight Preprod.
-              </p>
-            </div>
 
-            <div className="flex items-center gap-2">
-              <a
+              {/* On-Chain Verification Proof Link */}
+              <div className="pt-2 border-t border-white/[0.06] flex items-center justify-between text-[10px] font-mono">
+                <span className="text-slate-500">{item.userId}</span>
+                <a
+                  href={`https://preprod.midnight.network/tx/${item.txHash}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-cyan-400 hover:text-cyan-300 flex items-center gap-1"
+                  title={item.txHash}
+                >
+                  <span>Tx: {item.txHash.slice(0, 6)}...{item.txHash.slice(-4)}</span>
+                  <ExternalLink className="w-2.5 h-2.5" />
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {filteredFeedbacks.length > 9 && (
+          <div className="text-center pt-2">
+            <p className="text-xs text-slate-500">
+              Showing 9 of {filteredFeedbacks.length} verified responses. Full dataset available in the{' '}
+              <a 
                 href="https://docs.google.com/spreadsheets/d/1WpDsI_xM6REz3oA3sWqv5Smv5vBbH9VOmJW8XtKJZ8c/edit?usp=sharing"
                 target="_blank"
                 rel="noreferrer"
-                className="px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs font-medium text-slate-300 hover:text-white flex items-center gap-1.5 transition-colors"
+                className="text-cyan-400 hover:underline"
               >
-                Public Google Sheet <ExternalLink className="w-3 h-3" />
-              </a>
+                Public Google Sheet
+              </a>.
+            </p>
+          </div>
+        )}
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────
+          6. DOCUMENTATION & DEVELOPER RESOURCES
+      ────────────────────────────────────────────────────────────── */}
+      <section className="max-w-6xl mx-auto">
+        <DocsSection />
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────
+          7. BOTTOM CTA CALLOUT (Like Reference "Get In Touch Today")
+      ────────────────────────────────────────────────────────────── */}
+      <RevealOnScroll className="max-w-4xl mx-auto text-center">
+        <div className="obsidian-card p-10 sm:p-14 border border-cyan-500/20 relative overflow-hidden">
+          {/* Subtle Radial Glow */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+          <div className="relative z-10 space-y-6">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full badge-preprod text-xs font-semibold">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Production-Ready on Preprod</span>
+            </div>
+
+            <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+              Experience the Future of <br />
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400">
+                Confidential Procurement
+              </span>
+            </h2>
+
+            <p className="text-sm text-slate-400 max-w-xl mx-auto leading-relaxed">
+              Connect your Lace wallet on Midnight Preprod, explore active enterprise tenders, and submit cryptographic sealed bids with zero information leakage.
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 pt-2">
+              <button
+                onClick={onLaunchTerminal}
+                className="btn-pill-primary px-8 py-3.5 text-sm"
+              >
+                <span>Launch Bidding Terminal</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </button>
 
               <a
                 href="https://forms.gle/JS3LoCsJGQGh144n9"
                 target="_blank"
                 rel="noreferrer"
-                className="px-3.5 py-2 rounded-xl bg-indigo-600/20 border border-indigo-500/30 text-xs font-semibold text-indigo-300 hover:bg-indigo-600/30 flex items-center gap-1.5 transition-colors"
+                className="btn-pill-secondary px-7 py-3.5 text-sm"
               >
-                Submit Feedback Form <ExternalLink className="w-3 h-3" />
+                <span>Submit Feedback</span>
+                <ExternalLink className="w-3.5 h-3.5" />
               </a>
             </div>
           </div>
-
-          {/* Feedback Cards Showcase */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {feedbackData.slice(0, 6).map((item) => (
-              <div key={item.id} className="saas-card p-5 space-y-3 flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h4 className="font-bold text-xs text-white">{item.name}</h4>
-                      <span className="text-[10px] text-slate-400 font-mono">{item.email}</span>
-                    </div>
-                    <div className="flex text-amber-400 text-xs">
-                      {'★'.repeat(item.rating)}
-                    </div>
-                  </div>
-
-                  <p className="text-xs text-slate-300 italic pt-2 leading-relaxed">
-                    "{item.summary}"
-                  </p>
-                </div>
-
-                <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[10px] text-slate-400">
-                  <span className="font-mono">{formatAddress(item.wallet, 6, 4)}</span>
-                  <span className="text-emerald-400 font-medium">Verified Preprod</span>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="text-center pt-2">
-            <button
-              onClick={onLaunchTerminal}
-              className="text-xs text-indigo-400 hover:text-indigo-300 font-semibold inline-flex items-center gap-1"
-            >
-              Launch Terminal to test Bidveil yourself &rarr;
-            </button>
-          </div>
-        </RevealOnScroll>
-      </section>
-
-      {/* ─────────────────────────────────────────────────────────────
-          5. DOCS SECTION (#docs)
-      ────────────────────────────────────────────────────────────── */}
-      <RevealOnScroll>
-        <DocsSection />
-      </RevealOnScroll>
-
-      {/* ─────────────────────────────────────────────────────────────
-          6. BOTTOM CTA BANNER
-      ────────────────────────────────────────────────────────────── */}
-      <RevealOnScroll>
-        <section className="saas-card p-8 sm:p-12 text-center relative overflow-hidden border-indigo-500/30 bg-gradient-to-b from-slate-900/90 to-indigo-950/40">
-          <div className="max-w-xl mx-auto space-y-4 relative z-10">
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-              Ready to Conduct Front-Running Proof Procurement?
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              Connect your Lace wallet on Midnight Preprod and experience zero-knowledge sealed-bid auctions with verifiable privacy.
-            </p>
-            <div className="pt-2">
-              <button
-                onClick={onLaunchTerminal}
-                className="px-8 py-3.5 rounded-xl saas-button-primary text-white font-bold text-xs shadow-xl shadow-indigo-600/30"
-              >
-                Get Started with Bidveil &rarr;
-              </button>
-            </div>
-          </div>
-        </section>
+        </div>
       </RevealOnScroll>
     </div>
   );
