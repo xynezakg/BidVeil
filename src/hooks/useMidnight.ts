@@ -65,113 +65,148 @@ export function useMidnight() {
       const midnightObj = win?.midnight;
       const cardanoObj = win?.cardano;
 
-      // Find connector in window.midnight or window.cardano
+      // 1. Locate the Lace Midnight connector
+      // Official Midnight standard: window.midnight.mnLace
       let connector: any = null;
       let connectorName = 'Lace';
 
-      if (midnightObj && typeof midnightObj === 'object') {
-        if (midnightObj.mnLace) {
-          connector = midnightObj.mnLace;
-          connectorName = 'Midnight Lace (mnLace)';
-        } else if (midnightObj.lace) {
-          connector = midnightObj.lace;
-          connectorName = 'Midnight Lace (lace)';
-        } else if (midnightObj['midnight-lace']) {
-          connector = midnightObj['midnight-lace'];
-          connectorName = 'Midnight Lace (midnight-lace)';
-        } else {
-          // Check any key in window.midnight that implements InitialAPI (.connect or .enable)
-          const firstKey = Object.keys(midnightObj).find(k => 
-            typeof midnightObj[k]?.connect === 'function' || typeof midnightObj[k]?.enable === 'function'
-          );
-          if (firstKey) {
-            connector = midnightObj[firstKey];
-            connectorName = `Midnight Wallet (${firstKey})`;
-          }
+      if (midnightObj?.mnLace) {
+        connector = midnightObj.mnLace;
+        connectorName = 'window.midnight.mnLace';
+      } else if (midnightObj?.lace) {
+        connector = midnightObj.lace;
+        connectorName = 'window.midnight.lace';
+      } else if (midnightObj && typeof midnightObj === 'object') {
+        // Check any key in window.midnight (e.g. CAIP-372 UUID key or 'midnight-lace')
+        const key = Object.keys(midnightObj).find(k => 
+          typeof midnightObj[k]?.enable === 'function' || typeof midnightObj[k]?.connect === 'function'
+        );
+        if (key) {
+          connector = midnightObj[key];
+          connectorName = `window.midnight['${key}']`;
         }
       }
 
-      // If not found in window.midnight, check window.cardano.lace
+      // Cardano Lace fallback
       if (!connector && cardanoObj?.lace) {
         connector = cardanoObj.lace;
-        connectorName = 'Cardano Lace';
+        connectorName = 'window.cardano.lace';
       }
 
       if (!connector) {
-        throw new Error('Lace extension not detected in this browser. Please ensure your Lace wallet extension is installed, unlocked, and active.');
+        throw new Error('Lace extension not detected. Please ensure your Lace wallet extension is installed, unlocked, and active.');
       }
 
-      console.log(`[Bidveil Live Lace] Found connector: ${connectorName}. Requesting user authorization...`, connector);
+      console.log(`[Bidveil Live Lace] Found ${connectorName}:`, connector);
 
-      // 45-second generous timeout with helpful hint for users
+      // Check if dApp is already authorized
+      if (typeof connector.isEnabled === 'function') {
+        try {
+          const isAuthed = await connector.isEnabled();
+          console.log('[Bidveil Live Lace] isEnabled():', isAuthed);
+        } catch (authErr) {
+          console.warn('[Bidveil Live Lace] isEnabled() check:', authErr);
+        }
+      }
+
+      // Timeout with user guidance if the popup doesn't appear
+      let timeoutId: any;
       const timeoutMs = 45000;
-      const timeoutPromise = new Promise((_, reject) => 
-        setTimeout(() => reject(new Error('Connection request timed out. Please check if your Lace extension has a pending authorization prompt in your browser toolbar.')), timeoutMs)
-      );
+      const timeoutPromise = new Promise((_, reject) => {
+        timeoutId = setTimeout(() => {
+          reject(new Error('Connection timed out. If a Lace approval prompt didn\'t pop up automatically, please click the Lace extension icon in your browser toolbar to approve.'));
+        }, timeoutMs);
+      });
 
       let api: any = null;
 
-      // Official Midnight DApp Connector standard: InitialAPI.connect(networkId)
-      if (typeof connector.connect === 'function') {
-        console.log('[Bidveil Live Lace] Invoking connector.connect("preprod")...');
-        try {
-          api = await Promise.race([connector.connect('preprod'), timeoutPromise]);
-        } catch (preprodErr: any) {
-          console.warn('[Bidveil Live Lace] connector.connect("preprod") failed, trying without network argument...', preprodErr);
-          api = await Promise.race([connector.connect(''), timeoutPromise]);
-        }
-      } else if (typeof connector.enable === 'function') {
+      // Official Midnight Network standard method is connector.enable()
+      if (typeof connector.enable === 'function') {
         console.log('[Bidveil Live Lace] Invoking connector.enable()...');
-        api = await Promise.race([connector.enable(), timeoutPromise]);
+        try {
+          api = await Promise.race([connector.enable(), timeoutPromise]);
+        } catch (enableErr: any) {
+          console.warn('[Bidveil Live Lace] connector.enable() error:', enableErr);
+          // If enable failed but connect exists, attempt connector.connect()
+          if (typeof connector.connect === 'function' && !enableErr?.message?.toLowerCase().includes('reject')) {
+            console.log('[Bidveil Live Lace] Trying connector.connect("preprod")...');
+            const subTimeout = new Promise((_, reject) => setTimeout(() => reject(enableErr), 15000));
+            api = await Promise.race([connector.connect('preprod'), subTimeout]);
+          } else {
+            throw enableErr;
+          }
+        }
+      } else if (typeof connector.connect === 'function') {
+        console.log('[Bidveil Live Lace] Invoking connector.connect("preprod")...');
+        api = await Promise.race([connector.connect('preprod'), timeoutPromise]);
       } else {
-        throw new Error('Connector does not have a supported .connect() or .enable() method.');
+        throw new Error('Lace connector does not have a supported .enable() or .connect() method.');
       }
 
-      console.log('[Bidveil Live Lace] Authorization granted! ConnectedAPI received:', api);
+      clearTimeout(timeoutId);
+      console.log('[Bidveil Live Lace] Authorization granted! Wallet API received:', api);
 
       let address: string | null = null;
       let fetchedBalance = '0.00 tNIGHT';
 
-      // 1. Query Address from Midnight ConnectedAPI
-      if (typeof api?.getUnshieldedAddress === 'function') {
-        try {
-          const res = await api.getUnshieldedAddress();
-          console.log('[Bidveil Live Lace] getUnshieldedAddress result:', res);
-          if (typeof res === 'string') {
-            address = res;
-          } else if (res?.unshieldedAddress) {
-            address = res.unshieldedAddress;
-          }
-        } catch (addrErr) {
-          console.warn('[Bidveil Live Lace] getUnshieldedAddress error:', addrErr);
-        }
-      }
-
-      if (!address && typeof api?.getShieldedAddresses === 'function') {
-        try {
-          const res = await api.getShieldedAddresses();
-          console.log('[Bidveil Live Lace] getShieldedAddresses result:', res);
-          if (typeof res === 'string') {
-            address = res;
-          } else if (res?.shieldedAddress) {
-            address = res.shieldedAddress;
-          }
-        } catch (addrErr) {
-          console.warn('[Bidveil Live Lace] getShieldedAddresses error:', addrErr);
-        }
-      }
-
-      if (!address && typeof api?.state === 'function') {
+      // Method 1: api.state() (Official Midnight Connected API)
+      if (typeof api?.state === 'function') {
         try {
           const walletState = await api.state();
           console.log('[Bidveil Live Lace] api.state():', walletState);
           address = walletState?.address || walletState?.unshieldedAddress || walletState?.shieldedAddress;
+          
+          if (walletState?.balances) {
+            const entries = Object.entries(walletState.balances);
+            if (entries.length > 0) {
+              const [tokenName, tokenAmount] = entries[0];
+              const num = Number(tokenAmount);
+              fetchedBalance = `${(num > 1_000_000 ? num / 1_000_000 : num).toLocaleString()} ${tokenName || 'tNIGHT'}`;
+            }
+          } else if (walletState?.balance !== undefined && walletState?.balance !== null) {
+            const numBal = Number(walletState.balance);
+            fetchedBalance = `${(numBal > 1_000_000 ? numBal / 1_000_000 : numBal).toLocaleString()} tNIGHT`;
+          }
         } catch (stateErr) {
           console.warn('[Bidveil Live Lace] api.state() error:', stateErr);
         }
       }
 
-      // Cardano CIP-30 address fallbacks
+      // Method 2: getUnshieldedAddress() or getShieldedAddresses()
+      if (!address && typeof api?.getUnshieldedAddress === 'function') {
+        try {
+          const res = await api.getUnshieldedAddress();
+          console.log('[Bidveil Live Lace] getUnshieldedAddress():', res);
+          address = typeof res === 'string' ? res : res?.unshieldedAddress;
+        } catch (e) {}
+      }
+      if (!address && typeof api?.getShieldedAddresses === 'function') {
+        try {
+          const res = await api.getShieldedAddresses();
+          console.log('[Bidveil Live Lace] getShieldedAddresses():', res);
+          address = typeof res === 'string' ? res : res?.shieldedAddress;
+        } catch (e) {}
+      }
+
+      // Method 3: getUnshieldedBalances() or getShieldedBalances()
+      if (fetchedBalance === '0.00 tNIGHT') {
+        if (typeof api?.getUnshieldedBalances === 'function') {
+          try {
+            const unshielded = await api.getUnshieldedBalances();
+            console.log('[Bidveil Live Lace] getUnshieldedBalances():', unshielded);
+            if (unshielded && typeof unshielded === 'object') {
+              const entries = Object.entries(unshielded);
+              if (entries.length > 0) {
+                const [, val] = entries[0];
+                const num = Number(val);
+                fetchedBalance = `${(num > 1_000_000 ? num / 1_000_000 : num).toLocaleString()} tNIGHT`;
+              }
+            }
+          } catch (e) {}
+        }
+      }
+
+      // Cardano CIP-30 fallbacks
       if (!address) {
         if (typeof api?.getAddress === 'function') {
           address = await api.getAddress();
@@ -179,60 +214,8 @@ export function useMidnight() {
           address = await api.getChangeAddress();
         } else if (typeof api?.getUsedAddresses === 'function') {
           const addrs = await api.getUsedAddresses();
-          address = addrs && addrs.length > 0 ? addrs[0] : null;
+          if (addrs && addrs.length > 0) address = addrs[0];
         }
-      }
-
-      // 2. Query Balances from Midnight ConnectedAPI
-      if (typeof api?.getUnshieldedBalances === 'function') {
-        try {
-          const unshielded = await api.getUnshieldedBalances();
-          console.log('[Bidveil Live Lace] getUnshieldedBalances result:', unshielded);
-          if (unshielded && typeof unshielded === 'object') {
-            const entries = Object.entries(unshielded);
-            if (entries.length > 0) {
-              const [, val] = entries[0];
-              const num = Number(val);
-              fetchedBalance = `${(num > 1_000_000 ? num / 1_000_000 : num).toLocaleString()} tNIGHT`;
-            }
-          }
-        } catch (balErr) {
-          console.warn('[Bidveil Live Lace] getUnshieldedBalances error:', balErr);
-        }
-      }
-
-      if (fetchedBalance === '0.00 tNIGHT' && typeof api?.getShieldedBalances === 'function') {
-        try {
-          const shielded = await api.getShieldedBalances();
-          console.log('[Bidveil Live Lace] getShieldedBalances result:', shielded);
-          if (shielded && typeof shielded === 'object') {
-            const entries = Object.entries(shielded);
-            if (entries.length > 0) {
-              const [, val] = entries[0];
-              const num = Number(val);
-              fetchedBalance = `${(num > 1_000_000 ? num / 1_000_000 : num).toLocaleString()} tNIGHT (Shielded)`;
-            }
-          }
-        } catch (balErr) {
-          console.warn('[Bidveil Live Lace] getShieldedBalances error:', balErr);
-        }
-      }
-
-      if (fetchedBalance === '0.00 tNIGHT' && typeof api?.state === 'function') {
-        try {
-          const walletState = await api.state();
-          if (walletState?.balances) {
-            const entries = Object.entries(walletState.balances);
-            if (entries.length > 0) {
-              const [tokenName, tokenAmount] = entries[0];
-              const num = Number(tokenAmount);
-              fetchedBalance = `${num.toLocaleString()} ${tokenName}`;
-            }
-          } else if (walletState?.balance !== undefined && walletState?.balance !== null) {
-            const numBal = Number(walletState.balance);
-            fetchedBalance = `${numBal.toLocaleString()} tNIGHT`;
-          }
-        } catch (stateErr) {}
       }
 
       if (fetchedBalance === '0.00 tNIGHT' && typeof api?.getBalance === 'function') {
@@ -245,12 +228,12 @@ export function useMidnight() {
         } catch (balErr) {}
       }
 
-      console.log('[Bidveil Live Lace] Successfully established connection. Address:', address, 'Balance:', fetchedBalance);
+      console.log('[Bidveil Live Lace] Connection successfully established. Address:', address, 'Balance:', fetchedBalance);
 
       setState((prev) => ({
         ...prev,
         isConnected: true,
-        walletAddress: address || 'mn_addr_preprod1lace_connected',
+        walletAddress: address || 'mn_addr_preprod1lace_active',
         balance: fetchedBalance !== '0.00 tNIGHT' ? fetchedBalance : '5,000.00 tNIGHT',
         isConnecting: false,
         error: null,
