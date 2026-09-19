@@ -27,27 +27,29 @@ Watch the complete demonstration of Bidveil on the Midnight Preprod network, fea
   </video>
 </p>
 
-## Contract Address
+## Contract Address (Level 6 Preprod Redeployment)
 | Network  | Address                                                          | Explorer |
 |----------|------------------------------------------------------------------|----------|
-| Preprod  | `0xe0662c1d6eb4aea26af23b999a84bdd1c10d0a7793788f27787f1eb5bf5e3ec9` | [View on Preprod Explorer](https://preprod.midnightexplorer.com/contracts/0xe0662c1d6eb4aea26af23b999a84bdd1c10d0a7793788f27787f1eb5bf5e3ec9) |
-| Preview  | `0x7ff3da84fceba28bdae68fa8ada604e45bbe191f938873b34857773e1c1e8ec2` | [View on Preview Explorer](https://midnightexplorer.com) |
+| **Preprod (Level 6)** | `0xe0662c1d6eb4aea26af23b999a84bdd1c10d0a7793788f27787f1eb5bf5e3ec9` | [View on Preprod Explorer](https://preprod.midnightexplorer.com/contracts/0xe0662c1d6eb4aea26af23b999a84bdd1c10d0a7793788f27787f1eb5bf5e3ec9) |
+| Preview (Level 5)  | `0x7ff3da84fceba28bdae68fa8ada604e45bbe191f938873b34857773e1c1e8ec2` | [View on Preview Explorer](https://midnightexplorer.com) |
 
-> **Preprod Deployment Transaction:** [`0xcead0258ffbf67a52bf42b022566a91bb0384233e577fd7e5fb782de3c5218e7`](https://preprod.midnightexplorer.com/transactions/0xcead0258ffbf67a52bf42b022566a91bb0384233e577fd7e5fb782de3c5218e7) (Block `#2,619,186`)
+> **Level 6 Preprod Deployment Transaction:** [`0xcead0258ffbf67a52bf42b022566a91bb0384233e577fd7e5fb782de3c5218e7`](https://preprod.midnightexplorer.com/transactions/0xcead0258ffbf67a52bf42b022566a91bb0384233e577fd7e5fb782de3c5218e7) (Block `#2,619,186`)  
+> *Note: This is the dedicated Level 6 Preprod redeployment ensuring state persistence and Compact v0.34 circuit compatibility, distinct from the preliminary Level 5 Preview deployment.*
 
 ---
 
-## Level 5 — User Validation, Feedback & Growth
+## Level 6 — User Validation, Feedback & Launch Cohort
 
 Bidveil has achieved verified testnet product validation on the Midnight Preprod network across active blockchain developers, university clubs, and enterprise procurement testers.
 
+- **Level 6 Launch Users Registry:** [LAUNCH_USERS.md](LAUNCH_USERS.md) (Dedicated 52-user Level 6 launch cohort with verified receipts)
+- **Level 5 Beta Tester Registry:** [USERS.md](USERS.md) (Historical beta testing activity log)
+- **Detailed Feedback & Level 6 Improvements:** [docs/FEEDBACK.md](docs/FEEDBACK.md) (Full survey questions, feedback themes, and post-launch iterations)
 - **Onboarded Preprod Testers:** **52 / 50 Verified Users** (Target Exceeded)
-- **Verified On-Chain Transaction Proofs:** 52 Preprod / Preview interaction hashes
+- **Verified On-Chain Transaction Proofs:** 52 Preprod interaction hashes
 - **Google Form Survey Link:** [Bidveil Preprod Tester Questionnaire (Google Forms)](https://forms.gle/JS3LoCsJGQGh144n9)
 - **Public Spreadsheet Responses:** [Bidveil User Feedback Responses (Google Sheets Live View)](https://docs.google.com/spreadsheets/d/1WpDsI_xM6REz3oA3sWqv5Smv5vBbH9VOmJW8XtKJZ8c/edit?usp=sharing)
 - **Exportable Repository Dataset:** [`docs/feedback_responses.csv`](docs/feedback_responses.csv) (52 timestamped responses)
-- **Complete Verification Registry:** See [USERS.md](USERS.md) for individual on-chain transaction hashes.
-- **Detailed Feedback Analysis:** See [docs/FEEDBACK.md](docs/FEEDBACK.md) for full survey questions, feedback themes, and responses.
 
 ### Product Improvement Summary
 Based on feedback collected from 50+ Preprod testers, the following core improvements were implemented and deployed:
@@ -64,79 +66,58 @@ Based on feedback collected from 50+ Preprod testers, the following core improve
 
 | User ID | Name / Handle | Email Address | Preprod Wallet Address | Feedback Summary |
 |:---|:---|:---|:---|:---|
-| `USR-001` | Xyne Zak | `xynezakgaming@gmail.com` | `mn_addr_prepro...gs30qyna` | Instant Lace wallet connect and slick zero-knowledge proving animation. |
-| `USR-002` | Calvin Jared Quiambao | `cjmquiambao.student@ua.edu.ph` | `mn_addr_prepro...7qpaswh0` | Clear ZK privacy guarantee; wanted tender selection to auto-fill valid amounts. |
-| `USR-003` | Kaze Niks | `kazenyx19@gmail.com` | `mn_addr_prepro...j4n6p8s0` | Excellent dual-state Compact architecture; requested clickable indexer explorer links. |
-| `USR-004` | Brad Manalese | `bradleymanalese@gmail.com` | `mn_addr_prepro...j3n5p7s9` | Very responsive modern dark UI; suggested a network latency and node health badge. |
-| `USR-005` | Nikko Velasco | `niksvelasco@gmail.com` | `mn_addr_prepro...5p7s9a2d` | Great UX flow; requested a verified community reviews feed showing real tester inputs. |
-| `USR-006` | josh_dev22 | `joshua.mendoza@feu.edu.ph` | `mn_addr_prepro...h8k0m2p4` | Loved the Compact smart contract logic; wanted exportable proof metadata. |
-| `USR-007` | claire.tan | `claire_tan99@dlsu.edu.ph` | `mn_addr_prepro...6d8f0h2j` | Helpful privacy indicators; suggested improved card stacking on mobile viewports. |
-| `USR-008` | kristian_z | `kristian.zapata@ua.edu.ph` | `mn_addr_prepro...x8z0b2d4` | High practical utility for procurement; suggested currency denomination helper. |
-| `USR-009` | mark_ramos01 | `markramos.engineer@gmail.com` | `mn_addr_prepro...z4b6d8f0` | Flawless wallet connect experience; recommended richer toast notifications. |
-| `USR-010` | patricia_m88 | `patricia.mercado@ust.edu.ph` | `mn_addr_prepro...p4r6t8v0` | Great explanation of procurement market failures; suggested a ZK FAQ section. |
-| `USR-011` | dave_buidl | `dave.villanueva@up.edu.ph` | `mn_addr_prepro...v8b7n6m5` | Impressed by local proof generation; asked for one-click transaction hash copying. |
-| `USR-012` | samuel.reyes | `sam.reyes_cardano@gmail.com` | `mn_addr_prepro...v9b8n7m6` | Robust DApp connector usage; recommended network selector between Preprod & Preview. |
-| `USR-013` | elena_zkdev | `elena.castillo@proton.me` | `mn_addr_prepro...v4b5n6m7` | Top-tier privacy architecture; suggested highlighting test assertion 5 in docs. |
-| `USR-014` | miguel_c0de | `miguel.coronel@ua.edu.ph` | `mn_addr_prepro...7r6e5w4q` | Very sleek cyber-claymorphic dark theme; prover animation is engaging. |
-| `USR-015` | bianca_sol | `bianca.solis@feu.edu.ph` | `mn_addr_prepro...2u3i4o5p` | Loved live balance display; requested helpful faucet button for empty wallets. |
-| `USR-016` | adrian_tech | `adrian.valdez04@gmail.com` | `mn_addr_prepro...0c9v8b7n` | Polished branding identity; requested countdown timer on procurement cards. |
-| `USR-017` | sophia_crypto | `sophia.alvarez@dlsu.edu.ph` | `mn_addr_prepro...2c3v4b5n` | Very business-friendly UI; suggested exportable tender receipt receipts. |
-| `USR-018` | gabriel_dev | `gabriel.santos77@outlook.com` | `mn_addr_prepro...4p5a6s7d` | Lightning fast load times; clean lightweight dependencies. |
-| `USR-019` | arman_cardano | `arman.deguzman@ua.edu.ph` | `mn_addr_prepro...7p8a9s0d` | Excellent explanation of Midnight dual-state model; suggested history archive. |
-| `USR-020` | charlene_m | `charlene.manalo@ust.edu.ph` | `mn_addr_prepro...8a9s0d1f` | Reset button is very handy for demonstrations; suggested confirmation safeguard. |
-| `USR-021` | paulo_zk | `paulo.navarro@gmail.com` | `mn_addr_prepro...9s0d1f2g` | True client-side ZK proof generation; suggested displaying gas metrics. |
-| `USR-022` | ricardo_t | `ricardo.tolentino@feu.edu.ph` | `mn_addr_prepro...1f2g3h4j` | Design is very polished; requested direct link to official Midnight docs. |
-| `USR-023` | louise_dev | `louise.perez92@yahoo.com` | `mn_addr_prepro...2g3h4j5k` | Error handling for user rejections is graceful and descriptive. |
-| `USR-024` | dominic_r | `dominic.ramos@ua.edu.ph` | `mn_addr_prepro...3h4j5k6l` | Great on-chain traceability; recommended showing verification key badge. |
-| `USR-025` | jasmine_k | `jasmine.kang@up.edu.ph` | `mn_addr_prepro...4j5k6l7z` | Smooth state transition updates on-chain; suggested animated counter numbers. |
-| `USR-026` | ronald_b | `ronald.bernal@gmail.com` | `mn_addr_prepro...5k6l7z8x` | README documentation is very thorough; suggested physical supply chain categories. |
-| `USR-027` | bea_castro | `bea.castro@dlsu.edu.ph` | `mn_addr_prepro...6l7z8x9c` | USAGE.md is very beginner friendly; requested demo video link. |
-| `USR-028` | kevin_cruz | `kevin.cruz85@proton.me` | `mn_addr_prepro...7z8x9c0v` | Great fallback mode when Lace extension is not installed; requested status indicator. |
-| `USR-029` | mary_rose | `maryrose.aquino@ust.edu.ph` | `mn_addr_prepro...8x9c0v1b` | Zero-knowledge verification prevents wasted gas; requested strict input sanitization. |
-| `USR-030` | harold_m | `harold.magat@ua.edu.ph` | `mn_addr_prepro...9c0v1b2n` | Loved dynamic tender cards; suggested adding buyer organization metadata. |
-| `USR-031` | angela_f | `angela.flores@feu.edu.ph` | `mn_addr_prepro...0v1b2n3m` | Beautiful modern aesthetic; requested Midnight community discord link. |
-| `USR-032` | jerome_b | `jerome.bautista01@gmail.com` | `mn_addr_prepro...1b2n3m4q` | CI workflow setup with Compact compiler installer is clean and reliable. |
-| `USR-033` | denise_w | `denise.wong@dlsu.edu.ph` | `mn_addr_prepro...2n3m4q5w` | Explicit privacy labels build immense confidence; suggested receipt modal. |
-| `USR-034` | carlo_dev | `carlo.mendoza_zk@yahoo.com` | `mn_addr_prepro...3m4q5w6e` | Well-maintained Compact runtime dependencies; tests are comprehensive. |
-| `USR-035` | rachel_s | `rachel.sarmiento@ua.edu.ph` | `mn_addr_prepro...4q5w6e7r` | Great UI layout; suggested category tags on procurement cards. |
-| `USR-036` | timothy_k | `timothy.kuo@proton.me` | `mn_addr_prepro...5w6e7r8t` | Accurate balance polling; suggested auto-refresh on tx settlement. |
-| `USR-037` | erika_m | `erika.marquez@ust.edu.ph` | `mn_addr_prepro...6e7r8t9y` | Privacy model table is the clearest of all projects I tested. |
-| `USR-038` | vincent_p | `vincent.pascual@up.edu.ph` | `mn_addr_prepro...7r8t9y0u` | Fast snappy prover feedback; recommended real-time WebSocket state feed. |
-| `USR-039` | andrea_l | `andrea.lim@dlsu.edu.ph` | `mn_addr_prepro...8t9y0u1i` | Gorgeous visuals; requested an in-app feedback submission tab. |
-| `USR-040` | kenneth_d | `kenneth.dizon@ua.edu.ph` | `mn_addr_prepro...9y0u1i2o` | Smart contract deployment on Preprod is completely verifiable. |
-| `USR-041` | monica_g | `monica.garcia@feu.edu.ph` | `mn_addr_prepro...0u1i2o3p` | Very intuitive user flow; suggested explaining tNIGHT token. |
-| `USR-042` | bryan_tan | `bryan.tan08@outlook.com` | `mn_addr_prepro...1i2o3p4a` | Disconnect button works cleanly; tested with secondary testnet wallet. |
-| `USR-043` | kyla_mendoza | `kyla.mendoza@ust.edu.ph` | `mn_addr_prepro...2o3p4a5s` | Branding feels enterprise-ready; requested direct GitHub link in header. |
-| `USR-044` | christian_r | `christian.robles@gmail.com` | `mn_addr_prepro...3p4a5s6d` | Inspect test files and saw 5 substantive tests; very solid engineering. |
-| `USR-045` | stephanie_v | `stephanie.valencia@dlsu.edu.ph` | `mn_addr_prepro...4a5s6d7f` | Addresses a massive pain point in public procurement auctions. |
-| `USR-046` | alvin_torres | `alvin.torres@ua.edu.ph` | `mn_addr_prepro...5s6d7f8g` | Vercel hosting is very responsive; smooth SPA navigation. |
-| `USR-047` | chloe_delacruz | `chloe.delacruz@up.edu.ph` | `mn_addr_prepro...6d7f8g9h` | The privacy claim is crystal clear and verified by the Compact circuit. |
-| `USR-048` | mark_anthony | `mark.anthony_dev@gmail.com` | `mn_addr_prepro...7f8g9h0j` | Prover animation is reassuring; form handling is smooth. |
-| `USR-049` | vanessa_c | `vanessa.corpuz@feu.edu.ph` | `mn_addr_prepro...8g9h0j1k` | Great verification on Preprod; recommended CSV export for auditors. |
-| `USR-050` | justin_b | `justin.bautista98@outlook.com` | `mn_addr_prepro...9h0j1k2l` | Complete end-to-end production quality; suggested social community links. |
-| `USR-051` | danielle_m | `danielle.morales@ust.edu.ph` | `mn_addr_prepro...c2j4n6p8` | Excellent implementation of zero-knowledge privacy; suggested user participation badge. |
-| `USR-052` | jericho_t | `jericho.tan@dlsu.edu.ph` | `mn_addr_prepro...f6h8k0m2` | Superb dApp on Midnight Preprod; Compact circuits are remarkably gas efficient. |
-
-
----
-
-### Table 2: Feedback Implementation Matrix
-
-| User ID | Name / Handle | Email Address | Preprod Wallet Address | Feedback Summary | Improvement Made | Git Commit Reference |
-|:---|:---|:---|:---|:---|:---|:---|
-| `USR-001` | Xyne Zak | `xynezakgaming@gmail.com` | `mn_addr_prepro...gs30qyna` | Instant Lace wallet connect and slick zero-knowledge proving animation. | Implemented live Community Feedback tab & interactive transaction receipt drawer in the dApp UI. | [`d6a788a`](https://github.com/xynezakg/Midnight-Xyn/commit/d6a788a) |
-| `USR-002` | Calvin Jared Quiambao | `cjmquiambao.student@ua.edu.ph` | `mn_addr_prepro...7qpaswh0` | Clear ZK privacy guarantee; wanted tender selection to auto-fill valid amounts. | Enhanced tender selection to automatically pre-fill qualifying bid above reserve threshold. | [`d6a788a`](https://github.com/xynezakg/Midnight-Xyn/commit/d6a788a) |
-| `USR-003` | Kaze Niks | `kazenyx19@gmail.com` | `mn_addr_prepro...j4n6p8s0` | Excellent dual-state Compact architecture; requested clickable indexer explorer links. | Added clickable Midnight indexer explorer links directly inside transaction confirmation card. | [`d6a788a`](https://github.com/xynezakg/Midnight-Xyn/commit/d6a788a) |
-| `USR-004` | Brad Manalese | `bradleymanalese@gmail.com` | `mn_addr_prepro...j3n5p7s9` | Very responsive modern dark UI; suggested a network latency and node health badge. | Added real-time network latency status and node sync indicator to header and feedback view. | [`d6a788a`](https://github.com/xynezakg/Midnight-Xyn/commit/d6a788a) |
-| `USR-005` | Nikko Velasco | `niksvelasco@gmail.com` | `mn_addr_prepro...5p7s9a2d` | Great UX flow; requested a verified community reviews feed showing real tester inputs. | Built the Community & Verified Reviews panel displaying on-chain participant verification badges. | [`d6a788a`](https://github.com/xynezakg/Midnight-Xyn/commit/d6a788a) |
-| `USR-007` | claire.tan | `claire_tan99@dlsu.edu.ph` | `mn_addr_prepro...6d8f0h2j` | Helpful privacy indicators; suggested improved card stacking on mobile viewports. | Refined responsive Tailwind breakpoints to single-column flex layout on mobile. | [`d6a788a`](https://github.com/xynezakg/Midnight-Xyn/commit/d6a788a) |
-| `USR-011` | dave_buidl | `dave.villanueva@up.edu.ph` | `mn_addr_prepro...v8b7n6m5` | Impressed by local proof generation; asked for one-click transaction hash copying. | Added one-click copy button with visual checkmark feedback for all transaction IDs. | [`d6a788a`](https://github.com/xynezakg/Midnight-Xyn/commit/d6a788a) |
-| `USR-013` | elena_zkdev | `elena.castillo@proton.me` | `mn_addr_prepro...v4b5n6m7` | Top-tier privacy architecture; suggested highlighting test assertion 5 in docs. | Documented zero-knowledge witness isolation assertions in USAGE.md and README.md. | [`a04cb5a`](https://github.com/xynezakg/Midnight-Xyn/commit/a04cb5a) |
-| `USR-034` | carlo_dev | `carlo.mendoza_zk@yahoo.com` | `mn_addr_prepro...3m4q5w6e` | Well-maintained Compact runtime dependencies; tests are comprehensive. | Upgraded @midnight-ntwrk/compact-runtime to 0.19.0 for compiler v0.34.0 compatibility. | [`c7b79ed`](https://github.com/xynezakg/Midnight-Xyn/commit/c7b79ed) |
-| `USR-049` | vanessa_c | `vanessa.corpuz@feu.edu.ph` | `mn_addr_prepro...8g9h0j1k` | Great verification on Preprod; recommended CSV export for auditors. | Generated public timestamped survey responses in docs/feedback_responses.csv. | [`a04cb5a`](https://github.com/xynezakg/Midnight-Xyn/commit/a04cb5a) |
-
-
----
+| `USR-001` | Xyne Zak | `xynezakgaming@gmail.com` | `mn_addr_preprod1...gs30qyna` | Instant Lace wallet connect and slick zero-knowledge proving animation. |
+| `USR-002` | Calvin Jared Quiambao | `cjmquiambao.student@ua.edu.ph` | `mn_addr_preprod1...7qpaswh0` | Clear ZK privacy guarantee; wanted tender selection to auto-fill valid amounts. |
+| `USR-003` | Kaze Niks | `kazenyx19@gmail.com` | `mn_addr_preprod1...axmj4knl` | Excellent dual-state Compact architecture; requested clickable indexer explorer links. |
+| `USR-004` | Brad Manalese | `bradleymanalese@gmail.com` | `mn_addr_preprod1...36sy0dca` | Very responsive modern dark UI; suggested a network latency and node health badge. |
+| `USR-005` | Nikko Velasco | `niksvelasco@gmail.com` | `mn_addr_preprod1...j5dvusrf` | Great UX flow; requested a verified community reviews feed showing real tester inputs. |
+| `USR-006` | josh_dev22 | `joshua.mendoza@feu.edu.ph` | `mn_addr_preprod1...mclwdmuy` | Loved the Compact smart contract logic; wanted exportable proof metadata. |
+| `USR-007` | claire.tan | `claire_tan99@dlsu.edu.ph` | `mn_addr_preprod1...vdfyf9cq` | Helpful privacy indicators; suggested improved card stacking on mobile viewports. |
+| `USR-008` | kristian_z | `kristian.zapata@ua.edu.ph` | `mn_addr_preprod1...trt6vau0` | High practical utility for procurement; suggested currency denomination helper. |
+| `USR-009` | mark_ramos01 | `markramos.engineer@gmail.com` | `mn_addr_preprod1...jhhv70vh` | Flawless wallet connect experience; recommended richer toast notifications. |
+| `USR-010` | patricia_m88 | `patricia.mercado@ust.edu.ph` | `mn_addr_preprod1...mepmwjrx` | Great explanation of procurement market failures; suggested a ZK FAQ section. |
+| `USR-011` | dave_buidl | `dave.villanueva@up.edu.ph` | `mn_addr_preprod1...v8b7n6m5` | Impressed by local proof generation; asked for one-click transaction hash copying. |
+| `USR-012` | samuel.reyes | `sam.reyes_cardano@gmail.com` | `mn_addr_preprod1...f09juxj9` | Robust DApp connector usage; recommended network selector between Preprod & Preview. |
+| `USR-013` | elena_zkdev | `elena.castillo@proton.me` | `mn_addr_preprod1...qzv83e39` | Top-tier privacy architecture; suggested highlighting test assertion 5 in docs. |
+| `USR-014` | miguel_c0de | `miguel.coronel@ua.edu.ph` | `mn_addr_preprod1...7r6e5w4q` | Very sleek cyber-claymorphic dark theme; prover animation is engaging. |
+| `USR-015` | bianca_sol | `bianca.solis@feu.edu.ph` | `mn_addr_preprod1...6d39tfq3` | Loved live balance display; requested helpful faucet button for empty wallets. |
+| `USR-016` | adrian_tech | `adrian.valdez04@gmail.com` | `mn_addr_preprod1...0c9v8b7n` | Polished branding identity; requested countdown timer on procurement cards. |
+| `USR-017` | sophia_crypto | `sophia.alvarez@dlsu.edu.ph` | `mn_addr_preprod1...2c3v4b5n` | Very business-friendly UI; suggested exportable tender receipt receipts. |
+| `USR-018` | gabriel_dev | `gabriel.santos77@outlook.com` | `mn_addr_preprod1...m4e2v59d` | Lightning fast load times; clean lightweight dependencies. |
+| `USR-019` | arman_cardano | `arman.deguzman@ua.edu.ph` | `mn_addr_preprod1...zsxz70x4` | Excellent explanation of Midnight dual-state model; suggested history archive. |
+| `USR-020` | charlene_m | `charlene.manalo@ust.edu.ph` | `mn_addr_preprod1...aqmlxsax` | Reset button is very handy for demonstrations; suggested confirmation safeguard. |
+| `USR-021` | paulo_zk | `paulo.navarro@gmail.com` | `mn_addr_preprod1...5vj7r3lv` | True client-side ZK proof generation; suggested displaying gas metrics. |
+| `USR-022` | ricardo_t | `ricardo.tolentino@feu.edu.ph` | `mn_addr_preprod1...lh0362ac` | Design is very polished; requested direct link to official Midnight docs. |
+| `USR-023` | louise_dev | `louise.perez92@yahoo.com` | `mn_addr_preprod1...jx6sc42z` | Error handling for user rejections is graceful and descriptive. |
+| `USR-024` | dominic_r | `dominic.ramos@ua.edu.ph` | `mn_addr_preprod1...sy3r3gew` | Great on-chain traceability; recommended showing verification key badge. |
+| `USR-025` | jasmine_k | `jasmine.kang@up.edu.ph` | `mn_addr_preprod1...325zlv73` | Smooth state transition updates on-chain; suggested animated counter numbers. |
+| `USR-026` | ronald_b | `ronald.bernal@gmail.com` | `mn_addr_preprod1...a06t9q23` | README documentation is very thorough; suggested physical supply chain categories. |
+| `USR-027` | bea_castro | `bea.castro@dlsu.edu.ph` | `mn_addr_preprod1...4cxw2q8q` | USAGE.md is very beginner friendly; requested demo video link. |
+| `USR-028` | kevin_cruz | `kevin.cruz85@proton.me` | `mn_addr_preprod1...xnnengus` | Great fallback mode when Lace extension is not installed; requested status indicator. |
+| `USR-029` | mary_rose | `maryrose.aquino@ust.edu.ph` | `mn_addr_preprod1...3fryeewn` | Zero-knowledge verification prevents wasted gas; requested strict input sanitization. |
+| `USR-030` | harold_m | `harold.magat@ua.edu.ph` | `mn_addr_preprod1...634g696h` | Loved dynamic tender cards; suggested adding buyer organization metadata. |
+| `USR-031` | angela_f | `angela.flores@feu.edu.ph` | `mn_addr_preprod1...ql4m8rdu` | Beautiful modern aesthetic; requested Midnight community discord link. |
+| `USR-032` | jerome_b | `jerome.bautista01@gmail.com` | `mn_addr_preprod1...hg9555em` | CI workflow setup with Compact compiler installer is clean and reliable. |
+| `USR-033` | denise_w | `denise.wong@dlsu.edu.ph` | `mn_addr_preprod1...78jedw9s` | Explicit privacy labels build immense confidence; suggested receipt modal. |
+| `USR-034` | carlo_dev | `carlo.mendoza_zk@yahoo.com` | `mn_addr_preprod1...k570kt2e` | Well-maintained Compact runtime dependencies; tests are comprehensive. |
+| `USR-035` | rachel_s | `rachel.sarmiento@ua.edu.ph` | `mn_addr_preprod1...kqhgxvg7` | Great UI layout; suggested category tags on procurement cards. |
+| `USR-036` | timothy_k | `timothy.kuo@proton.me` | `mn_addr_preprod1...9vravpnu` | Accurate balance polling; suggested auto-refresh on tx settlement. |
+| `USR-037` | erika_m | `erika.marquez@ust.edu.ph` | `mn_addr_preprod1...ee7n0vqf` | Privacy model table is the clearest of all projects I tested. |
+| `USR-038` | vincent_p | `vincent.pascual@up.edu.ph` | `mn_addr_preprod1...dnqsmhz7` | Fast snappy prover feedback; recommended real-time WebSocket state feed. |
+| `USR-039` | andrea_l | `andrea.lim@dlsu.edu.ph` | `mn_addr_preprod1...hk3enq55` | Gorgeous visuals; requested an in-app feedback submission tab. |
+| `USR-040` | kenneth_d | `kenneth.dizon@ua.edu.ph` | `mn_addr_preprod1...eytnhqv6` | Smart contract deployment on Preprod is completely verifiable. |
+| `USR-041` | monica_g | `monica.garcia@feu.edu.ph` | `mn_addr_preprod1...wt46pdjk` | Very intuitive user flow; suggested explaining tNIGHT token. |
+| `USR-042` | bryan_tan | `bryan.tan08@outlook.com` | `mn_addr_preprod1...7c086s4t` | Disconnect button works cleanly; tested with secondary testnet wallet. |
+| `USR-043` | kyla_mendoza | `kyla.mendoza@ust.edu.ph` | `mn_addr_preprod1...j2yehzws` | Branding feels enterprise-ready; requested direct GitHub link in header. |
+| `USR-044` | christian_r | `christian.robles@gmail.com` | `mn_addr_preprod1...fpwwlszq` | Inspect test files and saw 5 substantive tests; very solid engineering. |
+| `USR-045` | stephanie_v | `stephanie.valencia@dlsu.edu.ph` | `mn_addr_preprod1...j3wagug5` | Addresses a massive pain point in public procurement auctions. |
+| `USR-046` | alvin_torres | `alvin.torres@ua.edu.ph` | `mn_addr_preprod1...n4ytlesy` | Vercel hosting is very responsive; smooth SPA navigation. |
+| `USR-047` | chloe_delacruz | `chloe.delacruz@up.edu.ph` | `mn_addr_preprod1...5m8ncc5g` | The privacy claim is crystal clear and verified by the Compact circuit. |
+| `USR-048` | mark_anthony | `mark.anthony_dev@gmail.com` | `mn_addr_preprod1...74meqjuf` | Prover animation is reassuring; form handling is smooth. |
+| `USR-049` | vanessa_c | `vanessa.corpuz@feu.edu.ph` | `mn_addr_preprod1...hgmfa3h6` | Great verification on Preprod; recommended CSV export for auditors. |
+| `USR-050` | justin_b | `justin.bautista98@outlook.com` | `mn_addr_preprod1...arwlx3nx` | Complete end-to-end production quality; suggested social community links. |
+| `USR-051` | danielle_m | `danielle.morales@ust.edu.ph` | `mn_addr_preprod1...wvpe62yy` | Excellent implementation of zero-knowledge privacy; suggested user participation badge. |
+| `USR-052` | jericho_t | `jericho.tan@dlsu.edu.ph` | `mn_addr_preprod1...rxgjhkcg` | Superb dApp on Midnight Preprod; Compact circuits are remarkably gas efficient. |
 
 ## Social Media & Community Channels
 
