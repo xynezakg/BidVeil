@@ -8,7 +8,7 @@ export const BIDVEIL_CONTRACT_CONFIG = {
   address: '7ff3da84fceba28bdae68fa8ada604e45bbe191f938873b34857773e1c1e8ec2',
   preprodAddress: '7ff3da84fceba28bdae68fa8ada604e45bbe191f938873b34857773e1c1e8ec2',
   previewAddress: '7ff3da84fceba28bdae68fa8ada604e45bbe191f938873b34857773e1c1e8ec2',
-  explorerUrl: 'https://www.midnightexplorer.com',
+  explorerUrl: 'https://preprod.midnightexplorer.com',
   circuits: {
     initializeTender: 'initializeTender',
     submitSealedBid: 'submitSealedBid',
@@ -17,6 +17,11 @@ export const BIDVEIL_CONTRACT_CONFIG = {
     resetTender: 'resetTender',
   },
 };
+
+export function getExplorerTxUrl(txHash: string): string {
+  const clean = txHash.replace(/^0x/, '');
+  return `https://preprod.midnightexplorer.com/tx/${clean}`;
+}
 
 export interface TenderInfo {
   id: string;

@@ -18,7 +18,7 @@ import {
   ExternalLink,
   Zap 
 } from 'lucide-react';
-import { BIDVEIL_CONTRACT_CONFIG, formatAddress } from '../utils/contract';
+import { BIDVEIL_CONTRACT_CONFIG, formatAddress, getExplorerTxUrl } from '../utils/contract';
 
 interface SealedBiddingProps {
   contractAddress: string;
@@ -404,7 +404,7 @@ export const SealedBidding: React.FC<SealedBiddingProps> = ({
                 Tx Hash: {txHash}
               </span>
               <a
-                href={BIDVEIL_CONTRACT_CONFIG.explorerUrl}
+                href={getExplorerTxUrl(txHash)}
                 target="_blank"
                 rel="noreferrer"
                 className="font-bold text-cyan-300 hover:underline flex items-center gap-1 shrink-0 font-mono"
