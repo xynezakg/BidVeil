@@ -46,14 +46,14 @@ export const App: React.FC = () => {
       ) : (
         <div className="space-y-6">
           {/* Header Banner to return to SaaS Homepage */}
-          <div className="flex items-center justify-between p-4 rounded-2xl bg-slate-900/60 border border-slate-800">
+          <div className="flex items-center justify-between p-4 rounded-2xl bg-[#121929] border border-white/10">
             <div>
-              <h2 className="text-base font-bold text-white">Bidveil Bidding Terminal</h2>
-              <p className="text-xs text-slate-400">Zero-Knowledge Sealed-Bid Execution Environment</p>
+              <h2 className="text-base font-bold text-[#F4F7FA]">Bidveil Bidding Terminal</h2>
+              <p className="text-xs text-[#94A3B8]">Zero-Knowledge Sealed-Bid Execution Environment</p>
             </div>
             <button
               onClick={() => setActiveTab('landing')}
-              className="px-3.5 py-1.5 rounded-xl saas-button-secondary text-xs font-semibold"
+              className="px-4 py-2 rounded-xl bg-[#162035] hover:bg-[#1E293B] border border-white/10 text-white text-xs font-semibold transition-colors flex items-center gap-1.5"
             >
               &larr; Back to Overview
             </button>

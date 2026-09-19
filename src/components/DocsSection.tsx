@@ -45,28 +45,28 @@ export const DocsSection: React.FC = () => {
     <section id="docs" className="scroll-mt-24 space-y-6">
       {/* Section Header */}
       <div className="text-center max-w-2xl mx-auto space-y-3">
-        <div className="ent-badge text-xs">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#00A3FF]/10 border border-[#00A3FF]/25 text-[#00A3FF] text-xs font-semibold">
           <BookOpen className="w-3.5 h-3.5" />
           <span>Technical Specifications</span>
         </div>
-        <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#F4F7FA]">
+        <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#F4F7FA]">
           Documentation &amp; Contract Verification
         </h2>
-        <p className="text-base text-[#94A3B8]">
+        <p className="text-sm sm:text-base text-[#94A3B8]">
           Detailed specifications on Bidveil's zero-knowledge circuit pipeline, Compact contract rules, and testnet integration.
         </p>
       </div>
 
       {/* Docs Container */}
-      <div className="ent-card overflow-hidden">
+      <div className="cyan-card overflow-hidden">
         {/* Horizontally Scrollable Sub-navigation Tabs */}
-        <div className="flex border-b border-[#253142] bg-[#0A0E17] overflow-x-auto scrollbar-none px-2 pt-2">
+        <div className="flex border-b border-white/10 bg-[#0B0F19] overflow-x-auto scrollbar-none px-2 pt-2">
           <button
             onClick={() => setActiveTab('quickstart')}
             className={`px-5 py-3 text-xs font-semibold flex items-center gap-2 border-b-2 transition-all whitespace-nowrap min-h-[44px] ${
               activeTab === 'quickstart'
-                ? 'border-[#74E8A3] text-[#74E8A3] bg-[#141D2A]'
-                : 'border-transparent text-[#94A3B8] hover:text-[#F4F7FA] hover:bg-[#101722]'
+                ? 'border-[#00A3FF] text-[#00A3FF] bg-[#121929]'
+                : 'border-transparent text-[#94A3B8] hover:text-[#F4F7FA] hover:bg-[#121929]/50'
             }`}
           >
             <Terminal className="w-3.5 h-3.5" />
@@ -77,8 +77,8 @@ export const DocsSection: React.FC = () => {
             onClick={() => setActiveTab('circuits')}
             className={`px-5 py-3 text-xs font-semibold flex items-center gap-2 border-b-2 transition-all whitespace-nowrap min-h-[44px] ${
               activeTab === 'circuits'
-                ? 'border-[#74E8A3] text-[#74E8A3] bg-[#141D2A]'
-                : 'border-transparent text-[#94A3B8] hover:text-[#F4F7FA] hover:bg-[#101722]'
+                ? 'border-[#00A3FF] text-[#00A3FF] bg-[#121929]'
+                : 'border-transparent text-[#94A3B8] hover:text-[#F4F7FA] hover:bg-[#121929]/50'
             }`}
           >
             <Cpu className="w-3.5 h-3.5" />
@@ -89,8 +89,8 @@ export const DocsSection: React.FC = () => {
             onClick={() => setActiveTab('privacy')}
             className={`px-5 py-3 text-xs font-semibold flex items-center gap-2 border-b-2 transition-all whitespace-nowrap min-h-[44px] ${
               activeTab === 'privacy'
-                ? 'border-[#74E8A3] text-[#74E8A3] bg-[#141D2A]'
-                : 'border-transparent text-[#94A3B8] hover:text-[#F4F7FA] hover:bg-[#101722]'
+                ? 'border-[#00A3FF] text-[#00A3FF] bg-[#121929]'
+                : 'border-transparent text-[#94A3B8] hover:text-[#F4F7FA] hover:bg-[#121929]/50'
             }`}
           >
             <Lock className="w-3.5 h-3.5" />
@@ -101,8 +101,8 @@ export const DocsSection: React.FC = () => {
             onClick={() => setActiveTab('faq')}
             className={`px-5 py-3 text-xs font-semibold flex items-center gap-2 border-b-2 transition-all whitespace-nowrap min-h-[44px] ${
               activeTab === 'faq'
-                ? 'border-[#74E8A3] text-[#74E8A3] bg-[#141D2A]'
-                : 'border-transparent text-[#94A3B8] hover:text-[#F4F7FA] hover:bg-[#101722]'
+                ? 'border-[#00A3FF] text-[#00A3FF] bg-[#121929]'
+                : 'border-transparent text-[#94A3B8] hover:text-[#F4F7FA] hover:bg-[#121929]/50'
             }`}
           >
             <HelpCircle className="w-3.5 h-3.5" />
@@ -116,7 +116,7 @@ export const DocsSection: React.FC = () => {
             <div className="space-y-6">
               <div className="space-y-3">
                 <h3 className="text-base font-semibold text-[#F4F7FA] flex items-center gap-2">
-                  <Key className="w-4 h-4 text-[#74E8A3]" />
+                  <Key className="w-4 h-4 text-[#00A3FF]" />
                   Preprod Contract Deployment
                 </h3>
                 <p className="text-sm text-[#94A3B8] leading-relaxed">
@@ -124,12 +124,12 @@ export const DocsSection: React.FC = () => {
                 </p>
 
                 {/* Contract Address Card */}
-                <div className="p-4 sm:p-5 rounded-xl bg-[#080D14] border border-[#253142] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div className="p-4 sm:p-5 rounded-xl bg-[#0B0F19] border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                   <div className="space-y-1 overflow-hidden">
                     <span className="text-[10px] uppercase font-semibold text-[#94A3B8] tracking-wider block">
                       Canonical Contract Address (Preprod)
                     </span>
-                    <span className="font-mono text-xs sm:text-sm text-[#74E8A3] font-medium break-all select-all block">
+                    <span className="font-mono text-xs sm:text-sm text-[#00A3FF] font-semibold break-all select-all block">
                       {BIDVEIL_CONTRACT_CONFIG.preprodAddress}
                     </span>
                   </div>
@@ -137,17 +137,17 @@ export const DocsSection: React.FC = () => {
                   <div className="flex items-center gap-2 shrink-0">
                     <button
                       onClick={handleCopyAddress}
-                      className="ent-btn-secondary text-xs px-3.5 py-2 min-h-[38px]"
+                      className="px-3.5 py-2 rounded-xl bg-[#162035] hover:bg-[#1E293B] border border-white/10 text-white font-medium text-xs transition-colors flex items-center gap-1.5 min-h-[38px]"
                       title="Copy full address to clipboard"
                     >
                       {copiedAddress ? (
                         <>
-                          <Check className="w-3.5 h-3.5 text-[#74E8A3]" />
-                          <span>Copied</span>
+                          <Check className="w-3.5 h-3.5 text-[#00A3FF]" />
+                          <span className="text-[#00A3FF]">Copied</span>
                         </>
                       ) : (
                         <>
-                          <Copy className="w-3.5 h-3.5" />
+                          <Copy className="w-3.5 h-3.5 text-[#94A3B8]" />
                           <span>Copy Address</span>
                         </>
                       )}
@@ -157,10 +157,10 @@ export const DocsSection: React.FC = () => {
                       href={BIDVEIL_CONTRACT_CONFIG.explorerUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="ent-btn-secondary text-xs px-3.5 py-2 min-h-[38px]"
+                      className="px-3.5 py-2 rounded-xl bg-[#162035] hover:bg-[#1E293B] border border-white/10 text-white font-medium text-xs transition-colors flex items-center gap-1.5 min-h-[38px]"
                     >
                       <span>Explorer</span>
-                      <ExternalLink className="w-3.5 h-3.5" />
+                      <ExternalLink className="w-3.5 h-3.5 text-[#94A3B8]" />
                     </a>
                   </div>
                 </div>
@@ -168,14 +168,14 @@ export const DocsSection: React.FC = () => {
 
               {/* Steps */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-                <div className="p-4 rounded-xl bg-[#0E1520] border border-[#253142] space-y-2">
-                  <div className="text-xs font-semibold text-[#74E8A3]">1. Configure Lace Wallet</div>
+                <div className="p-5 rounded-xl bg-[#0B0F19] border border-white/10 space-y-2">
+                  <div className="text-xs font-bold text-[#00A3FF] uppercase tracking-wider">1. Configure Lace Wallet</div>
                   <p className="text-xs text-[#94A3B8] leading-relaxed">
                     Install the Lace Midnight extension and set your network to Preprod. Request testnet tNIGHT tokens via the official Midnight faucet.
                   </p>
                 </div>
-                <div className="p-4 rounded-xl bg-[#0E1520] border border-[#253142] space-y-2">
-                  <div className="text-xs font-semibold text-[#74E8A3]">2. Connect &amp; Submit Bids</div>
+                <div className="p-5 rounded-xl bg-[#0B0F19] border border-white/10 space-y-2">
+                  <div className="text-xs font-bold text-[#00A3FF] uppercase tracking-wider">2. Connect &amp; Submit Bids</div>
                   <p className="text-xs text-[#94A3B8] leading-relaxed">
                     Click "Launch Terminal" in the top bar. Choose a tender, input your confidential bid, and generate client-side zk-SNARK proofs locally in your browser.
                   </p>
@@ -194,20 +194,20 @@ export const DocsSection: React.FC = () => {
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                <div className="p-4 rounded-xl bg-[#080D14] border border-[#253142] space-y-1">
-                  <div className="font-mono text-xs text-[#74E8A3] font-semibold">initializeTender(reservePrice)</div>
+                <div className="p-4 rounded-xl bg-[#0B0F19] border border-white/10 space-y-1">
+                  <div className="font-mono text-xs text-[#00A3FF] font-semibold">initializeTender(reservePrice)</div>
                   <p className="text-xs text-[#94A3B8]">Configures the minimum reserve price and marks the tender open for sealed bid submissions.</p>
                 </div>
-                <div className="p-4 rounded-xl bg-[#080D14] border border-[#253142] space-y-1">
-                  <div className="font-mono text-xs text-[#74E8A3] font-semibold">submitSealedBid(secretBid)</div>
+                <div className="p-4 rounded-xl bg-[#0B0F19] border border-white/10 space-y-1">
+                  <div className="font-mono text-xs text-[#00A3FF] font-semibold">submitSealedBid(secretBid)</div>
                   <p className="text-xs text-[#94A3B8]">Evaluates private witness constraints locally. Proves bid &gt;= reserve without revealing the value on-chain.</p>
                 </div>
-                <div className="p-4 rounded-xl bg-[#080D14] border border-[#253142] space-y-1">
-                  <div className="font-mono text-xs text-[#74E8A3] font-semibold">submitDisclosedBid(publicBid)</div>
+                <div className="p-4 rounded-xl bg-[#0B0F19] border border-white/10 space-y-1">
+                  <div className="font-mono text-xs text-[#00A3FF] font-semibold">submitDisclosedBid(publicBid)</div>
                   <p className="text-xs text-[#94A3B8]">Alternative transparent bidding pathway for public reverse auctions.</p>
                 </div>
-                <div className="p-4 rounded-xl bg-[#080D14] border border-[#253142] space-y-1">
-                  <div className="font-mono text-xs text-[#74E8A3] font-semibold">closeTender()</div>
+                <div className="p-4 rounded-xl bg-[#0B0F19] border border-white/10 space-y-1">
+                  <div className="font-mono text-xs text-[#00A3FF] font-semibold">closeTender()</div>
                   <p className="text-xs text-[#94A3B8]">Closes the active bidding window to finalize all submitted zero-knowledge commitments.</p>
                 </div>
               </div>
@@ -222,11 +222,11 @@ export const DocsSection: React.FC = () => {
               <p className="text-sm text-[#94A3B8] leading-relaxed">
                 Traditional public blockchains broadcast all mempool transactions in plain text. Competitors can observe vendor pricing proposals and front-run offers before blocks are minted.
               </p>
-              <div className="p-4 rounded-xl bg-[#080D14] border border-[#253142] space-y-2">
-                <div className="text-xs font-semibold text-[#74E8A3]">How Bidveil Prevents Valuation Leakage:</div>
+              <div className="p-4 rounded-xl bg-[#0B0F19] border border-white/10 space-y-2">
+                <div className="text-xs font-semibold text-[#00A3FF]">How Bidveil Prevents Valuation Leakage:</div>
                 <ul className="space-y-1.5 text-xs text-[#94A3B8]">
                   <li>• <strong>Private State Isolation:</strong> The actual bid valuation exists only as a local witness in the Lace browser extension memory.</li>
-                  <li>• <strong>Zero-Knowledge Arithmetic:</strong> The local prover generates a cryptographic proof verifying <code className="text-slate-200">bid &gt;= reservePrice</code> without emitting the input value.</li>
+                  <li>• <strong>Zero-Knowledge Arithmetic:</strong> The local prover generates a cryptographic proof verifying <code className="text-cyan-300">bid &gt;= reservePrice</code> without emitting the input value.</li>
                   <li>• <strong>Immutable Ledger Consensus:</strong> Midnight validator nodes verify the validity proof and register commitment hashes with zero data disclosure.</li>
                 </ul>
               </div>
@@ -236,7 +236,7 @@ export const DocsSection: React.FC = () => {
           {activeTab === 'faq' && (
             <div className="space-y-3">
               {faqs.map((faq, i) => (
-                <div key={i} className="p-4 rounded-xl bg-[#080D14] border border-[#253142] space-y-1.5">
+                <div key={i} className="p-4 rounded-xl bg-[#0B0F19] border border-white/10 space-y-1.5">
                   <h4 className="text-xs sm:text-sm font-semibold text-[#F4F7FA]">{faq.q}</h4>
                   <p className="text-xs text-[#94A3B8] leading-relaxed">{faq.a}</p>
                 </div>
