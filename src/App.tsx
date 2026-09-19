@@ -23,6 +23,7 @@ export const App: React.FC = () => {
     isOpen,
     isProving,
     txHash,
+    receiptType,
     connectionType,
     isBroadcastingGas,
     gasTxHash,
@@ -89,6 +90,7 @@ export const App: React.FC = () => {
             isConnected={isConnected}
             isProving={isProving}
             txHash={txHash}
+            receiptType={receiptType}
             error={error}
             connectionType={connectionType}
             onExecuteCircuit={executeCircuitCall}

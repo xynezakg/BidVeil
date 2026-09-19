@@ -28,6 +28,7 @@ interface SealedBiddingProps {
   isConnected: boolean;
   isProving: boolean;
   txHash: string | null;
+  receiptType?: 'signature' | 'onchain_tx' | 'simulation' | null;
   error: string | null;
   connectionType?: 'lace' | 'sandbox' | null;
   onExecuteCircuit: (
@@ -45,6 +46,7 @@ export const SealedBidding: React.FC<SealedBiddingProps> = ({
   isConnected,
   isProving,
   txHash,
+  receiptType,
   error,
   connectionType = 'sandbox',
   onExecuteCircuit,
@@ -394,39 +396,61 @@ export const SealedBidding: React.FC<SealedBiddingProps> = ({
         {/* Transaction / Proving Receipt */}
         {txHash && (
           <div className={`p-4 rounded-xl space-y-2.5 ${
-            connectionType === 'lace' 
-              ? 'bg-emerald-950/40 border border-emerald-500/30' 
+            receiptType === 'onchain_tx'
+              ? 'bg-emerald-950/40 border border-emerald-500/30'
+              : receiptType === 'signature'
+              ? 'bg-indigo-950/40 border border-indigo-500/30'
               : 'bg-cyan-950/30 border border-cyan-500/30'
           }`}>
             <div className="flex items-center justify-between gap-2 flex-wrap">
               <div className={`flex items-center gap-2 font-bold text-xs ${
-                connectionType === 'lace' ? 'text-emerald-300' : 'text-cyan-300'
+                receiptType === 'onchain_tx'
+                  ? 'text-emerald-300'
+                  : receiptType === 'signature'
+                  ? 'text-indigo-300'
+                  : 'text-cyan-300'
               }`}>
-                <CheckCircle2 className={`w-4 h-4 ${connectionType === 'lace' ? 'text-emerald-400' : 'text-cyan-400'}`} />
+                <CheckCircle2 className={`w-4 h-4 ${
+                  receiptType === 'onchain_tx'
+                    ? 'text-emerald-400'
+                    : receiptType === 'signature'
+                    ? 'text-indigo-400'
+                    : 'text-cyan-400'
+                }`} />
                 <span>
-                  {connectionType === 'lace' 
-                    ? 'Proof Verified & Transaction Included on Midnight Preprod!' 
+                  {receiptType === 'onchain_tx'
+                    ? 'Proof Verified & Transaction Included on Midnight Preprod!'
+                    : receiptType === 'signature'
+                    ? 'Vendor Authorization Cryptographically Signed in Lace!'
                     : 'Client ZK Proof Verified in Browser RAM (Sandbox Mode)'}
                 </span>
               </div>
-              <span className="px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-[10px] text-slate-400 font-mono">
-                {connectionType === 'lace' ? 'Live On-Chain' : 'Off-Chain Client Proof'}
+              <span className="px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-[10px] text-slate-300 font-mono">
+                {receiptType === 'onchain_tx'
+                  ? 'Live On-Chain Tx'
+                  : receiptType === 'signature'
+                  ? 'Lace Cryptographic Signature'
+                  : 'Off-Chain Client Proof'}
               </span>
             </div>
 
             <div className="bg-[#070A14] p-3 rounded-xl border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
               <span className="font-mono text-slate-300 truncate" title={txHash}>
-                {connectionType === 'lace' ? 'Tx Hash:' : 'Proof Receipt:'} {txHash}
+                {receiptType === 'onchain_tx'
+                  ? 'Tx Hash:'
+                  : receiptType === 'signature'
+                  ? 'Lace Signature:'
+                  : 'Proof Receipt:'} {txHash}
               </span>
               <div className="flex items-center gap-3 shrink-0">
-                {connectionType === 'lace' ? (
+                {receiptType === 'onchain_tx' ? (
                   <a
                     href={getExplorerTxUrl(txHash)}
                     target="_blank"
                     rel="noreferrer"
                     className="font-bold text-emerald-400 hover:underline flex items-center gap-1 font-mono text-[11px]"
                   >
-                    <span>View on Indexer</span>
+                    <span>View Tx on Indexer</span>
                     <ExternalLink className="w-3 h-3" />
                   </a>
                 ) : (
@@ -443,9 +467,15 @@ export const SealedBidding: React.FC<SealedBiddingProps> = ({
               </div>
             </div>
 
-            {connectionType !== 'lace' && (
+            {receiptType === 'signature' && (
               <p className="text-[11px] text-slate-400 leading-relaxed">
-                💡 <span className="text-slate-300 font-medium">Sandbox Simulation:</span> Your zero-knowledge constraints (<code className="text-cyan-300 font-mono">secretBid &gt;= reservePrice</code>) were cryptographically evaluated client-side in browser RAM. To broadcast an on-chain transaction directly to the Midnight Preprod network, connect a funded Lace wallet in <strong className="text-white">Live Lace</strong> mode.
+                💡 <span className="text-indigo-300 font-semibold">Cryptographic Vendor Signature:</span> Your authorization was cryptographically signed by your Lace wallet verifying vendor authenticity. The Bidveil smart contract is active and live on the Midnight Preprod blockchain.
+              </p>
+            )}
+
+            {receiptType === 'simulation' && (
+              <p className="text-[11px] text-slate-400 leading-relaxed">
+                💡 <span className="text-cyan-300 font-medium">Sandbox Simulation:</span> Your zero-knowledge constraints (<code className="text-cyan-300 font-mono">secretBid &gt;= reservePrice</code>) were cryptographically evaluated client-side in browser RAM. To broadcast an on-chain transaction directly to Midnight Preprod, connect a funded Lace wallet in <strong className="text-white">Live Lace</strong> mode.
               </p>
             )}
           </div>

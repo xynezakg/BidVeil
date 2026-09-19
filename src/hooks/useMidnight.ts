@@ -19,6 +19,7 @@ export interface MidnightState {
   isBroadcastingGas: boolean;
   gasTxHash: string | null;
   gasBroadcastStatus: 'idle' | 'pending' | 'success' | 'error';
+  receiptType: 'signature' | 'onchain_tx' | 'simulation' | null;
 }
 
 // Module-level reference to the active connected Lace API instance
@@ -128,6 +129,7 @@ export function useMidnight() {
     isBroadcastingGas: false,
     gasTxHash: null,
     gasBroadcastStatus: 'idle',
+    receiptType: null,
   });
 
   // Detect Lace Midnight extension on window mount
@@ -339,6 +341,7 @@ export function useMidnight() {
         const microUnits = BigInt(Math.max(1, Math.round(amountTNight * 1_000_000)));
 
         let finalTxHash: string | null = null;
+        let detectedReceiptType: 'onchain_tx' | 'signature' | 'simulation' = 'signature';
 
         // Method A: Official DApp connector makeTransfer (Pops up Lace confirmation modal)
         if (typeof activeLaceApi.makeTransfer === 'function') {
@@ -366,9 +369,13 @@ export function useMidnight() {
                 try {
                   console.log('[Bidveil Live Lace] Relaying transaction to Midnight Preprod...');
                   await activeLaceApi.submitTransaction(transferRes.tx);
+                  detectedReceiptType = 'onchain_tx';
                 } catch (relayErr) {
                   console.warn('[Bidveil Live Lace] Wallet relay note (transfer signed):', relayErr);
+                  detectedReceiptType = 'signature';
                 }
+              } else {
+                detectedReceiptType = 'signature';
               }
             }
           } catch (transferErr: any) {
@@ -386,6 +393,7 @@ export function useMidnight() {
               const sig = await activeLaceApi.signData(authPayload, { encoding: 'text', keyType: 'unshielded' });
               console.log('[Bidveil Live Lace] Signed authorization:', sig);
               finalTxHash = sig?.signature ? `0x${sig.signature.slice(0, 64)}` : null;
+              detectedReceiptType = 'signature';
             } else {
               throw transferErr;
             }
@@ -398,12 +406,14 @@ export function useMidnight() {
           const sig = await activeLaceApi.signData(authPayload, { encoding: 'text', keyType: 'unshielded' });
           console.log('[Bidveil Live Lace] Signed authorization:', sig);
           finalTxHash = sig?.signature ? `0x${sig.signature.slice(0, 64)}` : null;
+          detectedReceiptType = 'signature';
         }
         // Method C: signTx / submitTx fallback
         else if (typeof activeLaceApi.signTx === 'function') {
           console.log('[Bidveil Live Lace] Invoking activeLaceApi.signTx()...');
           const signed = await activeLaceApi.signTx(`0x${microUnits.toString(16)}`);
           finalTxHash = signed ? `0x${signed.replace(/[^a-fA-F0-9]/g, '').slice(0, 64)}` : null;
+          detectedReceiptType = 'signature';
         } else {
           throw new Error('Connected Lace API does not support transaction broadcast or signing.');
         }
@@ -412,6 +422,7 @@ export function useMidnight() {
           const timeHex = Date.now().toString(16);
           const randomHex = Math.random().toString(16).substring(2, 10);
           finalTxHash = `0x${timeHex}${randomHex}${'a1b2c3d4e5f60718293a4b5c6d7e8f90123456789abcdef0123456789abcdef0'.slice(0, 64 - timeHex.length - randomHex.length - 2)}`;
+          detectedReceiptType = 'simulation';
         }
 
         // Wait a short moment and refresh wallet balance from chain
@@ -430,10 +441,11 @@ export function useMidnight() {
           isBroadcastingGas: false,
           gasBroadcastStatus: 'success',
           gasTxHash: finalTxHash,
+          receiptType: detectedReceiptType,
           error: null,
         }));
 
-        return { success: true, txHash: finalTxHash };
+        return { success: true, txHash: finalTxHash, receiptType: detectedReceiptType };
       } catch (err: any) {
         console.error('[Bidveil Live Lace] Broadcast failed:', err);
         const isUserReject =
@@ -471,6 +483,7 @@ export function useMidnight() {
         console.log(`[Bidveil] Executing Compact circuit: ${circuitName} with value:`, inputValue);
 
         let finalTx: string | null = null;
+        let finalReceiptType: 'signature' | 'onchain_tx' | 'simulation' = 'simulation';
 
         // If user enabled live on-chain gas authorization and is connected to Lace
         if (options?.triggerOnChainGas && activeLaceApi) {
@@ -478,6 +491,7 @@ export function useMidnight() {
           try {
             const gasRes = await broadcastGasPing(0.01);
             finalTx = gasRes.txHash || null;
+            finalReceiptType = gasRes.receiptType || 'signature';
           } catch (gasErr: any) {
             console.warn('[Bidveil] Gas authorization status:', gasErr);
             const isUserReject =
@@ -488,6 +502,7 @@ export function useMidnight() {
         } else {
           // Simulated local zk-SNARK prover calculation delay
           await new Promise((resolve) => setTimeout(resolve, 1800));
+          finalReceiptType = 'simulation';
         }
 
         if (!finalTx) {
@@ -518,6 +533,7 @@ export function useMidnight() {
             ...prev,
             isProving: false,
             txHash: finalTx,
+            receiptType: finalReceiptType,
             bidCount: updatedBidCount,
             reservePrice: updatedReserve,
             isOpen: updatedIsOpen,

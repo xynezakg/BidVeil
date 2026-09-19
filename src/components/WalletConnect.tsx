@@ -8,8 +8,10 @@ import {
   ShieldCheck, 
   RefreshCw, 
   Coins, 
-  Zap 
+  Zap,
+  ExternalLink
 } from 'lucide-react';
+import { BIDVEIL_CONTRACT_CONFIG, getExplorerContractUrl } from '../utils/contract';
 
 interface WalletConnectProps {
   isConnected: boolean;
@@ -238,12 +240,13 @@ export const WalletConnect: React.FC<WalletConnectProps> = ({
               On-Chain Gas Deducted
             </span>
             <a
-              href="https://indexer.preprod.midnight.network"
+              href={getExplorerContractUrl(BIDVEIL_CONTRACT_CONFIG.address)}
               target="_blank"
               rel="noreferrer"
-              className="text-cyan-400 hover:underline text-[11px] font-semibold"
+              className="text-cyan-400 hover:underline text-[11px] font-semibold flex items-center gap-1"
             >
-              Indexer &rarr;
+              <span>Contract on Indexer</span>
+              <ExternalLink className="w-3 h-3" />
             </a>
           </div>
         </div>
