@@ -48,13 +48,15 @@ export interface NetworkState {
 export const STATE_FILE_NAME = '.midnight-state.json';
 export const STATE_VERSION = 1 as const;
 
+const DEFAULT_PROOF_SERVER = process.env.MIDNIGHT_PROOF_SERVER_URL || 'http://172.22.238.52:6300';
+
 export const NETWORK_CONFIGS: Record<NetworkId, NetworkConfig> = {
   undeployed: {
     networkId: 'undeployed',
     indexer:   'http://127.0.0.1:8088/api/v4/graphql',
     indexerWS: 'ws://127.0.0.1:8088/api/v4/graphql/ws',
     node:      'ws://127.0.0.1:9944',
-    proofServer: 'http://127.0.0.1:6300',
+    proofServer: DEFAULT_PROOF_SERVER,
     faucet: null,
     composeServices: ['node', 'indexer', 'proof-server'],
   },
@@ -63,7 +65,7 @@ export const NETWORK_CONFIGS: Record<NetworkId, NetworkConfig> = {
     indexer:   'https://indexer.preview.midnight.network/api/v4/graphql',
     indexerWS: 'wss://indexer.preview.midnight.network/api/v4/graphql/ws',
     node:      'https://rpc.preview.midnight.network',
-    proofServer: 'http://127.0.0.1:6300',
+    proofServer: DEFAULT_PROOF_SERVER,
     faucet: 'https://midnight-tmnight-preview.nethermind.dev',
     composeServices: ['proof-server'],
   },
@@ -72,7 +74,7 @@ export const NETWORK_CONFIGS: Record<NetworkId, NetworkConfig> = {
     indexer:   'https://indexer.preprod.midnight.network/api/v4/graphql',
     indexerWS: 'wss://indexer.preprod.midnight.network/api/v4/graphql/ws',
     node:      'https://rpc.preprod.midnight.network',
-    proofServer: 'http://127.0.0.1:6300',
+    proofServer: DEFAULT_PROOF_SERVER,
     faucet: 'https://midnight-tmnight-preprod.nethermind.dev',
     composeServices: ['proof-server'],
   },

@@ -23,9 +23,8 @@ import { CompiledContract } from '@midnight-ntwrk/midnight-js-protocol/compact-j
 // @ts-expect-error Required for wallet sync
 globalThis.WebSocket = WebSocket;
 
-// Identifier under which this contract's private state is stored. The
-// hello-world contract has no witnesses, so its private state is empty ({}).
-const PRIVATE_STATE_ID = 'counterPrivateState';
+// Identifier under which this contract's private state is stored.
+const PRIVATE_STATE_ID = 'bidveilPrivateState';
 
 // ─── Network configuration ─────────────────────────────────────────────────────
 //
@@ -71,21 +70,21 @@ async function waitForProofServer(maxAttempts = 60, delayMs = 2000): Promise<boo
 // ─── Compiled contract loading ─────────────────────────────────────────────────
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const zkConfigPath = path.resolve(__dirname, '..', 'managed', 'counter');
+const zkConfigPath = path.resolve(__dirname, '..', 'managed', 'bidveil');
 const contractPath = path.join(zkConfigPath, 'contract', 'index.js');
 
 if (!fs.existsSync(contractPath)) {
-  console.error('\n❌ Contract not compiled! Run: npm run compile\n');
+  console.error('\n❌ Bidveil contract not compiled! Run: npm run compile\n');
   process.exit(1);
 }
 
-const CounterContract = await import(pathToFileURL(contractPath).href);
+const BidveilContract = await import(pathToFileURL(contractPath).href);
 
 const witnesses = {
-  secretDelta: (ctx: any) => [ctx.privateState, 0n],
+  secretBidAmount: (ctx: any) => [ctx.privateState, 125000n],
 };
 
-const compiledContract = CompiledContract.make('counter', CounterContract.Contract).pipe(
+const compiledContract = CompiledContract.make('bidveil', BidveilContract.Contract).pipe(
   CompiledContract.withWitnesses(witnesses as any),
   CompiledContract.withCompiledFileAssets(zkConfigPath),
 );
