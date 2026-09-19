@@ -86,6 +86,10 @@ export const WalletConnect: React.FC<WalletConnectProps> = ({
                 <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
                 Ready to execute browser zk-SNARK prover
               </p>
+            ) : isConnecting ? (
+              <p className="text-xs text-amber-300 animate-pulse flex items-center gap-1.5 mt-1">
+                <span>Awaiting authorization... Click the Lace icon in your browser toolbar if the window didn't pop up.</span>
+              </p>
             ) : (
               <p className="text-xs text-slate-400 mt-1">
                 Authorize via Lace Midnight Extension or start an instant Preprod sandbox session
