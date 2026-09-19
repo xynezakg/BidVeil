@@ -1,16 +1,22 @@
 @import "https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css";
 
 :root {
-  --bg-canvas: #0B0F19;
-  --bg-surface: #121929;
-  --bg-surface-raised: #162035;
-  --border-subtle: #1E293B;
-  --border-card: rgba(148, 163, 184, 0.12);
-  --text-primary: #F8FAFC;
-  --text-secondary: #94A3B8;
-  --accent-cyan: #00A3FF;
-  --accent-cyan-dark: #0077FF;
-  --accent-glow: rgba(0, 163, 255, 0.35);
+  /* SariPay Clean Canvas & Surface Foundation */
+  --bg-canvas: #FAFAF9;
+  --bg-canvas-alt: #F8FAFC;
+  --bg-surface: #FFFFFF;
+  --border-color: #E5E7EB;
+  --border-subtle: #F1F5F9;
+  --text-primary: #111827;
+  --text-secondary: #6B7280;
+  --text-muted: #9CA3AF;
+
+  /* Bidveil Signature Cryptographic Gradient Palette */
+  --bv-gradient-primary: linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #9333EA 100%);
+  --bv-gradient-glow: linear-gradient(135deg, #38BDF8 0%, #6366F1 50%, #A855F7 100%);
+  --bv-indigo: #6366F1;
+  --bv-purple: #8B5CF6;
+  --bv-cyan: #38BDF8;
 }
 
 * {
@@ -38,160 +44,135 @@ code, pre, .font-mono {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Electric Cyan Buttons (Reference Image Style)
+   Bidveil Gradient Buttons (SariPay Structure + Bidveil Palette)
 ────────────────────────────────────────────────────────────── */
-.cyan-btn-gradient, .ent-btn-primary, .saas-button-primary, .motta-pill-btn-primary {
+.bv-btn-primary, .cyan-btn-gradient, .ent-btn-primary, .saas-button-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background: linear-gradient(135deg, #00A3FF 0%, #0077FF 100%);
-  color: #ffffff;
-  font-weight: 700;
+  background: var(--bv-gradient-primary);
+  color: #ffffff !important;
+  font-weight: 600;
   font-size: 0.875rem;
-  padding: 0.65rem 1.4rem;
-  min-height: 42px;
+  padding: 0.75rem 1.5rem;
+  min-height: 44px;
   border-radius: 0.75rem;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 18px rgba(0, 163, 255, 0.35);
+  box-shadow: 0 4px 14px 0 rgba(99, 102, 241, 0.28);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
   text-decoration: none;
 }
 
-.cyan-btn-gradient:hover:not(:disabled), .ent-btn-primary:hover:not(:disabled) {
+.bv-btn-primary:hover:not(:disabled), .cyan-btn-gradient:hover:not(:disabled), .ent-btn-primary:hover:not(:disabled) {
   opacity: 0.95;
   transform: translateY(-1px);
-  box-shadow: 0 6px 24px rgba(0, 163, 255, 0.5);
+  box-shadow: 0 6px 20px 0 rgba(99, 102, 241, 0.42);
 }
 
-.cyan-btn-secondary, .ent-btn-secondary, .saas-button-secondary, .motta-pill-btn-secondary {
+.bv-btn-secondary, .cyan-btn-secondary, .ent-btn-secondary, .saas-button-secondary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background: #162035;
-  color: #F1F5F9;
+  background: #FFFFFF;
+  color: #111827;
   font-weight: 600;
   font-size: 0.875rem;
-  padding: 0.65rem 1.4rem;
-  min-height: 42px;
+  padding: 0.75rem 1.5rem;
+  min-height: 44px;
   border-radius: 0.75rem;
-  border: 1px solid var(--border-subtle);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
   transition: all 0.2s ease;
   cursor: pointer;
   text-decoration: none;
 }
 
-.cyan-btn-secondary:hover {
-  background: #1c2942;
-  border-color: rgba(255, 255, 255, 0.2);
-  color: #ffffff;
+.bv-btn-secondary:hover, .cyan-btn-secondary:hover {
+  background: #F8FAFC;
+  border-color: #D1D5DB;
+  color: #111827;
   transform: translateY(-1px);
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Cards (Reference Image Style)
+   Cards (SariPay Clean White Style)
 ────────────────────────────────────────────────────────────── */
-.cyan-card, .ent-card, .motta-card {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: 1.25rem;
-  box-shadow: 0 8px 30px -4px rgba(0, 0, 0, 0.5);
-  transition: all 0.25s ease;
+.bv-card, .cyan-card, .ent-card, .motta-card, .saas-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border-color);
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.cyan-card:hover {
-  border-color: rgba(0, 163, 255, 0.35);
+.bv-card:hover, .cyan-card:hover {
+  border-color: #CBD5E1;
+  box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
   transform: translateY(-2px);
 }
 
-/* Featured Card with Electric Cyan Glow and Border */
-.cyan-card-featured {
-  background: var(--bg-surface);
-  border: 2px solid #00A3FF;
-  border-radius: 1.25rem;
-  box-shadow: 0 0 35px -5px rgba(0, 163, 255, 0.38);
-  position: relative;
-  transition: all 0.25s ease;
+/* Elevated Mockup Window (Directly From SariPay) */
+.bv-mockup-window {
+  background: #FFFFFF;
+  border: 1px solid var(--border-color);
+  border-radius: 1rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.03);
+  overflow: hidden;
 }
 
-.cyan-card-featured:hover {
-  box-shadow: 0 0 45px -5px rgba(0, 163, 255, 0.5);
-  transform: translateY(-3px);
-}
-
-/* Dashed Metric Frame Inside Cards (Directly From Reference) */
+/* Metric / Dashed Frame Box */
 .metric-dashed-box {
-  border: 1px dashed #334155;
-  border-radius: 0.875rem;
+  border: 1px dashed #CBD5E1;
+  border-radius: 0.75rem;
   padding: 1rem 1.25rem;
-  background: rgba(11, 15, 25, 0.55);
+  background: #F8FAFC;
   text-align: center;
 }
 
-/* Square Cyan Checkmark Box (Directly From Reference) */
-.cyan-check-box {
-  width: 1.25rem;
-  height: 1.25rem;
-  background: #162035;
-  border: 1px solid #00A3FF;
-  border-radius: 0.35rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #00A3FF;
-  flex-shrink: 0;
+/* Gradient Text Helper */
+.bv-gradient-text {
+  background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #0284C7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-/* Badges */
-.cyan-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-  padding: 0.25rem 0.75rem;
+/* Soft Ambient Glow Effect */
+.bv-ambient-glow {
+  position: absolute;
   border-radius: 9999px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  background: rgba(0, 163, 255, 0.12);
-  border: 1px solid rgba(0, 163, 255, 0.25);
-  color: #00A3FF;
+  filter: blur(120px);
+  pointer-events: none;
+  opacity: 0.6;
 }
 
-/* Form Inputs */
-.cyan-input, .ent-input {
-  background-color: #0B0F19;
-  border: 1px solid var(--border-subtle);
-  color: var(--text-primary);
-  border-radius: 0.75rem;
-  padding: 0.75rem 1rem;
-  font-size: 0.875rem;
-  width: 100%;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.cyan-input:focus, .ent-input:focus {
-  outline: none;
-  border-color: var(--accent-cyan);
-  box-shadow: 0 0 0 2px rgba(0, 163, 255, 0.2);
-}
-
-/* Range Slider */
-input[type="range"] {
-  accent-color: #00A3FF;
-}
-
-/* Scrollbar */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0B0F19;
+  background: #FAFAF9;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1E293B;
+  background: #D1D5DB;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #9CA3AF;
+}
+
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.animate-float {
+  animation: floatSlow 4s ease-in-out infinite;
 }
