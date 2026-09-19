@@ -18,7 +18,7 @@ import {
   ExternalLink,
   Zap 
 } from 'lucide-react';
-import { BIDVEIL_CONTRACT_CONFIG, formatAddress, getExplorerTxUrl } from '../utils/contract';
+import { BIDVEIL_CONTRACT_CONFIG, formatAddress, getExplorerTxUrl, getExplorerContractUrl } from '../utils/contract';
 
 interface SealedBiddingProps {
   contractAddress: string;
@@ -391,28 +391,63 @@ export const SealedBidding: React.FC<SealedBiddingProps> = ({
           </div>
         )}
 
-        {/* Transaction Submission Receipt */}
+        {/* Transaction / Proving Receipt */}
         {txHash && (
-          <div className="p-4 rounded-xl bg-emerald-950/40 border border-emerald-500/30 space-y-2.5">
-            <div className="flex items-center gap-2 text-emerald-300 font-bold text-xs">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-              Proof Verified &amp; Transaction Included on Midnight Preprod!
+          <div className={`p-4 rounded-xl space-y-2.5 ${
+            connectionType === 'lace' 
+              ? 'bg-emerald-950/40 border border-emerald-500/30' 
+              : 'bg-cyan-950/30 border border-cyan-500/30'
+          }`}>
+            <div className="flex items-center justify-between gap-2 flex-wrap">
+              <div className={`flex items-center gap-2 font-bold text-xs ${
+                connectionType === 'lace' ? 'text-emerald-300' : 'text-cyan-300'
+              }`}>
+                <CheckCircle2 className={`w-4 h-4 ${connectionType === 'lace' ? 'text-emerald-400' : 'text-cyan-400'}`} />
+                <span>
+                  {connectionType === 'lace' 
+                    ? 'Proof Verified & Transaction Included on Midnight Preprod!' 
+                    : 'Client ZK Proof Verified in Browser RAM (Sandbox Mode)'}
+                </span>
+              </div>
+              <span className="px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-[10px] text-slate-400 font-mono">
+                {connectionType === 'lace' ? 'Live On-Chain' : 'Off-Chain Client Proof'}
+              </span>
             </div>
 
             <div className="bg-[#070A14] p-3 rounded-xl border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
               <span className="font-mono text-slate-300 truncate" title={txHash}>
-                Tx Hash: {txHash}
+                {connectionType === 'lace' ? 'Tx Hash:' : 'Proof Receipt:'} {txHash}
               </span>
-              <a
-                href={getExplorerTxUrl(txHash)}
-                target="_blank"
-                rel="noreferrer"
-                className="font-bold text-cyan-300 hover:underline flex items-center gap-1 shrink-0 font-mono"
-              >
-                <span>View on Indexer</span>
-                <ExternalLink className="w-3 h-3" />
-              </a>
+              <div className="flex items-center gap-3 shrink-0">
+                {connectionType === 'lace' ? (
+                  <a
+                    href={getExplorerTxUrl(txHash)}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-bold text-emerald-400 hover:underline flex items-center gap-1 font-mono text-[11px]"
+                  >
+                    <span>View on Indexer</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                ) : (
+                  <a
+                    href={getExplorerContractUrl(contractAddress)}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-bold text-cyan-300 hover:underline flex items-center gap-1 font-mono text-[11px]"
+                  >
+                    <span>View Contract on Indexer</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                )}
+              </div>
             </div>
+
+            {connectionType !== 'lace' && (
+              <p className="text-[11px] text-slate-400 leading-relaxed">
+                💡 <span className="text-slate-300 font-medium">Sandbox Simulation:</span> Your zero-knowledge constraints (<code className="text-cyan-300 font-mono">secretBid &gt;= reservePrice</code>) were cryptographically evaluated client-side in browser RAM. To broadcast an on-chain transaction directly to the Midnight Preprod network, connect a funded Lace wallet in <strong className="text-white">Live Lace</strong> mode.
+              </p>
+            )}
           </div>
         )}
 
