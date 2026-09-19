@@ -21,6 +21,7 @@ import {
   Smartphone
 } from 'lucide-react';
 import { DocsSection } from './DocsSection';
+import { AnimatedCounter } from './AnimatedCounter';
 import feedbackData from '../data/communityFeedback.json';
 import { BIDVEIL_CONTRACT_CONFIG } from '../utils/contract';
 
@@ -120,11 +121,15 @@ export const LandingPage: React.FC<LandingProps> = ({
           {/* Bottom Divider & Two Stats */}
           <div className="grid grid-cols-2 gap-8 mt-12 pt-8 border-t border-white/10 w-full">
             <div>
-              <p className="text-2xl sm:text-3xl font-extrabold text-white">100%</p>
+              <p className="text-2xl sm:text-3xl font-extrabold text-white">
+                <AnimatedCounter target={100} suffix="%" duration={1600} />
+              </p>
               <p className="text-xs text-slate-400 font-normal mt-1">Zero Sniping &bull; Shielded Witness</p>
             </div>
             <div>
-              <p className="text-2xl sm:text-3xl font-extrabold text-white">52+</p>
+              <p className="text-2xl sm:text-3xl font-extrabold text-white">
+                <AnimatedCounter target={52} suffix="+" duration={1600} />
+              </p>
               <p className="text-xs text-slate-400 font-normal mt-1">Verified Preprod Testers</p>
             </div>
           </div>
@@ -384,19 +389,27 @@ export const LandingPage: React.FC<LandingProps> = ({
       <section className="w-full bg-[#070A14] border-b border-white/[0.08] py-16 relative">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-5 gap-8 text-center">
           <div>
-            <p className="text-3xl sm:text-4xl font-extrabold text-white">52+</p>
+            <p className="text-3xl sm:text-4xl font-extrabold text-white">
+              <AnimatedCounter target={52} suffix="+" duration={1600} />
+            </p>
             <p className="text-xs text-slate-400 font-semibold mt-1 uppercase tracking-wider">Processed Tenders</p>
           </div>
           <div>
-            <p className="text-3xl sm:text-4xl font-extrabold text-white">100%</p>
+            <p className="text-3xl sm:text-4xl font-extrabold text-white">
+              <AnimatedCounter target={100} suffix="%" duration={1600} />
+            </p>
             <p className="text-xs text-slate-400 font-semibold mt-1 uppercase tracking-wider">Private Witness</p>
           </div>
           <div>
-            <p className="text-3xl sm:text-4xl font-extrabold text-white">&lt; 1.6s</p>
+            <p className="text-3xl sm:text-4xl font-extrabold text-white">
+              <AnimatedCounter target={1.6} prefix="< " suffix="s" decimals={1} duration={1600} />
+            </p>
             <p className="text-xs text-slate-400 font-semibold mt-1 uppercase tracking-wider">Proof Generation</p>
           </div>
           <div>
-            <p className="text-3xl sm:text-4xl font-extrabold text-white">5</p>
+            <p className="text-3xl sm:text-4xl font-extrabold text-white">
+              <AnimatedCounter target={5} duration={1600} />
+            </p>
             <p className="text-xs text-slate-400 font-semibold mt-1 uppercase tracking-wider">Compact Circuits</p>
           </div>
           <div className="col-span-2 md:col-span-1">

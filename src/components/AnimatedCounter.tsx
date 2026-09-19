@@ -1,65 +1,79 @@
-import React from 'react';
-import { useScrollReveal, useCountUp } from '../hooks/useScrollReveal';
+import React, { useEffect, useState, useRef } from 'react';
 
 interface AnimatedCounterProps {
-  end: number;
+  target: number;
+  duration?: number;
   prefix?: string;
   suffix?: string;
-  duration?: number;
+  decimals?: number;
   className?: string;
-  staticText?: string;
 }
 
 export const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
-  end,
+  target,
+  duration = 1800,
   prefix = '',
   suffix = '',
-  duration = 1600,
+  decimals = 0,
   className = '',
-  staticText,
 }) => {
-  const { ref, isVisible } = useScrollReveal<HTMLSpanElement>(0.1);
-  const count = useCountUp(end, isVisible, duration);
+  const [count, setCount] = useState<number>(0);
+  const elementRef = useRef<HTMLSpanElement>(null);
+  const hasAnimated = useRef<boolean>(false);
 
-  if (staticText) {
-    return <span ref={ref} className={className}>{staticText}</span>;
-  }
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry.isIntersecting && !hasAnimated.current) {
+          hasAnimated.current = true;
+          startAnimation();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (elementRef.current) {
+      observer.observe(elementRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [target]);
+
+  const startAnimation = () => {
+    const startTime = performance.now();
+
+    const updateCount = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Ease out quartic: smooth deceleration as it nears target
+      const easeOut = 1 - Math.pow(1 - progress, 4);
+      const currentVal = easeOut * target;
+
+      setCount(currentVal);
+
+      if (progress < 1) {
+        requestAnimationFrame(updateCount);
+      } else {
+        setCount(target);
+      }
+    };
+
+    requestAnimationFrame(updateCount);
+  };
+
+  const formattedValue = decimals > 0 
+    ? count.toFixed(decimals) 
+    : Math.round(count).toString();
 
   return (
-    <span ref={ref} className={className}>
-      {prefix}
-      {count.toLocaleString()}
-      {suffix}
+    <span ref={elementRef} className={className}>
+      {prefix}{formattedValue}{suffix}
     </span>
   );
 };
 
-interface RevealOnScrollProps {
-  children: React.ReactNode;
-  className?: string;
-  delay?: number;
-}
-
-export const RevealOnScroll: React.FC<RevealOnScrollProps> = ({
-  children,
-  className = '',
-  delay = 0,
-}) => {
-  const { ref, isVisible } = useScrollReveal<HTMLDivElement>(0.1);
-
-  return (
-    <div
-      ref={ref}
-      style={{
-        transitionDelay: `${delay}ms`,
-      }}
-      className={`transition-all duration-700 ease-out transform ${
-        isVisible
-          ? 'opacity-100 translate-y-0'
-          : 'opacity-0 translate-y-6 pointer-events-none'
-      } ${className}`}
-    >
-      {children}
-    </div>
-  );
-};
+export default AnimatedCounter;
