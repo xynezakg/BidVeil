@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { DocsSection } from './DocsSection';
 import { AnimatedCounter } from './AnimatedCounter';
+import { ProofModal, ProofDetails } from './ProofModal';
 import feedbackData from '../data/communityFeedback.json';
 import { BIDVEIL_CONTRACT_CONFIG } from '../utils/contract';
 
@@ -41,6 +42,7 @@ export const LandingPage: React.FC<LandingProps> = ({
   const [simulatedReserve] = useState(100000);
   const [isProving, setIsProving] = useState(false);
   const [proofDone, setProofDone] = useState(false);
+  const [selectedProof, setSelectedProof] = useState<ProofDetails | null>(null);
 
   // Dual Interface Showcase Tab
   const [activeShowcase, setActiveShowcase] = useState<'buyer' | 'supplier'>('buyer');
@@ -366,16 +368,14 @@ export const LandingPage: React.FC<LandingProps> = ({
                     <span className="font-black text-white text-base font-mono">{item.reserve}</span>
                     <span className="text-[11px] font-semibold text-cyan-400 ml-1.5">(Shielded)</span>
                   </div>
-                  <a
-                    href={BIDVEIL_CONTRACT_CONFIG.explorerUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-slate-400 hover:text-cyan-300 font-semibold transition-colors group-hover:text-cyan-300"
-                    title="View on Midnight Indexer Explorer"
+                  <button
+                    onClick={() => setSelectedProof(item)}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/[0.05] hover:bg-cyan-500/10 border border-white/[0.08] hover:border-cyan-500/30 text-slate-300 hover:text-cyan-300 font-semibold transition-all text-xs group shadow-sm"
+                    title="Inspect verifiable zero-knowledge proof certificate"
                   >
-                    <span>Proof</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
+                    <span>Inspect Proof</span>
+                    <ShieldCheck className="w-3.5 h-3.5 text-cyan-400 group-hover:scale-110 transition-transform" />
+                  </button>
                 </div>
               </div>
             ))}
@@ -989,6 +989,12 @@ export const LandingPage: React.FC<LandingProps> = ({
           </div>
         </div>
       </section>
+
+      {/* Interactive On-Chain ZK Proof Inspector Modal */}
+      <ProofModal 
+        proof={selectedProof} 
+        onClose={() => setSelectedProof(null)} 
+      />
     </div>
   );
 };
