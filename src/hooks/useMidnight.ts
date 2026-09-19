@@ -234,7 +234,7 @@ export function useMidnight() {
         ...prev,
         isConnected: true,
         walletAddress: address || 'mn_addr_preprod1lace_active',
-        balance: fetchedBalance !== '0.00 tNIGHT' ? fetchedBalance : '5,000.00 tNIGHT',
+        balance: fetchedBalance,
         isConnecting: false,
         error: null,
         isExtensionDetected: true,

@@ -28,7 +28,7 @@ export const WalletConnect: React.FC<WalletConnectProps> = ({
   isConnected,
   walletAddress,
   network,
-  balance = '5,000.00 tNIGHT',
+  balance = '0.00 tNIGHT',
   isConnecting,
   error,
   connectionType = 'sandbox',
@@ -106,7 +106,20 @@ export const WalletConnect: React.FC<WalletConnectProps> = ({
               <div className="px-3.5 py-1.5 rounded-xl bg-[#070A14] border border-white/10 flex items-center gap-2">
                 <Coins className="w-3.5 h-3.5 text-amber-400" />
                 <div>
-                  <span className="text-[9px] uppercase font-semibold text-slate-400 block leading-none">Balance</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[9px] uppercase font-semibold text-slate-400 block leading-none">Balance</span>
+                    {connectionType === 'lace' && balance === '0.00 tNIGHT' && (
+                      <a 
+                        href="https://faucet.preprod.midnight.network" 
+                        target="_blank" 
+                        rel="noreferrer"
+                        className="text-[9px] text-cyan-400 hover:underline leading-none flex items-center gap-0.5"
+                        title="Request testnet tNIGHT tokens from the official Midnight Faucet"
+                      >
+                        Get tNIGHT &rarr;
+                      </a>
+                    )}
+                  </div>
                   <span className="text-xs font-mono font-bold text-white">{balance}</span>
                 </div>
               </div>
