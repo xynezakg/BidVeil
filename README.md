@@ -15,6 +15,18 @@
 ## Live Demo
 [https://bidveil.vercel.app/](https://bidveil.vercel.app/)
 
+## Video Walkthrough & Demo
+
+Watch the complete demonstration of Bidveil on the Midnight Preprod network, featuring Lace Midnight Wallet connection, 10,000 tNIGHT balance polling, client-side zero-knowledge sealed bid generation, cryptographic vendor authorization signing, and Preprod indexer verification:
+
+> 🎬 **Watch Demo Video:** [`docs/vid/bidveil-demo.mp4`](docs/vid/bidveil-demo.mp4)
+
+<p align="center">
+  <video src="docs/vid/bidveil-demo.mp4" controls="controls" width="100%" style="max-height: 500px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
+    Your browser does not support the video tag. You can <a href="docs/vid/bidveil-demo.mp4">view or download the demo video here</a>.
+  </video>
+</p>
+
 ## Contract Address
 | Network  | Address                                                          | Explorer |
 |----------|------------------------------------------------------------------|----------|

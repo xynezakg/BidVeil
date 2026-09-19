@@ -11,6 +11,8 @@ A non-technical, step-by-step guide to participating in zero-knowledge confident
 3. **Preprod tNIGHT Tokens**: For testnet transaction gas (available via the official Midnight faucet at `https://faucet.preprod.midnight.network`).
 4. **Internet Connection**: To communicate with Midnight Preprod indexer nodes and proof servers.
 
+> 🎬 **Prefer a video walkthrough?** Watch the full demonstration here: [`docs/vid/bidveil-demo.mp4`](vid/bidveil-demo.mp4).
+
 ---
 
 ## Step-by-Step Guide
