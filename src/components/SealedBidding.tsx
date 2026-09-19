@@ -104,60 +104,60 @@ export const SealedBidding: React.FC<SealedBiddingProps> = ({
     <div className="space-y-6">
       {/* 1. Dashboard KPI Overview Bar */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-        <div className="bg-white rounded-2xl border border-[#E5E7EB] shadow-xs p-4">
-          <span className="text-[10px] font-semibold text-[#6B7280] uppercase tracking-wider block mb-1">
+        <div className="bg-[#0D1222] rounded-2xl border border-white/10 shadow-xl p-4">
+          <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block mb-1">
             Verified Public Bids
           </span>
           <div className="flex items-baseline gap-2">
-            <span className="text-2xl font-extrabold font-mono text-[#111827]">
+            <span className="text-2xl font-extrabold font-mono text-white">
               {bidCount.toString()}
             </span>
-            <span className="text-[10px] text-indigo-600 font-semibold flex items-center">
+            <span className="text-[10px] text-cyan-400 font-semibold flex items-center">
               <TrendingUp className="w-3 h-3 mr-0.5" /> On-Chain
             </span>
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl border border-[#E5E7EB] shadow-xs p-4">
-          <span className="text-[10px] font-semibold text-[#6B7280] uppercase tracking-wider block mb-1">
+        <div className="bg-[#0D1222] rounded-2xl border border-white/10 shadow-xl p-4">
+          <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block mb-1">
             Active Tender Reserve
           </span>
           <div className="flex items-baseline gap-2">
-            <span className="text-xl font-extrabold font-mono text-indigo-700">
+            <span className="text-xl font-extrabold font-mono text-cyan-300">
               {activeTenderData.reservePrice}
             </span>
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl border border-[#E5E7EB] shadow-xs p-4">
-          <span className="text-[10px] font-semibold text-[#6B7280] uppercase tracking-wider block mb-1">
+        <div className="bg-[#0D1222] rounded-2xl border border-white/10 shadow-xl p-4">
+          <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block mb-1">
             Confidential Witness
           </span>
-          <div className="flex items-center gap-1.5 text-indigo-700 text-xs font-semibold mt-1">
+          <div className="flex items-center gap-1.5 text-cyan-300 text-xs font-semibold mt-1">
             <Lock className="w-3.5 h-3.5" /> 100% Shielded
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl border border-[#E5E7EB] shadow-xs p-4">
-          <span className="text-[10px] font-semibold text-[#6B7280] uppercase tracking-wider block mb-1">
+        <div className="bg-[#0D1222] rounded-2xl border border-white/10 shadow-xl p-4">
+          <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block mb-1">
             Contract Status
           </span>
           <div className="flex items-center gap-1.5 text-xs font-semibold mt-1">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span className="text-[#111827] font-medium">{isOpen ? 'Tenders Open' : 'Settled'}</span>
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span className="text-white font-medium">{isOpen ? 'Tenders Open' : 'Settled'}</span>
           </div>
         </div>
       </div>
 
       {/* 2. Active Procurement Tenders Selector */}
-      <div className="bg-white rounded-2xl border border-[#E5E7EB] shadow-xs p-6 space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#E5E7EB]">
+      <div className="bg-[#0D1222] rounded-2xl border border-white/10 shadow-xl p-6 space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-white/10">
           <div>
-            <h3 className="text-sm sm:text-base font-bold text-[#111827] flex items-center gap-2">
-              <FileText className="w-4 h-4 text-indigo-600" />
+            <h3 className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+              <FileText className="w-4 h-4 text-cyan-400" />
               Active Procurement Tenders
             </h3>
-            <p className="text-xs text-[#6B7280] mt-0.5">
+            <p className="text-xs text-slate-400 mt-0.5">
               Select an enterprise procurement tender to construct your zero-knowledge sealed bid proposal.
             </p>
           </div>
@@ -169,8 +169,8 @@ export const SealedBidding: React.FC<SealedBiddingProps> = ({
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
                   selectedCategory === cat
-                    ? 'bg-indigo-50 text-indigo-700 border border-indigo-200 font-semibold'
-                    : 'bg-[#FAFAF9] text-[#6B7280] hover:text-[#111827] border border-[#E5E7EB]'
+                    ? 'bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 font-semibold'
+                    : 'bg-[#070A14] text-slate-400 hover:text-white border border-white/10'
                 }`}
               >
                 {cat}
@@ -189,29 +189,29 @@ export const SealedBidding: React.FC<SealedBiddingProps> = ({
               }}
               className={`p-4 rounded-xl cursor-pointer transition-all border text-left flex flex-col justify-between ${
                 selectedTender === tender.id
-                  ? 'border-indigo-600 bg-indigo-50/40 shadow-xs'
-                  : 'bg-white border-[#E5E7EB] hover:border-slate-300'
+                  ? 'border-cyan-500/50 bg-cyan-500/10 shadow-lg shadow-cyan-500/5'
+                  : 'bg-[#070A14] border-white/10 hover:border-white/20'
               }`}
             >
               <div>
-                <div className="flex items-center justify-between text-[10px] font-mono mb-1.5 text-[#6B7280]">
-                  <span className="font-bold text-indigo-700">{tender.id}</span>
-                  <span className="flex items-center gap-1 text-[#6B7280] font-semibold">
+                <div className="flex items-center justify-between text-[10px] font-mono mb-1.5 text-slate-400">
+                  <span className="font-bold text-cyan-300">{tender.id}</span>
+                  <span className="flex items-center gap-1 text-slate-400 font-semibold">
                     <Clock className="w-3 h-3" /> {tender.deadline}
                   </span>
                 </div>
-                <h4 className="font-bold text-xs sm:text-sm text-[#111827] line-clamp-1 mb-1">{tender.title}</h4>
-                <p className="text-[11px] text-[#6B7280] mb-2">{tender.buyer}</p>
-                <p className="text-[11px] text-[#6B7280] line-clamp-2 leading-relaxed mb-3">
+                <h4 className="font-bold text-xs sm:text-sm text-white line-clamp-1 mb-1">{tender.title}</h4>
+                <p className="text-[11px] text-slate-400 mb-2">{tender.buyer}</p>
+                <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed mb-3">
                   {tender.description}
                 </p>
               </div>
 
-              <div className="pt-2.5 border-t border-[#E5E7EB] flex items-center justify-between text-xs">
-                <span className="text-[#6B7280] text-[11px]">
-                  Reserve: <strong className="text-[#111827]">{tender.reservePrice}</strong>
+              <div className="pt-2.5 border-t border-white/10 flex items-center justify-between text-xs">
+                <span className="text-slate-400 text-[11px]">
+                  Reserve: <strong className="text-white">{tender.reservePrice}</strong>
                 </span>
-                <span className="text-indigo-700 font-mono font-semibold text-[11px]">
+                <span className="text-cyan-300 font-mono font-semibold text-[11px]">
                   {tender.verifiedBids} Bids
                 </span>
               </div>
@@ -221,40 +221,40 @@ export const SealedBidding: React.FC<SealedBiddingProps> = ({
       </div>
 
       {/* 3. Main Sealed-Bidding Terminal */}
-      <div className="bg-white rounded-2xl border border-[#E5E7EB] shadow-xs p-6 sm:p-7 space-y-5">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#E5E7EB]">
+      <div className="bg-[#0D1222] rounded-2xl border border-white/10 shadow-xl p-6 sm:p-7 space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-white/10">
           <div>
             <div className="flex items-center gap-2">
-              <h3 className="text-base font-bold text-[#111827]">Client-Side ZK Execution Terminal</h3>
-              <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 text-[10px] font-mono">
+              <h3 className="text-base font-bold text-white">Client-Side ZK Execution Terminal</h3>
+              <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-300 text-[10px] font-mono">
                 Compact v0.34
               </span>
             </div>
-            <p className="text-xs text-[#6B7280] mt-0.5">
-              Target: <strong className="text-[#111827]">{activeTenderData.title}</strong> ({activeTenderData.id})
+            <p className="text-xs text-slate-400 mt-0.5">
+              Target: <strong className="text-white">{activeTenderData.title}</strong> ({activeTenderData.id})
             </p>
           </div>
 
-          <div className="bg-[#FAFAF9] px-3.5 py-1.5 rounded-xl border border-[#E5E7EB] text-left sm:text-right">
-            <span className="text-[9px] font-semibold text-[#6B7280] uppercase tracking-wider block">
+          <div className="bg-[#070A14] px-3.5 py-1.5 rounded-xl border border-white/10 text-left sm:text-right">
+            <span className="text-[9px] font-semibold text-slate-400 uppercase tracking-wider block">
               Preprod Contract
             </span>
-            <span className="font-mono text-xs text-indigo-700 font-semibold" title={contractAddress}>
+            <span className="font-mono text-xs text-cyan-300 font-semibold" title={contractAddress}>
               {formatAddress(contractAddress, 8, 6)}
             </span>
           </div>
         </div>
 
         {/* Privacy Label */}
-        <div className="p-3.5 rounded-xl bg-indigo-50 border border-indigo-200 flex items-center gap-3">
-          <div className="w-8 h-8 rounded-xl bg-white border border-indigo-200 text-indigo-700 flex items-center justify-center shrink-0">
+        <div className="p-3.5 rounded-xl bg-indigo-950/40 border border-indigo-500/30 flex items-center gap-3">
+          <div className="w-8 h-8 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center shrink-0">
             <ShieldCheck className="w-4 h-4" />
           </div>
           <div>
-            <h4 className="text-xs font-bold text-indigo-900">
+            <h4 className="text-xs font-bold text-indigo-200">
               Proved without revealing your input
             </h4>
-            <p className="text-[11px] text-indigo-800 mt-0.5 leading-relaxed">
+            <p className="text-[11px] text-slate-300 mt-0.5 leading-relaxed">
               Your secret valuation delta and bid figure remain strictly confidential in your browser RAM. Only a zero-knowledge validity proof is submitted to Midnight.
             </p>
           </div>
@@ -264,11 +264,11 @@ export const SealedBidding: React.FC<SealedBiddingProps> = ({
         <form onSubmit={handleWitnessSubmit} className="space-y-4">
           <div>
             <div className="flex items-center justify-between mb-1.5">
-              <label className="text-xs font-bold text-[#111827] uppercase tracking-wider flex items-center gap-1.5">
-                <DollarSign className="w-3.5 h-3.5 text-indigo-600" />
+              <label className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+                <DollarSign className="w-3.5 h-3.5 text-cyan-400" />
                 Confidential Vendor Bid Amount (USD)
               </label>
-              <span className="text-[10px] font-mono text-indigo-700 flex items-center gap-1 font-semibold">
+              <span className="text-[10px] font-mono text-cyan-300 flex items-center gap-1 font-semibold">
                 <Lock className="w-3 h-3" /> Private Witness Input
               </span>
             </div>
@@ -281,26 +281,26 @@ export const SealedBidding: React.FC<SealedBiddingProps> = ({
                 value={inputValue}
                 onChange={(e) => setInputValue(parseInt(e.target.value) || 0)}
                 disabled={!isConnected || isProving}
-                className="w-full rounded-xl px-4 py-3 bg-[#FAFAF9] border border-[#E5E7EB] text-[#111827] font-mono text-sm focus:outline-none focus:border-indigo-600 disabled:opacity-50 transition-colors"
+                className="w-full rounded-xl px-4 py-3 bg-[#070A14] border border-white/10 text-white font-mono text-sm focus:outline-none focus:border-cyan-400 disabled:opacity-50 transition-colors"
                 placeholder="Enter confidential bid value..."
               />
-              <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1 text-[11px] font-mono text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-200">
-                <Sparkles className="w-3 h-3 text-indigo-600" />
+              <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1 text-[11px] font-mono text-cyan-300 bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/20">
+                <Sparkles className="w-3 h-3 text-cyan-400" />
                 ZK Shielded
               </div>
             </div>
 
             <div className="flex items-center justify-between text-[11px] mt-1.5">
-              <span className="text-[#6B7280]">
-                Qualifying Reserve: <strong className="text-[#111827]">{activeTenderData.reservePrice}</strong>
+              <span className="text-slate-400">
+                Qualifying Reserve: <strong className="text-white">{activeTenderData.reservePrice}</strong>
               </span>
               {isBidValid ? (
-                <span className="text-emerald-700 flex items-center gap-1 font-semibold">
-                  <Check className="w-3 h-3 text-emerald-600" /> Satisfies secretBid &gt;= reservePrice
+                <span className="text-emerald-400 flex items-center gap-1 font-semibold">
+                  <Check className="w-3 h-3 text-emerald-400" /> Satisfies secretBid &gt;= reservePrice
                 </span>
               ) : (
-                <span className="text-amber-700 flex items-center gap-1 font-semibold">
-                  <AlertCircle className="w-3 h-3 text-amber-600" /> Under Reserve: Constraint will fail
+                <span className="text-amber-400 flex items-center gap-1 font-semibold">
+                  <AlertCircle className="w-3 h-3 text-amber-400" /> Under Reserve: Constraint will fail
                 </span>
               )}
             </div>
@@ -331,9 +331,9 @@ export const SealedBidding: React.FC<SealedBiddingProps> = ({
               type="button"
               onClick={() => onExecuteCircuit('initializeTender', activeTenderData.reserveVal)}
               disabled={!isConnected || isProving}
-              className="w-full sm:w-auto px-4 py-3 rounded-xl bg-white hover:bg-stone-50 border border-[#E5E7EB] text-[#111827] font-semibold text-xs transition-colors flex items-center justify-center gap-1.5 disabled:opacity-50 shadow-xs"
+              className="w-full sm:w-auto px-4 py-3 rounded-xl bg-[#131B31] hover:bg-[#1A2542] border border-white/10 text-white font-semibold text-xs transition-colors flex items-center justify-center gap-1.5 disabled:opacity-50"
             >
-              <PlusCircle className="w-3.5 h-3.5 text-indigo-600" />
+              <PlusCircle className="w-3.5 h-3.5 text-cyan-400" />
               <span>Initialize Tender</span>
             </button>
 
@@ -341,7 +341,7 @@ export const SealedBidding: React.FC<SealedBiddingProps> = ({
               type="button"
               onClick={() => onExecuteCircuit('resetTender', 0)}
               disabled={!isConnected || isProving}
-              className="w-full sm:w-auto px-4 py-3 rounded-xl bg-white hover:bg-stone-50 border border-[#E5E7EB] text-[#6B7280] hover:text-[#111827] font-semibold text-xs transition-colors flex items-center justify-center gap-1.5 disabled:opacity-50 shadow-xs"
+              className="w-full sm:w-auto px-4 py-3 rounded-xl bg-[#131B31] hover:bg-[#1A2542] border border-white/10 text-slate-300 hover:text-white font-semibold text-xs transition-colors flex items-center justify-center gap-1.5 disabled:opacity-50"
               title="Reset tender states for live testing"
             >
               <RotateCcw className="w-3.5 h-3.5" />
@@ -352,13 +352,13 @@ export const SealedBidding: React.FC<SealedBiddingProps> = ({
 
         {/* Proving Status Overlay */}
         {isProving && (
-          <div className="p-4 rounded-xl bg-indigo-50 border border-indigo-200 flex items-center gap-3 animate-pulse">
-            <Cpu className="w-5 h-5 text-indigo-600 animate-spin shrink-0" />
+          <div className="p-4 rounded-xl bg-cyan-950/40 border border-cyan-500/30 flex items-center gap-3 animate-pulse">
+            <Cpu className="w-5 h-5 text-cyan-400 animate-spin shrink-0" />
             <div className="text-xs">
-              <span className="font-bold text-indigo-900 block">
+              <span className="font-bold text-cyan-300 block">
                 Executing Local Client zk-SNARK Prover...
               </span>
-              <span className="text-[#6B7280]">
+              <span className="text-slate-400">
                 Synthesizing arithmetic constraints inside browser memory.
               </span>
             </div>
@@ -367,21 +367,21 @@ export const SealedBidding: React.FC<SealedBiddingProps> = ({
 
         {/* Transaction Submission Receipt */}
         {txHash && (
-          <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 space-y-2.5">
-            <div className="flex items-center gap-2 text-emerald-800 font-bold text-xs">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+          <div className="p-4 rounded-xl bg-emerald-950/40 border border-emerald-500/30 space-y-2.5">
+            <div className="flex items-center gap-2 text-emerald-300 font-bold text-xs">
+              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
               Proof Verified &amp; Transaction Included on Midnight Preprod!
             </div>
 
-            <div className="bg-white p-3 rounded-xl border border-emerald-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
-              <span className="font-mono text-[#6B7280] truncate" title={txHash}>
+            <div className="bg-[#070A14] p-3 rounded-xl border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+              <span className="font-mono text-slate-300 truncate" title={txHash}>
                 Tx Hash: {txHash}
               </span>
               <a
                 href={BIDVEIL_CONTRACT_CONFIG.explorerUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="font-bold text-indigo-600 hover:underline flex items-center gap-1 shrink-0 font-mono"
+                className="font-bold text-cyan-300 hover:underline flex items-center gap-1 shrink-0 font-mono"
               >
                 <span>View on Indexer</span>
                 <ExternalLink className="w-3 h-3" />
@@ -392,8 +392,8 @@ export const SealedBidding: React.FC<SealedBiddingProps> = ({
 
         {/* Error Message */}
         {error && (
-          <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-start gap-2">
-            <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+          <div className="p-3.5 rounded-xl bg-rose-950/40 border border-rose-500/30 text-rose-200 text-xs flex items-start gap-2">
+            <AlertCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
             <div>{error}</div>
           </div>
         )}
