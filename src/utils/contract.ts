@@ -18,9 +18,14 @@ export const BIDVEIL_CONTRACT_CONFIG = {
   },
 };
 
+export function getExplorerContractUrl(address: string): string {
+  const clean = address.startsWith('0x') ? address : `0x${address}`;
+  return `https://preprod.midnightexplorer.com/contracts/${clean}`;
+}
+
 export function getExplorerTxUrl(txHash: string): string {
-  const clean = txHash.replace(/^0x/, '');
-  return `https://preprod.midnightexplorer.com/tx/${clean}`;
+  const clean = txHash.startsWith('0x') ? txHash : `0x${txHash}`;
+  return `https://preprod.midnightexplorer.com/transactions/${clean}`;
 }
 
 export interface TenderInfo {

@@ -18,8 +18,10 @@
 ## Contract Address
 | Network  | Address                                                          | Explorer |
 |----------|------------------------------------------------------------------|----------|
-| Preprod  | `e0662c1d6eb4aea26af23b999a84bdd1c10d0a7793788f27787f1eb5bf5e3ec9` | [View on Preprod Explorer](https://preprod.midnightexplorer.com/contract/e0662c1d6eb4aea26af23b999a84bdd1c10d0a7793788f27787f1eb5bf5e3ec9) |
-| Preview  | `7ff3da84fceba28bdae68fa8ada604e45bbe191f938873b34857773e1c1e8ec2` | [View on Preview Explorer](https://midnightexplorer.com) |
+| Preprod  | `0xe0662c1d6eb4aea26af23b999a84bdd1c10d0a7793788f27787f1eb5bf5e3ec9` | [View on Preprod Explorer](https://preprod.midnightexplorer.com/contracts/0xe0662c1d6eb4aea26af23b999a84bdd1c10d0a7793788f27787f1eb5bf5e3ec9) |
+| Preview  | `0x7ff3da84fceba28bdae68fa8ada604e45bbe191f938873b34857773e1c1e8ec2` | [View on Preview Explorer](https://midnightexplorer.com) |
+
+> **Preprod Deployment Transaction:** [`0xcead0258ffbf67a52bf42b022566a91bb0384233e577fd7e5fb782de3c5218e7`](https://preprod.midnightexplorer.com/transactions/0xcead0258ffbf67a52bf42b022566a91bb0384233e577fd7e5fb782de3c5218e7) (Block `#2,619,186`)
 
 ---
 
