@@ -10,7 +10,7 @@ import {
   Send,
   MessageSquare
 } from 'lucide-react';
-import { BIDVEIL_CONTRACT_CONFIG } from '../utils/contract';
+import { BIDVEIL_CONTRACT_CONFIG, formatAddress } from '../utils/contract';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -382,8 +382,8 @@ export const Layout: React.FC<LayoutProps> = ({
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                 Contracts Live
               </span>
-              <span className="font-mono text-[11px] text-slate-600">
-                {BIDVEIL_CONTRACT_CONFIG.address.slice(0, 10)}...{BIDVEIL_CONTRACT_CONFIG.address.slice(-6)}
+              <span className="font-mono text-[11px] text-slate-500">
+                {formatAddress(BIDVEIL_CONTRACT_CONFIG.preprodAddress || '', 10, 6)}
               </span>
             </div>
           </div>
