@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
 import { 
   BookOpen, 
-  ShieldCheck, 
   Terminal, 
   Lock, 
   Key, 
-  Code2, 
-  ExternalLink, 
+  Cpu, 
+  HelpCircle,
   Copy, 
   Check, 
-  HelpCircle,
-  Cpu,
-  FileText
+  ExternalLink 
 } from 'lucide-react';
 import { BIDVEIL_CONTRACT_CONFIG } from '../utils/contract';
 
@@ -45,93 +42,94 @@ export const DocsSection: React.FC = () => {
   ];
 
   return (
-    <div id="docs" className="space-y-8 scroll-mt-24">
+    <section id="docs" className="scroll-mt-24 space-y-6">
       {/* Section Header */}
       <div className="text-center max-w-2xl mx-auto space-y-3">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full badge-indigo text-xs font-semibold">
+        <div className="ent-badge text-xs">
           <BookOpen className="w-3.5 h-3.5" />
-          <span>Developer & Enterprise Documentation</span>
+          <span>Technical Specifications</span>
         </div>
-        <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
-          Documentation & Specifications
+        <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#F4F7FA]">
+          Documentation &amp; Contract Verification
         </h2>
-        <p className="text-sm text-slate-400">
-          Everything you need to understand Bidveil's zero-knowledge circuit architecture, Compact contract specifications, and testnet deployment.
+        <p className="text-base text-[#94A3B8]">
+          Detailed specifications on Bidveil's zero-knowledge circuit pipeline, Compact contract rules, and testnet integration.
         </p>
       </div>
 
       {/* Docs Container */}
-      <div className="saas-card border border-slate-800/80 overflow-hidden">
-        {/* Sub-navigation Tabs */}
-        <div className="flex border-b border-slate-800 bg-slate-950/60 overflow-x-auto">
+      <div className="ent-card overflow-hidden">
+        {/* Horizontally Scrollable Sub-navigation Tabs */}
+        <div className="flex border-b border-[#253142] bg-[#0A0E17] overflow-x-auto scrollbar-none px-2 pt-2">
           <button
             onClick={() => setActiveTab('quickstart')}
-            className={`px-5 py-3.5 text-xs font-semibold flex items-center gap-2 border-b-2 transition-all whitespace-nowrap ${
+            className={`px-5 py-3 text-xs font-semibold flex items-center gap-2 border-b-2 transition-all whitespace-nowrap min-h-[44px] ${
               activeTab === 'quickstart'
-                ? 'border-indigo-500 text-indigo-400 bg-indigo-500/5'
-                : 'border-transparent text-slate-400 hover:text-slate-200'
+                ? 'border-[#74E8A3] text-[#74E8A3] bg-[#141D2A]'
+                : 'border-transparent text-[#94A3B8] hover:text-[#F4F7FA] hover:bg-[#101722]'
             }`}
           >
             <Terminal className="w-3.5 h-3.5" />
-            Quick Start & Wallet
+            <span>Quick Start &amp; Wallet</span>
           </button>
 
           <button
             onClick={() => setActiveTab('circuits')}
-            className={`px-5 py-3.5 text-xs font-semibold flex items-center gap-2 border-b-2 transition-all whitespace-nowrap ${
+            className={`px-5 py-3 text-xs font-semibold flex items-center gap-2 border-b-2 transition-all whitespace-nowrap min-h-[44px] ${
               activeTab === 'circuits'
-                ? 'border-indigo-500 text-indigo-400 bg-indigo-500/5'
-                : 'border-transparent text-slate-400 hover:text-slate-200'
+                ? 'border-[#74E8A3] text-[#74E8A3] bg-[#141D2A]'
+                : 'border-transparent text-[#94A3B8] hover:text-[#F4F7FA] hover:bg-[#101722]'
             }`}
           >
             <Cpu className="w-3.5 h-3.5" />
-            Compact Circuits
+            <span>Compact Circuits</span>
           </button>
 
           <button
             onClick={() => setActiveTab('privacy')}
-            className={`px-5 py-3.5 text-xs font-semibold flex items-center gap-2 border-b-2 transition-all whitespace-nowrap ${
+            className={`px-5 py-3 text-xs font-semibold flex items-center gap-2 border-b-2 transition-all whitespace-nowrap min-h-[44px] ${
               activeTab === 'privacy'
-                ? 'border-indigo-500 text-indigo-400 bg-indigo-500/5'
-                : 'border-transparent text-slate-400 hover:text-slate-200'
+                ? 'border-[#74E8A3] text-[#74E8A3] bg-[#141D2A]'
+                : 'border-transparent text-[#94A3B8] hover:text-[#F4F7FA] hover:bg-[#101722]'
             }`}
           >
             <Lock className="w-3.5 h-3.5" />
-            Privacy Model
+            <span>Privacy Model</span>
           </button>
 
           <button
             onClick={() => setActiveTab('faq')}
-            className={`px-5 py-3.5 text-xs font-semibold flex items-center gap-2 border-b-2 transition-all whitespace-nowrap ${
+            className={`px-5 py-3 text-xs font-semibold flex items-center gap-2 border-b-2 transition-all whitespace-nowrap min-h-[44px] ${
               activeTab === 'faq'
-                ? 'border-indigo-500 text-indigo-400 bg-indigo-500/5'
-                : 'border-transparent text-slate-400 hover:text-slate-200'
+                ? 'border-[#74E8A3] text-[#74E8A3] bg-[#141D2A]'
+                : 'border-transparent text-[#94A3B8] hover:text-[#F4F7FA] hover:bg-[#101722]'
             }`}
           >
             <HelpCircle className="w-3.5 h-3.5" />
-            Frequently Asked Questions
+            <span>Frequently Asked Questions</span>
           </button>
         </div>
 
-        {/* Tab Content */}
-        <div className="p-6 sm:p-8">
+        {/* Tab Content with Increased Padding */}
+        <div className="p-6 sm:p-10">
           {activeTab === 'quickstart' && (
             <div className="space-y-6">
               <div className="space-y-3">
-                <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                  <Key className="w-4 h-4 text-indigo-400" />
+                <h3 className="text-base font-semibold text-[#F4F7FA] flex items-center gap-2">
+                  <Key className="w-4 h-4 text-[#74E8A3]" />
                   Preprod Contract Deployment
                 </h3>
-                <p className="text-xs text-slate-400 leading-relaxed">
-                  Bidveil is actively deployed on the Midnight Network Preprod testnet. The smart contract was written in Compact and compiled with Compact compiler v0.34.
+                <p className="text-sm text-[#94A3B8] leading-relaxed">
+                  Bidveil is deployed on the Midnight Network Preprod testnet. Built with Compact and compiled with toolchain v0.34.
                 </p>
 
-                <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-                  <div>
-                    <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block">
-                      Contract Address (Preprod & Preview)
+                {/* Contract Address Card */}
+                <div className="p-4 sm:p-5 rounded-xl bg-[#080D14] border border-[#253142] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                  <div className="space-y-1 overflow-hidden">
+                    <span className="text-[10px] uppercase font-semibold text-[#94A3B8] tracking-wider block">
+                      Canonical Contract Address (Preprod)
                     </span>
-                    <span className="font-mono text-xs text-indigo-300 break-all">
+                    <span className="font-mono text-xs sm:text-sm text-[#74E8A3] font-medium break-all select-all block">
                       {BIDVEIL_CONTRACT_CONFIG.preprodAddress}
                     </span>
                   </div>
@@ -139,42 +137,47 @@ export const DocsSection: React.FC = () => {
                   <div className="flex items-center gap-2 shrink-0">
                     <button
                       onClick={handleCopyAddress}
-                      className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs flex items-center gap-1.5 font-medium transition-colors"
+                      className="ent-btn-secondary text-xs px-3.5 py-2 min-h-[38px]"
+                      title="Copy full address to clipboard"
                     >
-                      {copiedAddress ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                      {copiedAddress ? 'Copied' : 'Copy'}
+                      {copiedAddress ? (
+                        <>
+                          <Check className="w-3.5 h-3.5 text-[#74E8A3]" />
+                          <span>Copied</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-3.5 h-3.5" />
+                          <span>Copy Address</span>
+                        </>
+                      )}
                     </button>
+
                     <a
-                      href="https://indexer.preprod.midnight.network"
+                      href={BIDVEIL_CONTRACT_CONFIG.explorerUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="px-3 py-1.5 rounded-lg bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 text-xs flex items-center gap-1 font-medium transition-colors border border-indigo-500/30"
+                      className="ent-btn-secondary text-xs px-3.5 py-2 min-h-[38px]"
                     >
-                      Explorer <ExternalLink className="w-3 h-3" />
+                      <span>Explorer</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
                     </a>
                   </div>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
-                <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-2">
-                  <div className="text-indigo-400 font-bold text-xs">Step 1: Get Lace Wallet</div>
-                  <p className="text-xs text-slate-400 leading-relaxed">
-                    Install the official Lace Midnight browser extension from Chrome Web Store or Midnight developer portal.
+              {/* Steps */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                <div className="p-4 rounded-xl bg-[#0E1520] border border-[#253142] space-y-2">
+                  <div className="text-xs font-semibold text-[#74E8A3]">1. Configure Lace Wallet</div>
+                  <p className="text-xs text-[#94A3B8] leading-relaxed">
+                    Install the Lace Midnight extension and set your network to Preprod. Request testnet tNIGHT tokens via the official Midnight faucet.
                   </p>
                 </div>
-
-                <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-2">
-                  <div className="text-indigo-400 font-bold text-xs">Step 2: Fund with tNIGHT</div>
-                  <p className="text-xs text-slate-400 leading-relaxed">
-                    Request free testnet tokens from the Midnight Preprod faucet to cover zero-knowledge proof gas fees.
-                  </p>
-                </div>
-
-                <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-2">
-                  <div className="text-indigo-400 font-bold text-xs">Step 3: Connect & Bid</div>
-                  <p className="text-xs text-slate-400 leading-relaxed">
-                    Launch the Bidveil Terminal, select an active procurement tender, and submit your confidential sealed bid.
+                <div className="p-4 rounded-xl bg-[#0E1520] border border-[#253142] space-y-2">
+                  <div className="text-xs font-semibold text-[#74E8A3]">2. Connect &amp; Submit Bids</div>
+                  <p className="text-xs text-[#94A3B8] leading-relaxed">
+                    Click "Launch Terminal" in the top bar. Choose a tender, input your confidential bid, and generate client-side zk-SNARK proofs locally in your browser.
                   </p>
                 </div>
               </div>
@@ -182,44 +185,30 @@ export const DocsSection: React.FC = () => {
           )}
 
           {activeTab === 'circuits' && (
-            <div className="space-y-5">
-              <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                <Code2 className="w-4 h-4 text-indigo-400" />
-                Compact Circuit Architecture
+            <div className="space-y-4">
+              <h3 className="text-base font-semibold text-[#F4F7FA]">
+                Compact Smart Contract Circuits
               </h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                The smart contract is implemented in <code className="text-indigo-300">contracts/bidveil.compact</code> with state-isolated circuits:
+              <p className="text-sm text-[#94A3B8] leading-relaxed">
+                The Bidveil protocol exports five circuits defining the complete lifecycle of sealed tenders:
               </p>
 
-              <div className="space-y-3">
-                <div className="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1">
-                  <div className="flex items-center justify-between">
-                    <code className="text-xs font-bold text-indigo-300">circuit submitSealedBid(): Void</code>
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/10 text-purple-400 border border-purple-500/20">Private Witness</span>
-                  </div>
-                  <p className="text-xs text-slate-400">
-                    Takes witness <code className="text-slate-300">secretBidAmount()</code>, proves <code className="text-slate-300">isOpen == true</code> and <code className="text-slate-300">secretBidAmount &gt;= reservePrice</code>, and increments <code className="text-slate-300">bidCount</code> on the public ledger without revealing the bid.
-                  </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                <div className="p-4 rounded-xl bg-[#080D14] border border-[#253142] space-y-1">
+                  <div className="font-mono text-xs text-[#74E8A3] font-semibold">initializeTender(reservePrice)</div>
+                  <p className="text-xs text-[#94A3B8]">Configures the minimum reserve price and marks the tender open for sealed bid submissions.</p>
                 </div>
-
-                <div className="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1">
-                  <div className="flex items-center justify-between">
-                    <code className="text-xs font-bold text-indigo-300">circuit submitDisclosedBid(bidAmount: Uint&lt;64&gt;): Void</code>
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">Public Transition</span>
-                  </div>
-                  <p className="text-xs text-slate-400">
-                    Used during the disclosed tender settlement phase to publish winning valuation metrics and finalize procurement contracts.
-                  </p>
+                <div className="p-4 rounded-xl bg-[#080D14] border border-[#253142] space-y-1">
+                  <div className="font-mono text-xs text-[#74E8A3] font-semibold">submitSealedBid(secretBid)</div>
+                  <p className="text-xs text-[#94A3B8]">Evaluates private witness constraints locally. Proves bid &gt;= reserve without revealing the value on-chain.</p>
                 </div>
-
-                <div className="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1">
-                  <div className="flex items-center justify-between">
-                    <code className="text-xs font-bold text-indigo-300">circuit resetTender(newReserve: Uint&lt;64&gt;): Void</code>
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Admin / Reset</span>
-                  </div>
-                  <p className="text-xs text-slate-400">
-                    Resets tender state, sets a new reserve price, and zeroes the verified bid counter for subsequent procurement cycles.
-                  </p>
+                <div className="p-4 rounded-xl bg-[#080D14] border border-[#253142] space-y-1">
+                  <div className="font-mono text-xs text-[#74E8A3] font-semibold">submitDisclosedBid(publicBid)</div>
+                  <p className="text-xs text-[#94A3B8]">Alternative transparent bidding pathway for public reverse auctions.</p>
+                </div>
+                <div className="p-4 rounded-xl bg-[#080D14] border border-[#253142] space-y-1">
+                  <div className="font-mono text-xs text-[#74E8A3] font-semibold">closeTender()</div>
+                  <p className="text-xs text-[#94A3B8]">Closes the active bidding window to finalize all submitted zero-knowledge commitments.</p>
                 </div>
               </div>
             </div>
@@ -227,48 +216,19 @@ export const DocsSection: React.FC = () => {
 
           {activeTab === 'privacy' && (
             <div className="space-y-4">
-              <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                <Lock className="w-4 h-4 text-indigo-400" />
-                Zero-Knowledge Privacy Boundaries
+              <h3 className="text-base font-semibold text-[#F4F7FA]">
+                Client-Side Privacy &amp; Kachina Prover Architecture
               </h3>
-
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs border border-slate-800 rounded-xl overflow-hidden">
-                  <thead className="bg-slate-950 text-slate-300 border-b border-slate-800">
-                    <tr>
-                      <th className="p-3">Component</th>
-                      <th className="p-3">Privacy Level</th>
-                      <th className="p-3">Where It Lives</th>
-                      <th className="p-3">Description</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-800/80 text-slate-400">
-                    <tr className="hover:bg-slate-950/40">
-                      <td className="p-3 font-semibold text-slate-200">reservePrice</td>
-                      <td className="p-3"><span className="px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400">Public</span></td>
-                      <td className="p-3 font-mono">On-chain Ledger</td>
-                      <td className="p-3">Minimum qualifying threshold set by buyer</td>
-                    </tr>
-                    <tr className="hover:bg-slate-950/40">
-                      <td className="p-3 font-semibold text-slate-200">bidCount</td>
-                      <td className="p-3"><span className="px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400">Public</span></td>
-                      <td className="p-3 font-mono">On-chain Ledger</td>
-                      <td className="p-3">Total count of verified conforming bids</td>
-                    </tr>
-                    <tr className="hover:bg-slate-950/40">
-                      <td className="p-3 font-semibold text-slate-200">secretBidAmount</td>
-                      <td className="p-3"><span className="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 font-bold">100% Private</span></td>
-                      <td className="p-3 font-mono">Browser RAM Only</td>
-                      <td className="p-3">Vendor pricing; never transmitted to network</td>
-                    </tr>
-                    <tr className="hover:bg-slate-950/40">
-                      <td className="p-3 font-semibold text-slate-200">ZK-SNARK Proof</td>
-                      <td className="p-3"><span className="px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-400">Public Proof</span></td>
-                      <td className="p-3 font-mono">Mempool / Block</td>
-                      <td className="p-3">Cryptographic assertion: bid &gt;= reserve</td>
-                    </tr>
-                  </tbody>
-                </table>
+              <p className="text-sm text-[#94A3B8] leading-relaxed">
+                Traditional public blockchains broadcast all mempool transactions in plain text. Competitors can observe vendor pricing proposals and front-run offers before blocks are minted.
+              </p>
+              <div className="p-4 rounded-xl bg-[#080D14] border border-[#253142] space-y-2">
+                <div className="text-xs font-semibold text-[#74E8A3]">How Bidveil Prevents Valuation Leakage:</div>
+                <ul className="space-y-1.5 text-xs text-[#94A3B8]">
+                  <li>• <strong>Private State Isolation:</strong> The actual bid valuation exists only as a local witness in the Lace browser extension memory.</li>
+                  <li>• <strong>Zero-Knowledge Arithmetic:</strong> The local prover generates a cryptographic proof verifying <code className="text-slate-200">bid &gt;= reservePrice</code> without emitting the input value.</li>
+                  <li>• <strong>Immutable Ledger Consensus:</strong> Midnight validator nodes verify the validity proof and register commitment hashes with zero data disclosure.</li>
+                </ul>
               </div>
             </div>
           )}
@@ -276,19 +236,15 @@ export const DocsSection: React.FC = () => {
           {activeTab === 'faq' && (
             <div className="space-y-3">
               {faqs.map((faq, i) => (
-                <div key={i} className="p-4 rounded-xl bg-slate-950/70 border border-slate-800/80 space-y-1.5">
-                  <h4 className="text-xs font-bold text-slate-200 flex items-center gap-2">
-                    <span className="text-indigo-400 font-mono">Q{i + 1}:</span> {faq.q}
-                  </h4>
-                  <p className="text-xs text-slate-400 pl-6 leading-relaxed">
-                    {faq.a}
-                  </p>
+                <div key={i} className="p-4 rounded-xl bg-[#080D14] border border-[#253142] space-y-1.5">
+                  <h4 className="text-xs sm:text-sm font-semibold text-[#F4F7FA]">{faq.q}</h4>
+                  <p className="text-xs text-[#94A3B8] leading-relaxed">{faq.a}</p>
                 </div>
               ))}
             </div>
           )}
         </div>
       </div>
-    </div>
+    </section>
   );
 };

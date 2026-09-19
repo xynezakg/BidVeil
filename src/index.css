@@ -1,14 +1,16 @@
 @import "https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css";
 
 :root {
-  --bg-canvas: #0a0e17;
-  --bg-card: #121824;
-  --bg-card-hover: #171f2e;
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-highlight: rgba(134, 239, 172, 0.35);
-  --accent-mint: #86efac;
-  --accent-mint-dark: #052e16;
-  --accent-cyan: #38bdf8;
+  --background: #080D14;
+  --surface: #101722;
+  --surface-raised: #141D2A;
+  --border: #253142;
+  --border-card: rgba(148, 163, 184, 0.18);
+  --text-primary: #F4F7FA;
+  --text-secondary: #94A3B8;
+  --accent: #74E8A3;
+  --accent-hover: #93F0B5;
+  --accent-muted: rgba(116, 232, 163, 0.12);
 }
 
 * {
@@ -17,170 +19,189 @@
 
 html {
   scroll-behavior: smooth;
-  background-color: var(--bg-canvas);
+  background-color: var(--background);
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
-  background-color: var(--bg-canvas);
-  color: #e2e8f0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--background);
+  color: var(--text-primary);
+  font-size: 16px;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
-/* ─────────────────────────────────────────────────────────────
-   Motta Ambient Luminous Glow Orbs & Background Accents
-────────────────────────────────────────────────────────────── */
-.motta-ambient-glow-top-left {
-  position: absolute;
-  top: -120px;
-  left: -120px;
-  width: 550px;
-  height: 550px;
-  background: radial-gradient(circle, rgba(74, 222, 128, 0.18) 0%, rgba(34, 197, 94, 0.06) 45%, transparent 75%);
-  filter: blur(100px);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.motta-ambient-glow-bottom-right {
-  position: absolute;
-  bottom: -150px;
-  right: -150px;
-  width: 650px;
-  height: 650px;
-  background: radial-gradient(circle, rgba(56, 189, 248, 0.14) 0%, rgba(74, 222, 128, 0.08) 50%, transparent 75%);
-  filter: blur(120px);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.motta-ambient-glow-center {
-  position: absolute;
-  top: 35%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 700px;
-  height: 700px;
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.06) 0%, transparent 65%);
-  filter: blur(140px);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Floating Ambient Cross Elements (From Motta Inspo) */
-.floating-cross {
-  position: absolute;
-  color: rgba(255, 255, 255, 0.04);
-  pointer-events: none;
-  user-select: none;
-  font-weight: 300;
-  font-size: 5rem;
-  line-height: 1;
+code, pre, .font-mono {
+  font-family: 'JetBrains Mono', 'IBM Plex Mono', monospace;
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Motta Soft Matte Dark Cards (rounded-3xl)
+   Accessibility Focus States
 ────────────────────────────────────────────────────────────── */
-.motta-card {
-  background: #111622;
-  border: 1px solid var(--border-subtle);
-  border-radius: 1.75rem;
-  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.motta-card:hover {
-  background: #151c2c;
-  border-color: rgba(255, 255, 255, 0.15);
-  transform: translateY(-3px);
-  box-shadow: 0 18px 40px -10px rgba(0, 0, 0, 0.6);
-}
-
-/* Center Featured Card in Bento (Motta "Grow" Card) */
-.motta-card-featured {
-  background: #131a29;
-  border: 1px solid rgba(74, 222, 128, 0.35);
-  border-radius: 1.75rem;
-  box-shadow: 0 16px 45px -8px rgba(34, 197, 94, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  position: relative;
-}
-
-.motta-card-featured:hover {
-  border-color: rgba(74, 222, 128, 0.6);
-  transform: translateY(-4px);
-  box-shadow: 0 24px 55px -10px rgba(34, 197, 94, 0.28);
+a:focus-visible, button:focus-visible, input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Motta Buttons & Pill Navigation
+   Consistent Section Vertical Spacing
 ────────────────────────────────────────────────────────────── */
-.motta-pill-btn-primary {
+.ent-section {
+  padding-top: 96px;
+  padding-bottom: 96px;
+}
+
+@media (max-width: 768px) {
+  .ent-section {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Enterprise Dark Surfaces & Cards
+────────────────────────────────────────────────────────────── */
+.ent-card, .saas-card, .clay-card, .motta-card, .obsidian-card {
+  background-color: var(--surface);
+  border: 1px solid var(--border-card);
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.ent-card:hover {
+  border-color: rgba(116, 232, 163, 0.3);
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.5);
+  transform: translateY(-2px);
+}
+
+.ent-card-raised {
+  background-color: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Enterprise Buttons (Min 44px Touch Target)
+────────────────────────────────────────────────────────────── */
+.ent-btn-primary, .saas-button-primary, .clay-button-primary, .btn-pill-primary, .motta-pill-btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  border-radius: 9999px;
-  padding: 0.65rem 1.35rem;
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: #052e16;
-  background: #86efac;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 4px 18px rgba(74, 222, 128, 0.35);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  cursor: pointer;
-}
-
-.motta-pill-btn-primary:hover:not(:disabled) {
-  background: #a7f3d0;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 24px rgba(74, 222, 128, 0.5);
-}
-
-.motta-pill-btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  border-radius: 9999px;
-  padding: 0.65rem 1.35rem;
-  font-size: 0.85rem;
+  background-color: var(--accent);
+  color: #080D14;
   font-weight: 600;
-  color: #cbd5e1;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--border-subtle);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  font-size: 0.875rem;
+  padding: 0.6875rem 1.5rem;
+  min-height: 44px;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
   cursor: pointer;
+  text-decoration: none;
 }
 
-.motta-pill-btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
+.ent-btn-primary:hover:not(:disabled) {
+  background-color: var(--accent-hover);
+  box-shadow: 0 4px 14px rgba(116, 232, 163, 0.35);
+  transform: translateY(-1px);
+}
+
+.ent-btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.ent-btn-secondary, .saas-button-secondary, .clay-button-secondary, .btn-pill-secondary, .motta-pill-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: rgba(20, 29, 42, 0.7);
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 0.875rem;
+  padding: 0.6875rem 1.5rem;
+  min-height: 44px;
+  border-radius: 9999px;
+  border: 1px solid var(--border);
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.ent-btn-secondary:hover {
+  background-color: var(--surface-raised);
+  border-color: rgba(148, 163, 184, 0.35);
   color: #ffffff;
   transform: translateY(-1px);
 }
 
-/* Motta Bottom Banner */
-.motta-bottom-banner {
-  background: linear-gradient(135deg, rgba(20, 83, 45, 0.8) 0%, rgba(22, 101, 52, 0.65) 50%, rgba(15, 23, 42, 0.8) 100%);
-  border: 1px solid rgba(74, 222, 128, 0.25);
-  border-radius: 2rem;
-  backdrop-filter: blur(20px);
-  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+/* ─────────────────────────────────────────────────────────────
+   Badges & Indicators
+────────────────────────────────────────────────────────────── */
+.ent-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  background-color: var(--accent-muted);
+  border: 1px solid rgba(116, 232, 163, 0.25);
+  color: var(--accent);
 }
 
-/* Custom Scrollbar */
+.ent-badge-subtle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background-color: var(--surface-raised);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+
+/* Form Inputs */
+.ent-input, .saas-input, .clay-input {
+  background-color: var(--background);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  width: 100%;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ent-input:focus, .saas-input:focus, .clay-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-muted);
+}
+
+/* Mint Green Range Slider */
+input[type="range"] {
+  accent-color: var(--accent);
+}
+
+/* Subtle Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0a0e17;
+  background: var(--background);
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: var(--border);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
