@@ -15,7 +15,8 @@ import {
   PlusCircle, 
   Activity, 
   Check, 
-  ExternalLink 
+  ExternalLink,
+  Zap 
 } from 'lucide-react';
 import { BIDVEIL_CONTRACT_CONFIG, formatAddress } from '../utils/contract';
 
