@@ -133,130 +133,98 @@ export const LandingPage: React.FC<LandingProps> = ({
         {/* Right Column: Dark Glassmorphic Application Mockup Window */}
         <div className="lg:col-span-6 relative flex justify-center items-center w-full z-10">
           {/* Main Browser Mockup Window */}
-          <div className="w-full max-w-[540px] bv-mockup-window relative transition-all duration-500 hover:shadow-[0_0_50px_rgba(99,102,241,0.25)]">
+          <div className="w-full max-w-[540px] rounded-2xl bg-[#0D1222] border border-white/[0.08] shadow-[0_20px_60px_rgba(0,0,0,0.6)] overflow-hidden transition-all duration-300 hover:border-cyan-500/30 hover:shadow-[0_0_40px_rgba(0,242,254,0.15)]">
             {/* Window Title Bar */}
-            <div className="bg-[#090D1A] border-b border-white/10 px-4 py-3 flex items-center justify-between">
-              <div className="flex gap-1.5">
+            <div className="bg-[#090E1A] border-b border-white/[0.06] px-4 py-3 flex items-center justify-between">
+              <div className="flex gap-2">
                 <span className="w-3 h-3 rounded-full bg-rose-500/80 inline-block"></span>
                 <span className="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
                 <span className="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
               </div>
-              <div className="text-[10px] text-slate-400 font-mono bg-[#070A14] px-5 py-0.5 rounded-md border border-white/10 select-none">
-                terminal.bidveil.network/preprod
+              <div className="text-[11px] text-slate-400 font-mono bg-white/[0.04] px-4 py-1 rounded-full border border-white/[0.05] select-none flex items-center gap-1.5">
+                <Lock className="w-2.5 h-2.5 text-cyan-400" />
+                <span>terminal.bidveil.network</span>
               </div>
-              <div className="w-10"></div>
+              <div className="flex items-center gap-1.5 text-[10px] font-semibold text-emerald-400">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>Preprod</span>
+              </div>
             </div>
 
             {/* Window Content */}
-            <div className="p-6 bg-[#0B0F1E]/80 flex flex-col gap-4 text-left">
+            <div className="p-6 bg-[#0B0F1E] flex flex-col gap-4 text-left">
               {/* Internal Mini Stat Cards */}
               <div className="grid grid-cols-2 gap-3">
-                <div className="bg-[#10162B] p-4 rounded-xl border border-white/10">
-                  <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Active Tender Reserve</span>
-                  <span className="text-lg font-bold text-white mt-1 block font-mono">$100,000.00</span>
+                <div className="bg-[#11172A] p-4 rounded-xl border border-white/[0.05]">
+                  <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block">Active Tender Reserve</span>
+                  <span className="text-xl font-bold text-white mt-1 block font-mono">$100,000.00</span>
+                  <span className="text-[10px] text-slate-500 mt-0.5 block">Minimum Qualifying Bid</span>
                 </div>
 
-                <div className="bg-[#10162B] p-4 rounded-xl border border-indigo-500/30 relative overflow-hidden">
-                  <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Confidential Witness</span>
-                  <span className="text-lg font-bold text-cyan-400 mt-1 block font-mono">ZK Shielded</span>
-                  <span className="absolute top-3 right-3 text-[9px] bg-indigo-500/20 text-indigo-300 px-2 py-0.5 rounded-full font-semibold border border-indigo-500/30">
-                    RAM-Only
-                  </span>
+                <div className="bg-[#11172A] p-4 rounded-xl border border-white/[0.05] relative overflow-hidden">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block">Private Witness</span>
+                    <span className="text-[9px] bg-cyan-500/10 text-cyan-300 px-2 py-0.5 rounded-full font-semibold">
+                      RAM-Only
+                    </span>
+                  </div>
+                  <span className="text-xl font-bold text-cyan-400 mt-1 block font-mono">ZK Shielded</span>
+                  <span className="text-[10px] text-slate-500 mt-0.5 block">Zero Mempool Leakage</span>
                 </div>
               </div>
 
               {/* Active Procurement Tender Card */}
-              <div className="bg-[#10162B] p-4 rounded-xl border border-white/10 flex flex-col gap-3">
+              <div className="bg-[#11172A] p-4 rounded-xl border border-white/[0.05] flex flex-col gap-3">
                 <div className="flex justify-between items-center">
-                  <span className="text-xs font-bold text-white">Live Procurement Tender</span>
-                  <span className="text-[10px] text-cyan-300 font-mono bg-cyan-500/10 px-2 py-0.5 rounded-full border border-cyan-500/30">TND-2026-081</span>
+                  <span className="text-xs font-bold text-white flex items-center gap-1.5">
+                    <FileText className="w-3.5 h-3.5 text-cyan-400" />
+                    Target Procurement Tender
+                  </span>
+                  <span className="text-[10px] text-cyan-300 font-mono bg-cyan-500/10 px-2.5 py-0.5 rounded-full">
+                    TND-2026-081
+                  </span>
                 </div>
 
-                <div className="flex justify-between items-center p-3 rounded-lg bg-[#0A0E1B] border border-white/5 text-xs">
+                <div className="flex justify-between items-center p-3 rounded-lg bg-[#070A14] text-xs">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-500/20 to-indigo-500/20 border border-indigo-500/30 flex items-center justify-center text-cyan-300">
+                    <div className="w-9 h-9 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 shrink-0">
                       <Lock className="w-4 h-4" />
                     </div>
                     <div>
-                      <p className="font-bold text-white">Global Cloud Edge Servers</p>
+                      <p className="font-semibold text-white">Global Cloud Edge Servers</p>
                       <p className="text-[10px] text-slate-400">Apex Cloud Systems &bull; Enterprise IT</p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="font-mono font-bold text-indigo-400">Proof Synthesized</p>
-                    <span className="inline-flex items-center gap-1 text-[9px] text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.2 rounded-full font-semibold">
-                      Constraint Valid
+                    <p className="font-mono text-xs font-bold text-cyan-300">Proof Synthesized</p>
+                    <span className="inline-flex items-center gap-1 text-[9px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full font-semibold">
+                      &ge; Reserve Valid
                     </span>
                   </div>
+                </div>
+
+                {/* Circuit Verification Details */}
+                <div className="pt-2 border-t border-white/[0.05] flex items-center justify-between text-[11px] text-slate-400 font-mono">
+                  <span>Circuit: <strong className="text-slate-300">submitSealedBid()</strong></span>
+                  <span className="text-cyan-400 flex items-center gap-1">
+                    <Check className="w-3 h-3 text-cyan-400" />
+                    zk-SNARK Ready
+                  </span>
                 </div>
               </div>
 
               {/* Network Status Strip */}
-              <div className="bg-[#10162B] p-3.5 rounded-xl border border-white/10 flex items-center justify-between text-xs">
+              <div className="bg-[#11172A] p-3.5 rounded-xl border border-white/[0.05] flex items-center justify-between text-xs">
                 <div className="flex items-center gap-2">
                   <Cpu className="w-4 h-4 text-cyan-400 animate-pulse" />
-                  <span className="text-slate-300 font-normal">Midnight Preprod Consensus:</span>
+                  <span className="text-slate-300 font-medium">Midnight Preprod Consensus</span>
                 </div>
-                <span className="font-mono text-[10px] text-cyan-300 bg-cyan-500/10 px-2 py-0.5 rounded-full border border-cyan-500/30 font-bold">
-                  LEDGER SYNCED
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Floating Badge 1: Testers (Top-Left) */}
-          <div className="absolute top-[18%] left-[-20px] bg-[#0F162A]/90 backdrop-blur-xl px-3.5 py-2 rounded-xl shadow-xl border border-white/15 flex items-center gap-2.5 hidden xl:flex z-20">
-            <div className="w-8 h-8 rounded-lg bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center text-indigo-300">
-              <Users className="w-4 h-4" />
-            </div>
-            <div>
-              <p className="text-xs font-bold text-white">52+ Testers</p>
-              <p className="text-[9px] text-slate-400">Verified Preprod activity</p>
-            </div>
-          </div>
-
-          {/* Floating Badge 2: Anti-Sniping (Bottom-Left) */}
-          <div className="absolute bottom-[18%] left-[-40px] bg-[#0F162A]/90 backdrop-blur-xl px-3.5 py-2 rounded-xl shadow-xl border border-white/15 flex items-center gap-2.5 hidden xl:flex z-20">
-            <div className="w-8 h-8 rounded-lg bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-cyan-300">
-              <ShieldCheck className="w-4 h-4" />
-            </div>
-            <div>
-              <p className="text-xs font-bold text-white">Zero Sniping</p>
-              <p className="text-[9px] text-slate-400">No mempool valuation leak</p>
-            </div>
-          </div>
-
-          {/* Floating Badge 3: Fast Prover (Top-Right) */}
-          <div className="absolute top-[-25px] right-[-10px] bg-[#0F162A]/90 backdrop-blur-xl px-3.5 py-2 rounded-xl shadow-xl border border-white/15 flex items-center gap-2.5 hidden xl:flex z-20">
-            <div className="w-8 h-8 rounded-lg bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-300">
-              <Zap className="w-4 h-4" />
-            </div>
-            <div>
-              <p className="text-xs font-bold text-white">&lt; 1.6s Prover</p>
-              <p className="text-[9px] text-slate-400">Browser zk-SNARK synthesis</p>
-            </div>
-          </div>
-
-          {/* Mini Floating Authenticator Mockup */}
-          <div className="absolute bottom-[-20px] right-[-15px] w-[190px] bg-[#0B0F1D] rounded-3xl border-4 border-slate-800 shadow-2xl overflow-hidden hidden sm:block animate-float">
-            <div className="bg-slate-900 h-4 w-24 mx-auto rounded-b-xl flex justify-center items-center">
-              <span className="w-1.5 h-1.5 rounded-full bg-slate-700"></span>
-            </div>
-            <div className="p-3 bg-[#0B0F1D] text-left flex flex-col gap-3">
-              <div className="flex justify-between items-center border-b border-white/10 pb-1.5">
-                <span className="text-[8px] font-bold text-slate-400 font-mono">Bidveil ZK Client</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
-              </div>
-              <div className="flex flex-col items-center bg-[#070A14] p-2.5 rounded-xl border border-white/10 text-center">
-                <p className="text-[9px] font-bold text-white">Proof Signature</p>
-                <div className="w-16 h-16 my-1.5 bg-[#0B0F1E] border border-indigo-500/30 p-1 rounded-lg flex items-center justify-center">
-                  <Lock className="w-8 h-8 text-cyan-400" />
+                <div className="flex items-center gap-2 font-mono text-[10px]">
+                  <span className="text-slate-400">Height: 1,842,903</span>
+                  <span className="text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full font-bold">
+                    SYNCED
+                  </span>
                 </div>
-                <span className="text-[8px] text-cyan-300 font-mono font-bold">SHA-256 WITNESS</span>
-              </div>
-              <div className="bg-indigo-500/10 rounded-lg p-1.5 border border-indigo-500/20 text-center">
-                <p className="text-[9px] font-bold text-indigo-300">Contract #7ff3...8ec2</p>
-                <p className="text-[7px] text-slate-400">Midnight Preprod Live</p>
               </div>
             </div>
           </div>
