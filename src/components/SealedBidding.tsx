@@ -28,9 +28,11 @@ interface SealedBiddingProps {
   isProving: boolean;
   txHash: string | null;
   error: string | null;
+  connectionType?: 'lace' | 'sandbox' | null;
   onExecuteCircuit: (
     circuitName: 'initializeTender' | 'submitSealedBid' | 'submitDisclosedBid' | 'closeTender' | 'resetTender',
-    inputValue: number
+    inputValue: number,
+    options?: { triggerOnChainGas?: boolean }
   ) => void;
 }
 
@@ -43,11 +45,13 @@ export const SealedBidding: React.FC<SealedBiddingProps> = ({
   isProving,
   txHash,
   error,
+  connectionType = 'sandbox',
   onExecuteCircuit,
 }) => {
   const [inputValue, setInputValue] = useState<number>(125000);
   const [selectedTender, setSelectedTender] = useState<string>('TND-2026-081');
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [triggerOnChainGas, setTriggerOnChainGas] = useState<boolean>(true);
 
   const tenders = [
     {
@@ -94,7 +98,9 @@ export const SealedBidding: React.FC<SealedBiddingProps> = ({
   const handleWitnessSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (inputValue > 0) {
-      onExecuteCircuit('submitSealedBid', inputValue);
+      onExecuteCircuit('submitSealedBid', inputValue, {
+        triggerOnChainGas: triggerOnChainGas && connectionType === 'lace',
+      });
     }
   };
 
@@ -305,6 +311,25 @@ export const SealedBidding: React.FC<SealedBiddingProps> = ({
               )}
             </div>
           </div>
+
+          {/* Optional Live Lace On-Chain Gas Authorization Checkbox */}
+          {connectionType === 'lace' && (
+            <div className="p-3 rounded-xl bg-[#070A14] border border-cyan-500/20 flex items-center justify-between gap-3 text-xs">
+              <label className="flex items-center gap-2.5 cursor-pointer text-slate-300 hover:text-white transition-colors">
+                <input
+                  type="checkbox"
+                  checked={triggerOnChainGas}
+                  onChange={(e) => setTriggerOnChainGas(e.target.checked)}
+                  className="w-4 h-4 rounded bg-[#131B31] border-white/20 text-cyan-400 focus:ring-0 focus:ring-offset-0 cursor-pointer"
+                />
+                <span className="font-semibold text-cyan-300 flex items-center gap-1.5">
+                  <Zap className="w-3.5 h-3.5 text-cyan-400" />
+                  Prompt Lace Wallet for On-Chain Gas Authorization
+                </span>
+              </label>
+              <span className="text-[11px] font-mono text-slate-400 shrink-0">Est: ~0.015 tNIGHT</span>
+            </div>
+          )}
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row items-center gap-2.5 pt-1">

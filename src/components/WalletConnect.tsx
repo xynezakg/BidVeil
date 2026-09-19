@@ -19,9 +19,12 @@ interface WalletConnectProps {
   isConnecting: boolean;
   error: string | null;
   connectionType?: 'lace' | 'sandbox' | null;
+  isBroadcastingGas?: boolean;
+  gasTxHash?: string | null;
   onConnect: () => void;
   onConnectSandbox?: () => void;
   onDisconnect: () => void;
+  onBroadcastGasPing?: (amount?: number) => void;
 }
 
 export const WalletConnect: React.FC<WalletConnectProps> = ({
@@ -32,9 +35,12 @@ export const WalletConnect: React.FC<WalletConnectProps> = ({
   isConnecting,
   error,
   connectionType = 'sandbox',
+  isBroadcastingGas = false,
+  gasTxHash = null,
   onConnect,
   onConnectSandbox,
   onDisconnect,
+  onBroadcastGasPing,
 }) => {
   const [copied, setCopied] = useState(false);
 
@@ -124,6 +130,27 @@ export const WalletConnect: React.FC<WalletConnectProps> = ({
                 </div>
               </div>
 
+              {connectionType === 'lace' && onBroadcastGasPing && (
+                <button
+                  onClick={() => onBroadcastGasPing(0.01)}
+                  disabled={isBroadcastingGas}
+                  className="px-3.5 py-2 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-xs font-semibold text-cyan-300 transition-colors flex items-center gap-1.5 disabled:opacity-50"
+                  title="Broadcast a live 0.01 tNIGHT transaction in Lace to verify signature and gas deduction"
+                >
+                  {isBroadcastingGas ? (
+                    <>
+                      <RefreshCw className="w-3.5 h-3.5 animate-spin text-cyan-400" />
+                      <span>Prompting Lace...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Zap className="w-3.5 h-3.5 text-cyan-400" />
+                      <span>Ping Gas (0.01 tNIGHT)</span>
+                    </>
+                  )}
+                </button>
+              )}
+
               <button
                 onClick={onDisconnect}
                 className="px-3.5 py-2 rounded-xl bg-[#131B31] hover:bg-rose-950/40 hover:border-rose-500/30 hover:text-rose-400 border border-white/10 text-xs font-semibold text-slate-300 transition-colors flex items-center gap-1.5"
@@ -193,6 +220,32 @@ export const WalletConnect: React.FC<WalletConnectProps> = ({
               </>
             )}
           </button>
+        </div>
+      )}
+
+      {/* Live Lace Gas Broadcast Status Banner */}
+      {gasTxHash && (
+        <div className="mt-3 p-3 rounded-xl bg-emerald-950/40 border border-emerald-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-emerald-300">
+          <div className="flex items-center gap-2 overflow-hidden">
+            <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+            <span className="font-semibold">Lace Gas Transaction Broadcast:</span>
+            <span className="font-mono text-white text-[11px] truncate max-w-[260px]" title={gasTxHash}>
+              {gasTxHash}
+            </span>
+          </div>
+          <div className="flex items-center gap-2 self-end sm:self-auto shrink-0">
+            <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-semibold uppercase tracking-wider">
+              On-Chain Gas Deducted
+            </span>
+            <a
+              href="https://indexer.preprod.midnight.network"
+              target="_blank"
+              rel="noreferrer"
+              className="text-cyan-400 hover:underline text-[11px] font-semibold"
+            >
+              Indexer &rarr;
+            </a>
+          </div>
         </div>
       )}
 

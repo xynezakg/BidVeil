@@ -24,10 +24,13 @@ export const App: React.FC = () => {
     isProving,
     txHash,
     connectionType,
+    isBroadcastingGas,
+    gasTxHash,
     connectWallet,
     connectSandbox,
     disconnectWallet,
     executeCircuitCall,
+    broadcastGasPing,
   } = useMidnight();
 
   return (
@@ -69,9 +72,12 @@ export const App: React.FC = () => {
             isExtensionDetected={isExtensionDetected}
             error={error}
             connectionType={connectionType}
+            isBroadcastingGas={isBroadcastingGas}
+            gasTxHash={gasTxHash}
             onConnect={connectWallet}
             onConnectSandbox={connectSandbox}
             onDisconnect={disconnectWallet}
+            onBroadcastGasPing={broadcastGasPing}
           />
 
           {/* Main Privacy Feature: Sealed Bidding */}
@@ -84,6 +90,7 @@ export const App: React.FC = () => {
             isProving={isProving}
             txHash={txHash}
             error={error}
+            connectionType={connectionType}
             onExecuteCircuit={executeCircuitCall}
           />
         </div>
